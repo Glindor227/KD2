@@ -1,0 +1,126 @@
+package ru.cpc.smartflatview;
+
+import android.app.Activity;
+import android.content.Context;
+import android.util.Log;
+import android.view.View;
+import android.widget.CompoundButton;
+import android.widget.SeekBar;
+
+public class Conditioner extends BaseRegulator 
+{
+	private static int imageCoolOn = posDez?R.drawable.conf_cool_off_p:R.drawable.conf_cool_off;
+	private static int imageCoolOff=  posDez?R.drawable.conf_cool_on_p:R.drawable.conf_cool_on;
+	private static int imageHotOn= posDez?R.drawable.conf_hot_off_p:R.drawable.conf_hot_off;
+	private static int imageHotOff= posDez?R.drawable.conf_hot_on_p:R.drawable.conf_hot_on;
+
+	Conditioner(int iX, int iY, String sName, boolean bMetaInd, boolean bProtected, boolean bDoubleScale, boolean bQuick, int iReaction, int iScale)
+	{
+		super(iX, iY, imageCoolOff, 3, sName, bMetaInd, bProtected, bDoubleScale, bQuick, iReaction, iScale);
+		
+		m_iValue = 20;
+	}
+
+	public Conditioner setDemo(){
+	  Bind("1", "1", "1", "0", false, "16", "32", "23");
+	  return this;
+    }
+
+	@Override
+	public boolean SetValue(float iX, float iY) 
+	{
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	protected boolean Update() 
+	{
+		int iResId = -1;
+		
+		if(m_bPower)
+		{
+			iResId = imageCoolOn;
+			
+			if(m_iValue > m_fValueMed)
+				iResId = imageHotOn;
+		}
+		else
+		{
+			iResId = imageCoolOff;
+
+			if(m_iValue > m_fValueMed)
+				iResId = imageHotOff;
+		}
+
+        if(m_pUI == null)
+        {
+            m_iOldResID = iResId;
+            m_iNewResID = iResId;
+            return false;
+        }
+
+        return m_pUI.StartAnimation(iResId);
+	}
+
+	@Override
+	public boolean ShowPopup(Context context) 
+	{
+		Log.d("Glindor13","Conditioner ShowPopup m_sVariableValue="+m_sVariableValue);
+
+		ScrollingDialog.Init(m_sName, m_pSubsystem.m_sName);
+		final ScrollingDialog.SFSwitcher pSwitcher = m_bNoPower ? null : (ScrollingDialog.SFSwitcher) ScrollingDialog.AddSwitcher(m_sVariablePower, context.getString(R.string.sdPower), m_bPower, m_iReaction != 0
+                                                                                                                                                                                                   ? null : new CompoundButton.OnCheckedChangeListener() {
+			@Override
+			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+				SwitchOnOff(0, 0);
+			}
+		});
+		final ScrollingDialog.SFSeeker pSeeker =
+                (ScrollingDialog.SFSeeker)ScrollingDialog.
+                        AddSeekBar(m_sVariableValue, context.getString(R.string.sdTemperature), (int)m_iValue*2, (int) m_fValueMin*2, (int) m_fValueMax*2, /*"%.1f °C"*/"%d °C",
+                                m_iReaction != 0 ? null : new SeekBar.OnSeekBarChangeListener() {
+			@Override
+			public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+				//if (fromUser) {
+				//    SetValue(16 + progress);
+				//}
+			}
+
+			@Override
+			public void onStartTrackingTouch(SeekBar seekBar) {
+
+			}
+
+			@Override
+			public void onStopTrackingTouch(SeekBar seekBar) {
+			    int progress = seekBar.getProgress();
+                Log.d("Regul", "onStopTrackingTouch "+progress);
+
+                SetValue((progress + (int) m_fValueMin*2)/2 );
+			}
+		});
+
+		//Intent myIntent = new Intent(context, ScrollingActivity.class);
+		//context.startActivity(myIntent);
+
+		if(m_iReaction == 1)
+			ScrollingDialog.AddAcceptBtn(new View.OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					if(m_iValue != pSeeker.m_iValue)
+						SetValue(pSeeker.m_iValue);
+
+					if(pSwitcher != null && m_bPower != pSwitcher.m_bChecked)
+						SwitchOnOff(0, 0);
+				}
+			});
+
+		ScrollingDialog dlg = new ScrollingDialog();
+		dlg.show(((Activity) context).getFragmentManager(), "dlg");
+
+
+//		v.show();
+		return false;
+	}
+}
