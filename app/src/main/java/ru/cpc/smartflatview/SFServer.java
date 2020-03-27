@@ -51,6 +51,7 @@ public class SFServer
 
     public void SendCommand(String sAddr, String sValue)
     {
+        Log.i("NodeSeekBar", "S: SendCommand: " + sAddr + " := " + sValue);
         if(Config.DEMO)
             return;
 

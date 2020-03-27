@@ -7,17 +7,46 @@ import android.view.View;
 import org.xmlpull.v1.XmlSerializer;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
 
 public abstract class Indicator
 {
 	protected static final String TAG = "SMARTFLAT" ;
+	public static int typeDez;
 	public static boolean newDez;
 	public static boolean posDez;
+	public static boolean pos2Dez;
+	public static boolean pos3Dez;
+	public static boolean pos4Dez;
+
+
+	protected static int getIndDis(int old, int blue, int post){
+		if(typeDez>=3)
+			return post;
+		if(typeDez==2)
+			return blue;
+		return old;
+	}
+	static int getIndDisP(int old, int blue, int post1, int post2, int post3, int post4){
+		if(typeDez==6)
+			return post4;
+		if(typeDez==5)
+			return post3;
+		if(typeDez==4)
+			return post2;
+		return getIndDis(old,blue,post1);
+	}
+	static int getIndDisPC(int old,int blue,int post1,int post2,int post3,int post4,int color){
+		if(typeDez==7)
+			return color;
+		return getIndDisP(old,blue,post1,post2,post3,post4);
+	}
+	static int getIndDisC(int old,int blue,int post,int color){
+		if(typeDez==7)
+			return color;
+		return getIndDis(old,blue,post);
+	}
 
 
 	protected int m_iOldResID = -1;
@@ -131,11 +160,15 @@ public abstract class Indicator
 
 	public void Released()
 	{
-		if(timer != null)
+		Log.d("2click", "Released +");
+		if(timer != null){
+			Log.d("2click", "Released1 timer.cancel()");
 			timer.cancel();
+		}
 
 		timer = new Timer();
 		LonelyReleaseTask lonelyRelease = new LonelyReleaseTask();
+		Log.d("2click", "LonelyReleaseTask timer.schedule");
 		timer.schedule(lonelyRelease, 1000);
 	}
 
@@ -143,6 +176,7 @@ public abstract class Indicator
 	{
 		if(timer != null)
 		{
+			Log.d("2click", "Released2 timer.cancel()");
 			timer.cancel();
 			timer = null;
 		}

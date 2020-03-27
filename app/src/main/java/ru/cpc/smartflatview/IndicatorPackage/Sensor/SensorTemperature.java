@@ -1,4 +1,6 @@
-package ru.cpc.smartflatview;
+package ru.cpc.smartflatview.IndicatorPackage.Sensor;
+
+import ru.cpc.smartflatview.BaseSensor;
 
 /**
  * Created by Вик on 026. 26.04.16.

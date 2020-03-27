@@ -8,6 +8,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
@@ -32,6 +33,8 @@ import java.util.ArrayList;
  */
 public class ScrollingDialog extends DialogFragment implements DialogInterface.OnClickListener
 {
+    public final static int factorSet = 10;
+
     protected static final String TAG = "SMARTFLAT" ;
 
     private static String _device, _room;
@@ -138,9 +141,11 @@ public class ScrollingDialog extends DialogFragment implements DialogInterface.O
             m_sPattern = sPattern;
         }
 
+        @RequiresApi(api = Build.VERSION_CODES.M)
         @Override
         public void AddView(LinearLayout pContentHolder)
         {
+            Log.d("Regul", "AddView ");
             final TextView pText = new TextView(pContentHolder.getContext());
             pText.setText(m_sProp);
             if (Build.VERSION.SDK_INT < 23)
@@ -162,7 +167,7 @@ public class ScrollingDialog extends DialogFragment implements DialogInterface.O
             pText.setPadding(px, px, px, 0);
 
             final TextView pText2 = new TextView(pContentHolder.getContext());
-            pText2.setText(getFormatValue(m_sPattern, (int)(m_iValue/2)));
+            pText2.setText(getFormatValue(m_sPattern, m_iValue));
 
 //            pText2.setText(String.format(m_sPattern, 5.21));
 
@@ -175,7 +180,7 @@ public class ScrollingDialog extends DialogFragment implements DialogInterface.O
 //            params.setMargins(px, px, px, px);
 //            pText.setLayoutParams(params);
 
-            pText2.setPadding(px, 0, px, px);
+            pText2.setPadding(px, 0, px, px+10);
             pText2.setGravity(Gravity.CENTER);
 
             final SeekBar pBar = new SeekBar(pContentHolder.getContext());
@@ -186,8 +191,8 @@ public class ScrollingDialog extends DialogFragment implements DialogInterface.O
                 @Override
                 public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                     m_iValue = pBar.getProgress() + m_iMinValue;
-                    Log.d("Regul", "progress="+progress+"     m_iValue= "+m_iValue);
-                    pText2.setText(String.format(m_sPattern, (int)(m_iValue/2)));
+                    Log.d("Regul", "OnSeekBarChange progress="+progress+"     m_iValue= "+m_iValue);
+                    pText2.setText(getFormatValue(m_sPattern, m_iValue));
                     if(m_dListener != null) m_dListener.onProgressChanged(seekBar, progress, fromUser);
                 }
 
@@ -200,30 +205,22 @@ public class ScrollingDialog extends DialogFragment implements DialogInterface.O
                 public void onStopTrackingTouch(SeekBar seekBar) {
                     if(m_dListener != null) m_dListener.onStopTrackingTouch(seekBar);
                 }
+
+
             });
-            /*
-            pBar.setOnTouchListener(new View.OnTouchListener() {
-                @Override
-                public boolean onTouch(View v, MotionEvent event) {
-                    m_iValue = pBar.getProgress() + m_iMinValue;
-                    pText2.setText(String.format(m_sPattern, m_iValue));
-                    return false;
-                }
-            });
-            */
-            pBar.setPadding(px, 0, px, 0);
+            pBar.setPadding(px, 30, px, 20);
 
             pContentHolder.addView(pText);
             pContentHolder.addView(pBar);
             pContentHolder.addView(pText2);
         }
 
-        private static String getFormatValue(String m_sPattern, int m_iValue) {
-            if(m_sPattern.contains("%d"))
+        public static String getFormatValue(String m_sPattern, int m_iValue) {
+            if(m_sPattern.contains("d"))
                 return String.format(m_sPattern, m_iValue);
 
-            if(m_sPattern.contains("l"))
-                return String.format(m_sPattern, (float)m_iValue);
+            if(m_sPattern.contains("f"))
+                return String.format(m_sPattern, ((float)m_iValue)/factorSet);
             return "";
         }
     }

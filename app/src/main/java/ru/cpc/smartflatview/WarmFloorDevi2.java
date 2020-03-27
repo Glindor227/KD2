@@ -73,7 +73,7 @@ public class WarmFloorDevi2 extends BaseRegulator
     public boolean ShowPopup(Context context)
     {
         ScrollingDialog.Init(m_sName, m_pSubsystem.m_sName);
-        final ScrollingDialog.SFSeeker pSeeker = (ScrollingDialog.SFSeeker)ScrollingDialog.AddSeekBar(m_sVariableValue, context.getString(R.string.sdTemperature), m_iValue, (int)m_fValueMin, (int)m_fValueMax, "%d °C", m_iReaction != 0
+        final ScrollingDialog.SFSeeker pSeeker = (ScrollingDialog.SFSeeker)ScrollingDialog.AddSeekBar(m_sVariableValue, context.getString(R.string.sdTemperature), (int)m_iValue, (int)m_fValueMin, (int)m_fValueMax, "%d °C", m_iReaction != 0
                                                                                                                                                                                                                           ? null : new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {

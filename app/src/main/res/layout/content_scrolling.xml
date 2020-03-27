@@ -36,7 +36,9 @@
 
         <SeekBar
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:paddingTop="30dp"
+            android:paddingBottom="30dp"/>
 
     </LinearLayout>
 

@@ -165,7 +165,7 @@ public class MediaField extends Indicator implements PlaylistDialog.OnPlaylistDi
     }
 
     @Override
-    public boolean SetValue(int iValue)
+    public boolean SetValue(float iValue)
     {
         // TODO Auto-generated method stub
         return false;

@@ -11,6 +11,12 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 
+import ru.cpc.smartflatview.IndicatorPackage.AlarmSensor.FireSensor;
+import ru.cpc.smartflatview.IndicatorPackage.Sensor.SensorCO;
+import ru.cpc.smartflatview.IndicatorPackage.Sensor.SensorHumidity;
+import ru.cpc.smartflatview.IndicatorPackage.Sensor.SensorIlluminance;
+import ru.cpc.smartflatview.IndicatorPackage.Sensor.SensorTemperature;
+
 public class RoomsParser extends DefaultHandler 
 {
     // ===========================================================

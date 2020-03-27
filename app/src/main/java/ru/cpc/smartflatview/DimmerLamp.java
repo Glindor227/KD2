@@ -9,9 +9,27 @@ import android.widget.SeekBar;
 
 public class DimmerLamp extends BaseRegulator 
 {
-	private static int on = newDez?(posDez?R.drawable.lamp_d100_p:R.drawable.lamp_d100):R.drawable.lamp03;
-	private static int off= newDez?(posDez?R.drawable.lamp_d_off_p:R.drawable.lamp_d_off):R.drawable.lamp04 ;
+//	private static int on = newDez?(posDez?R.drawable.lamp_d100_p:R.drawable.lamp_d100):R.drawable.lamp03;
+//	private static int off = newDez?getOffLamp(R.drawable.lamp_d_off):R.drawable.lamp04;
+	private static int on = getIndDis(R.drawable.lamp03,
+		R.drawable.lamp_d100,
+		R.drawable.lamp_d100_p);
+	private static int off = getIndDisP(R.drawable.lamp04,
+		R.drawable.lamp_d_off,
+		R.drawable.lamp_d_off_p,
+		R.drawable.lamp_d_off_p2,
+		R.drawable.lamp_d_off_p3,
+		R.drawable.lamp_d_off_p4);
+/*
+	static int getOffLamp(int inLamp){
+		if(pos4Dez) return R.drawable.lamp_d_off_p4;
+		if(pos3Dez) return R.drawable.lamp_d_off_p3;
+		if(pos2Dez) return R.drawable.lamp_d_off_p2;
+		if(posDez) return R.drawable.lamp_d_off_p;
+		return inLamp;
+	}
 
+ */
 	public DimmerLamp(int iX, int iY, String sName, boolean bMetaInd, boolean bProtected, boolean bDoubleScale, boolean bQuick, int iReaction, int iScale)
 	{
 		super(iX, iY, off, 1, sName, bMetaInd, bProtected, bDoubleScale, bQuick, iReaction, iScale);
@@ -63,7 +81,7 @@ public class DimmerLamp extends BaseRegulator
 			}
 		});
 		final ScrollingDialog.SFSeeker pSeeker = (ScrollingDialog.SFSeeker)ScrollingDialog.AddSeekBar(m_sVariableValue, context.getString(
-						R.string.sdBrightness), m_iValue * 100 / m_iMaxValue, (int) m_fValueMin, (int) m_fValueMax, "%d %%", m_iReaction != 0
+						R.string.sdBrightness), (int)m_iValue * 100 / m_iMaxValue, (int) m_fValueMin, (int) m_fValueMax, "%d %%", m_iReaction != 0
                                                                                                                              ? null : new SeekBar.OnSeekBarChangeListener() {
 			@Override
 			public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
@@ -116,30 +134,39 @@ public class DimmerLamp extends BaseRegulator
 		
 		int iResId = -1;
 		
-		int iBright = m_iValue * 100 / m_iMaxValue;
+		int iBright = (int)m_iValue * 100 / m_iMaxValue;
 		
 		if(m_bPower)
 		{
 			iResId = on;
 
 			if(iBright < 10)
-				iResId = newDez?(posDez?R.drawable.lamp_d10_p:R.drawable.lamp_d10):on;
+				getIndDis(on,R.drawable.lamp_d10,R.drawable.lamp_d10_p);
+//				iResId = newDez?(posDez?R.drawable.lamp_d10_p:R.drawable.lamp_d10):on;
 			else if(iBright < 20)
-				iResId = newDez?(posDez?R.drawable.lamp_d20_p:R.drawable.lamp_d20):on;
+				getIndDis(on,R.drawable.lamp_d20,R.drawable.lamp_d20_p);
+//				iResId = newDez?(posDez?R.drawable.lamp_d20_p:R.drawable.lamp_d20):on;
 			else if(iBright < 30)
-				iResId = newDez?(posDez?R.drawable.lamp_d30_p:R.drawable.lamp_d30):on;
+				getIndDis(on,R.drawable.lamp_d30,R.drawable.lamp_d30_p);
+//				iResId = newDez?(posDez?R.drawable.lamp_d30_p:R.drawable.lamp_d30):on;
 			else if(iBright < 40)
-				iResId = newDez?(posDez?R.drawable.lamp_d40_p:R.drawable.lamp_d40):on;
+				getIndDis(on,R.drawable.lamp_d40,R.drawable.lamp_d40_p);
+//				iResId = newDez?(posDez?R.drawable.lamp_d40_p:R.drawable.lamp_d40):on;
 			else if(iBright < 50)
-				iResId = newDez?(posDez?R.drawable.lamp_d50_p:R.drawable.lamp_d50):on;
+				getIndDis(on,R.drawable.lamp_d50,R.drawable.lamp_d50_p);
+//				iResId = newDez?(posDez?R.drawable.lamp_d50_p:R.drawable.lamp_d50):on;
 			else if(iBright < 60)
-				iResId = newDez?(posDez?R.drawable.lamp_d60_p:R.drawable.lamp_d60):on;
+				getIndDis(on,R.drawable.lamp_d60,R.drawable.lamp_d60_p);
+//				iResId = newDez?(posDez?R.drawable.lamp_d60_p:R.drawable.lamp_d60):on;
 			else if(iBright < 70)
-				iResId = newDez?(posDez?R.drawable.lamp_d70_p:R.drawable.lamp_d70):on;
+				getIndDis(on,R.drawable.lamp_d70,R.drawable.lamp_d70_p);
+//				iResId = newDez?(posDez?R.drawable.lamp_d70_p:R.drawable.lamp_d70):on;
 			else if(iBright < 80)
-				iResId = newDez?(posDez?R.drawable.lamp_d80_p:R.drawable.lamp_d80):on;
+				getIndDis(on,R.drawable.lamp_d80,R.drawable.lamp_d80_p);
+//				iResId = newDez?(posDez?R.drawable.lamp_d80_p:R.drawable.lamp_d80):on;
 			else if(iBright < 90)
-				iResId = newDez?(posDez?R.drawable.lamp_d90_p:R.drawable.lamp_d90):on;
+				getIndDis(on,R.drawable.lamp_d90,R.drawable.lamp_d90_p);
+//				iResId = newDez?(posDez?R.drawable.lamp_d90_p:R.drawable.lamp_d90):on;
 		}
 		else
 		{

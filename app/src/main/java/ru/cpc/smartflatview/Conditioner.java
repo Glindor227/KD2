@@ -76,9 +76,16 @@ public class Conditioner extends BaseRegulator
 				SwitchOnOff(0, 0);
 			}
 		});
+		Log.d("Regul", "Conditioner.ShowPopup m_iValue = "+m_iValue);
+
 		final ScrollingDialog.SFSeeker pSeeker =
                 (ScrollingDialog.SFSeeker)ScrollingDialog.
-                        AddSeekBar(m_sVariableValue, context.getString(R.string.sdTemperature), (int)m_iValue*2, (int) m_fValueMin*2, (int) m_fValueMax*2, /*"%.1f °C"*/"%d °C",
+                        AddSeekBar(m_sVariableValue,
+								context.getString(R.string.sdTemperature),
+								(int)(m_iValue*ScrollingDialog.factorSet),
+								(int) m_fValueMin*ScrollingDialog.factorSet,
+								(int) m_fValueMax*ScrollingDialog.factorSet,
+								"%.1f °C"/*"%d °C"*/,
                                 m_iReaction != 0 ? null : new SeekBar.OnSeekBarChangeListener() {
 			@Override
 			public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
@@ -97,7 +104,7 @@ public class Conditioner extends BaseRegulator
 			    int progress = seekBar.getProgress();
                 Log.d("Regul", "onStopTrackingTouch "+progress);
 
-                SetValue((progress + (int) m_fValueMin*2)/2 );
+                SetValue(((float)(progress + (int) m_fValueMin*ScrollingDialog.factorSet))/ScrollingDialog.factorSet );
 			}
 		});
 
@@ -109,7 +116,7 @@ public class Conditioner extends BaseRegulator
 				@Override
 				public void onClick(View v) {
 					if(m_iValue != pSeeker.m_iValue)
-						SetValue(pSeeker.m_iValue);
+						SetValue((float)(pSeeker.m_iValue)/ScrollingDialog.factorSet);
 
 					if(pSwitcher != null && m_bPower != pSwitcher.m_bChecked)
 						SwitchOnOff(0, 0);

@@ -74,6 +74,8 @@ public abstract class BaseRegulator extends Indicator
 	@Override
 	public boolean Process(String sAddr, String sVal)
 	{
+		Log.d("Regul", "BaseRegulator.Process1("+m_sVariableValue+") m_iValue = "+m_iValue);
+
 		boolean bPowerOld = m_bPower;
 		float iValueOld = m_iValue;
 
@@ -82,7 +84,8 @@ public abstract class BaseRegulator extends Indicator
 		
 		if(m_sVariableValue.equalsIgnoreCase(sAddr))
 		{
-			int iValue = (int) Float.parseFloat(sVal);
+			Log.d("Regul", "BaseRegulator.Process2 m_iValue = "+m_iValue);
+			float iValue = Float.parseFloat(sVal);
 			if(m_bICP)
 			{
 				if(iValue == m_prefix)
@@ -100,6 +103,7 @@ public abstract class BaseRegulator extends Indicator
 				m_iValue = iValue;
 
 		}
+		Log.d("Regul", "BaseRegulator.Process3 m_iValue = "+m_iValue);
 
 		if(m_bPower != bPowerOld || m_iValue != iValueOld)
 		    return Update();
@@ -113,6 +117,7 @@ public abstract class BaseRegulator extends Indicator
 		if(m_bNoPower)
 			return false;
 		Log.d("Glin512", "Base Regulator SwitchOnOff m_bPower = " + !m_bPower );
+		Log.d("2click", "SwitchOnOff("+m_sName+")");
 
 		m_bPower = !m_bPower;
 
@@ -140,7 +145,7 @@ public abstract class BaseRegulator extends Indicator
 		m_iValue = iValue;
 		//29.08.2019
 //		m_bPower = true;
-		Log.d("Glin512", "Base Regulator SetValue bright = " + m_iValue );
+		Log.d("NodeSeekBar", "Base Regulator("+m_sVariableValue+") SetValue bright = " + m_iValue );
 
 		if(m_bICP)
 			m_pServer.SendCommand(m_sVariableValue, String.valueOf(m_prefix + m_iValue));

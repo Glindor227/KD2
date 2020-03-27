@@ -123,7 +123,7 @@
         "when a user tries to pick up one of cards.\n\n"
     </string>
     <string name="appName">SMARTFLAT VIEW</string>
-    <string name="appVersion">Version 2.8.16</string>
+    <string name="appVersion">Version 2.11.2</string>
     <string name="appLogoDescription">LOGO</string>
     <string name="passwordDefault">1234</string>
     <string name="indicatorPower">Power supply</string>
@@ -207,9 +207,29 @@
     <string name="logMobileNotAllowed">The use of mobile Internet is not allowed!</string>
     <string name="sdOpen">Open</string>
     <string name="menuDebug">!Debugging!</string>
+
+    <string name="dis_title">Design indicators</string>
+    <string name="sum_dis_title">Check indicator design</string>
+
     <string name="sum_new_dis_indicator">Show indicators of new design</string>
-    <string name="new_dis_indicator">New indicators</string>
-    <string name="sum_post_dis_indicator">Show pastel design indicators</string>
-    <string name="post_dis_indicato">Pastel Indicators</string>
+    <string name="sum_post_dis_indicator">Show pastel design 1 indicators</string>
+    <string name="sum_post2_dis_indicator">Show pastel design 2 indicators</string>
+    <string name="sum_post3_dis_indicator">Show pastel design 3 indicators</string>
+    <string name="sum_post4_dis_indicator">Show pastel design 4 indicators</string>
+
+    <string name="dis_old_indicator">Old indicators</string>
+    <string name="new_dis_indicator">Blue indicators</string>
+    <string name="post_dis_indicator">Pastel Indicators 1</string>
+    <string name="post2_dis_indicator">Pastel Indicators 2</string>
+    <string name="post3_dis_indicator">Pastel Indicators 3</string>
+    <string name="post4_dis_indicator">Pastel Indicators 4</string>
+    <string name="color_dis_indicator">Show color indicators</string>
+    <string name="import_repo_title">Import from repository</string>
+    <string name="import_file_title">Import from local storage</string>
+    <string name="import_btn_title">Select a local file</string>
+    <string name="import_link">Link</string>
+    <string name="file_not">No file selected</string>
+    <string name="ip">192.168.1.68</string>
+    <string name="port">8189</string>
 
 </resources>

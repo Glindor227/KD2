@@ -44,6 +44,10 @@ public class Prefs extends AppCompatPreferenceActivity
     private static final String OPT_START = "start" ;
     private static final String OPT_START_DEF = "2";
 
+    private static final String OPT_DIS = "dis" ;
+    private static final String OPT_DIS_DEF = "3";
+
+
     private static final String OPT_EXIT = "exit" ;
     private static final boolean OPT_EXIT_DEF = true;
 
@@ -52,6 +56,15 @@ public class Prefs extends AppCompatPreferenceActivity
 
     private static final String OPT_POST_DIS = "post_dis" ;
     private static final boolean OPT_POST_DIS_DEF = true;
+
+    private static final String OPT_POST2_DIS = "post2_dis" ;
+    private static final boolean OPT_POST2_DIS_DEF = false;
+
+    private static final String OPT_POST3_DIS = "post3_dis" ;
+    private static final boolean OPT_POST3_DIS_DEF = false;
+
+    private static final String OPT_POST4_DIS = "post4_dis" ;
+    private static final boolean OPT_POST4_DIS_DEF = false;
 
     private static final String OPT_MOBILE = "mobile" ;
     private static final boolean OPT_MOBILE_DEF = false;
@@ -99,8 +112,28 @@ public class Prefs extends AppCompatPreferenceActivity
 
     public static boolean getPostDis(Context context)
     {
-        return PreferenceManager.getDefaultSharedPreferences(context)
+        boolean p1 = PreferenceManager.getDefaultSharedPreferences(context)
                 .getBoolean(OPT_POST_DIS, OPT_POST_DIS_DEF);
+        boolean p2 = getPost2Dis(context);
+        boolean p3 = getPost3Dis(context);
+        boolean p4 = getPost4Dis(context);
+        return p1||p2||p3||p4;
+    }
+
+    public static boolean getPost2Dis(Context context)
+    {
+        return PreferenceManager.getDefaultSharedPreferences(context)
+                .getBoolean(OPT_POST2_DIS, OPT_POST2_DIS_DEF);
+    }
+    public static boolean getPost3Dis(Context context)
+    {
+        return PreferenceManager.getDefaultSharedPreferences(context)
+                .getBoolean(OPT_POST3_DIS, OPT_POST3_DIS_DEF);
+    }
+    public static boolean getPost4Dis(Context context)
+    {
+        return PreferenceManager.getDefaultSharedPreferences(context)
+                .getBoolean(OPT_POST4_DIS, OPT_POST4_DIS_DEF);
     }
 
 
@@ -139,6 +172,13 @@ public class Prefs extends AppCompatPreferenceActivity
         return Integer.valueOf(PreferenceManager.getDefaultSharedPreferences(context)
                 .getString(OPT_START, OPT_START_DEF));
     }
+
+    public static int getDis(Context context)
+    {
+        return Integer.valueOf(PreferenceManager.getDefaultSharedPreferences(context)
+                .getString(OPT_DIS, OPT_DIS_DEF));
+    }
+
 
     public static String getExternalIP(Context context)
     {

@@ -123,7 +123,7 @@
         "when a user tries to pick up one of cards.\n\n"
     </string>
     <string name="appName">SMARTFLAT VIEW</string>
-    <string name="appVersion">Version 2.8.16</string>
+    <string name="appVersion">Version 2.11.2</string>
     <string name="appLogoDescription">LOGO</string>
     <string name="passwordDefault">1234</string>
     <string name="indicatorPower">Питание</string>
@@ -207,9 +207,22 @@
     <string name="logMobileNotAllowed">Использование мобильного интернета не разрешено!</string>
     <string name="sdOpen">Открыто</string>
     <string name="menuDebug">!Отладка!</string>
+
+    <string name="dis_title">Дизайн индикаторов</string>
+    <string name="sum_dis_title">Выбор дизайна индикаторов</string>
+
     <string name="sum_new_dis_indicator">Показывать индикаторы нового дизайна</string>
+    <string name="sum_post_dis_indicator">Показывать индикаторы пастельного дизайна 1</string>
+    <string name="sum_post2_dis_indicator">Показывать индикаторы пастельного дизайна 2</string>
+    <string name="sum_post3_dis_indicator">Показывать индикаторы пастельного дизайна 3</string>
+    <string name="sum_post4_dis_indicator">Показывать индикаторы пастельного дизайна 4</string>
+
+    <string name="dis_old_indicator">Старые индикаторы</string>
     <string name="new_dis_indicator">Новые индикаторы</string>
-    <string name="sum_post_dis_indicator">Показывать индикаторы пастельного дизайна</string>
-    <string name="post_dis_indicato">Пастельные индикаторы</string>
+    <string name="post_dis_indicator">Пастельные индикаторы 1</string>
+    <string name="post2_dis_indicator">Пастельные индикаторы 2</string>
+    <string name="post3_dis_indicator">Пастельные индикаторы 3</string>
+    <string name="post4_dis_indicator">Пастельные индикаторы 4</string>
+    <string name="color_dis_indicator">Индикаторы насыщенного света</string>
 
 </resources>

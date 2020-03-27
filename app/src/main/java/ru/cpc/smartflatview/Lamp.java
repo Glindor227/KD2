@@ -8,11 +8,23 @@ import android.widget.CompoundButton;
 
 public class Lamp extends BaseRelay
 {
+	/*
+	private static int off = newDez?R.drawable.lamp_off:R.drawable.lamp04;
+	static int getOffLamp(int inLamp){
+		if(pos4Dez) return R.drawable.lamp_off_p4;
+		if(pos3Dez) return R.drawable.lamp_off_p3;
+		if(pos2Dez) return R.drawable.lamp_off_p2;
+		if(posDez) return R.drawable.lamp_off_p;
+		return inLamp;
+	}
+*/
 	public Lamp(int iX, int iY, String sName, boolean bMetaInd, boolean bProtected, boolean bDoubleScale, boolean bQuick, int iReaction, int iScale)
 	{
-		super(iX, iY,
-				newDez?(posDez?R.drawable.lamp_on_p:R.drawable.lamp_on):R.drawable.lamp03,
-				newDez?(posDez?R.drawable.lamp_off_p:R.drawable.lamp_off):R.drawable.lamp04,
+
+		super(iX, iY, getIndDisP(R.drawable.lamp03,R.drawable.lamp_on,R.drawable.lamp_on_p,R.drawable.lamp_on_p,R.drawable.lamp_on_p,R.drawable.lamp_on_p),
+//				newDez?(posDez?R.drawable.lamp_on_p:R.drawable.lamp_on):R.drawable.lamp03,
+//				Lamp.getOffLamp(off),
+				getIndDisP(R.drawable.lamp04,R.drawable.lamp_off,R.drawable.lamp_off_p,R.drawable.lamp_off_p2,R.drawable.lamp_off_p3,R.drawable.lamp_off_p4),
 				1, sName, bMetaInd, bProtected, bDoubleScale, bQuick, iReaction, iScale);
 		// TODO Auto-generated constructor stub
 	}
@@ -20,6 +32,7 @@ public class Lamp extends BaseRelay
 	@Override
 	public boolean ShowPopup(Context context)
 	{
+
 		ScrollingDialog.Init(m_sName, m_pSubsystem.m_sName);
 		final ScrollingDialog.SFSwitcher pSwitcher = (ScrollingDialog.SFSwitcher)ScrollingDialog.AddSwitcher(m_sVariable, context.getString(R.string.sdPower), m_bValue, m_iReaction != 0
                                                                                                                                                                          ? null : new CompoundButton.OnCheckedChangeListener() {

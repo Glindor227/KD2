@@ -109,7 +109,7 @@ public class DoorLock extends Indicator
     }
 
     @Override
-    public boolean SetValue(int iValue)
+    public boolean SetValue(float iValue)
     {
         //if(iValue > 0)
         {

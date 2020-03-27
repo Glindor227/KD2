@@ -214,8 +214,13 @@ public class LaunchScreenActivity extends AppCompatActivity
         }
         Log.d("Glindor3","LaunchScreenActivity onCreate 3");
 
+
+        Indicator.typeDez = Prefs.getDis(this);
         Indicator.newDez = Prefs.getNewDis(this);
         Indicator.posDez = Prefs.getPostDis(this);
+        Indicator.pos2Dez = Prefs.getPost2Dis(this);
+        Indicator.pos3Dez = Prefs.getPost3Dis(this);
+        Indicator.pos4Dez = Prefs.getPost4Dis(this);
         Log.d("Glindor56", "INIT newDez = "+Indicator.newDez);
         Log.d("Glindor56", "INIT posDez = "+Indicator.posDez);
 

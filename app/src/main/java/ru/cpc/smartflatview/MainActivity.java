@@ -65,6 +65,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import ru.cpc.smartflatview.Import.ImportActivity;
+
 public class MainActivity extends AppCompatActivity {
 
     private static Context mAppContext = null;
@@ -82,12 +84,12 @@ public class MainActivity extends AppCompatActivity {
     private static final int REQUEST_READWRITE_STORAGE = 100;
 
     private static final String PREF_INDICATORS = "indicators" ;
-
+/*
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         //No call for super(). Bug on API Level > 11.
     }
-
+*/
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
      * fragments for each of the sections. We use a
@@ -582,6 +584,10 @@ public class MainActivity extends AppCompatActivity {
 
     public void ImportConfig()
     {
+        Intent intent = new Intent(this, ImportActivity.class);
+        startActivity(intent);
+        finish();
+/*
         new FileChooser(this).setFileListener(new FileChooser.FileSelectedListener()
         {
             @Override
@@ -624,6 +630,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         }).showDialog();
+        */
     }
 
     @Override

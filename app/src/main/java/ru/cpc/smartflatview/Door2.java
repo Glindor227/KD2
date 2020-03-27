@@ -83,7 +83,7 @@ public class Door2 extends Indicator
 	}
 
 	@Override
-	public boolean SetValue(int iValue) 
+	public boolean SetValue(float iValue)
 	{
 		m_bFireMode = iValue > 0;
 		

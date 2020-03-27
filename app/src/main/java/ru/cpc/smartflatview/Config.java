@@ -29,6 +29,12 @@ import java.util.Locale;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
+import ru.cpc.smartflatview.IndicatorPackage.AlarmSensor.FireSensor;
+import ru.cpc.smartflatview.IndicatorPackage.Sensor.SensorCO;
+import ru.cpc.smartflatview.IndicatorPackage.Sensor.SensorHumidity;
+import ru.cpc.smartflatview.IndicatorPackage.Sensor.SensorIlluminance;
+import ru.cpc.smartflatview.IndicatorPackage.Sensor.SensorTemperature;
+
 public class Config 
 {
 	public static Config Instance = null;
@@ -37,7 +43,7 @@ public class Config
 //	public static boolean DEMO = true;
 
 	ArrayList<Subsystem> m_cSubsystems = new ArrayList<Subsystem>();
-	ArrayList<Room> m_cRooms = new ArrayList<Room>();
+	public ArrayList<Room> m_cRooms = new ArrayList<Room>();
 	LinkedHashMap<String, List<Room>> m_cGroups = new LinkedHashMap<>();
 	ArrayList<Room> m_cFavorites = new ArrayList<Room>();
 
@@ -70,15 +76,15 @@ public class Config
 		Subsystem subsystem0;
 		if(port) {
 			subsystem0 = new Subsystem("0-0", 0, 2, 3, "0");
-			subsystem0.AddIndicator(new Macro(25, 15, "", engl?"Output":"Я ушёл", false, false, false, true, 1, 2).setDemo());
-			subsystem0.AddIndicator(new Macro(75, 15, "", engl?"Incom":"Я пришёл", false, false, false, true, 1, 2).setDemo());
+			subsystem0.AddIndicator(new Macro(25, 15, engl?"Output":"Я ушёл", engl?"Output":"Я ушёл", false, false, false, true, 1, 2).setDemo());
+			subsystem0.AddIndicator(new Macro(75, 15, engl?"Incom":"Я пришёл", engl?"Incom":"Я пришёл", false, false, false, true, 1, 2).setDemo());
 			subsystem0.AddIndicator(new MotionSensor(25, 45, engl?"Security system":"Охрана", true, true, false, true, 1, 2).setDemo());
 			subsystem0.AddIndicator(new FireSensor(75, 45, engl?"Fire alarm system":"Пож.система", true, true, false, true, 1, 2).setDemo());
 			subsystem0.AddIndicator(new LeakageSensor(50, 81, engl?"Water alarm system":"Протечки", true, false, false, true, 1, 2).setDemo());
 		}else {
 			subsystem0 = new Subsystem("0-0", 1, 3, 2, "0");
-			subsystem0.AddIndicator(new Macro(25, 25, "", engl?"Output":"Я ушёл", false, false, false, true, 1, 2).setDemo());
-			subsystem0.AddIndicator(new Macro(50, 25, "", engl?"Incom":"Я пришёл", false, false, false, true, 1, 2).setDemo());
+			subsystem0.AddIndicator(new Macro(25, 25, engl?"Output":"Я ушёл", engl?"Output":"Я ушёл", false, false, false, true, 1, 2).setDemo());
+			subsystem0.AddIndicator(new Macro(50, 25, engl?"Incom":"Я пришёл", engl?"Incom":"Я пришёл", false, false, false, true, 1, 2).setDemo());
 			subsystem0.AddIndicator(new MotionSensor(75, 25, engl?"Security system":"Охрана", true, true, false, true, 1, 2).setDemo());
 			subsystem0.AddIndicator(new FireSensor(37, 75, engl?"Fire alarm system":"Пож.система", true, true, false, true, 1, 2).setDemo());
 			subsystem0.AddIndicator(new LeakageSensor(63, 75, engl?"Water alarm system":"Протечки", true, false, false, true, 1, 2).setDemo());
@@ -422,7 +428,7 @@ public class Config
 		subsystemIndex = 0;
 		Subsystem subsystem5;
 		if(port){
-			subsystem5 = new Subsystem("56-0", subsystemIndex++, 5, 6, "0");
+			subsystem5 = new Subsystem("56-0", subsystemIndex++, 5, 6, "Фасад");
 			subsystem5.AddIndicator(new Lamp(10, 10, engl?"walkway 1":"Дорожка 1", false, false, false, true, 1, 5).setDemo());
 			subsystem5.AddIndicator(new Lamp(30, 10, engl?"walkway 2":"Дорожка 2", false, false, false, true, 1, 5).setDemo());
 			subsystem5.AddIndicator(new Lamp(50, 10, engl?"walkway 3":"Дорожка 3", false, false, false, true, 1, 5).setDemo());
@@ -445,7 +451,7 @@ public class Config
 			subsystem5.AddIndicator(new Lamp(33, 90, engl?"":"Фасад 1", false, false, false, true, 1, 5).setDemo());
 			subsystem5.AddIndicator(new Lamp(66, 90, engl?"":"Фасад 2", false, false, false, true, 1, 5).setDemo());
 		}else {
-			subsystem5 = new Subsystem("56-0", subsystemIndex++, 8, 4, "0");
+			subsystem5 = new Subsystem("56-0", subsystemIndex++, 8, 4, "Фасад");
 			subsystem5.AddIndicator(new Lamp(9, 16, engl?"walkway 1":"Дорожка 1", false, false, false, true, 1, 5).setDemo());
 			subsystem5.AddIndicator(new Lamp(18, 16, engl?"walkway 2":"Дорожка 2", false, false, false, true, 1, 5).setDemo());
 			subsystem5.AddIndicator(new Lamp(27, 16, engl?"walkway 3":"Дорожка 3", false, false, false, true, 1, 5).setDemo());
@@ -475,7 +481,7 @@ public class Config
 
 		Subsystem subsystem6;
 		if(port) {
-			subsystem6 = new Subsystem("56-1", subsystemIndex++, 4, 5, "0");
+			subsystem6 = new Subsystem("56-1", subsystemIndex++, 4, 5, "Двор");
 			subsystem6.AddIndicator(new Lamp(13, 13, engl?"walkway 1":"Дорожка 1", false, false, false, true, 1, 4).setDemo());
 			subsystem6.AddIndicator(new Lamp(37, 13, engl?"walkway 2":"Дорожка 2", false, false, false, true, 1, 4).setDemo());
 			subsystem6.AddIndicator(new Lamp(63, 13, engl?"walkway 3":"Дорожка 3", false, false, false, true, 1, 4).setDemo());
@@ -492,7 +498,7 @@ public class Config
 			subsystem6.AddIndicator(new DimmerLamp(50, 87, engl?"fountain 2":"Фонтан 2", false, false, false, true, 1, 4).setDemo());
 			subsystem6.AddIndicator(new DimmerLamp(75, 87, engl?"fountain 3":"Фонтан 3", false, false, false, true, 1, 4).setDemo());
 		}else {
-			subsystem6 = new Subsystem("56-1", subsystemIndex++, 6, 3, "0");
+			subsystem6 = new Subsystem("56-1", subsystemIndex++, 6, 3, "Двор");
 			subsystem6.AddIndicator(new Lamp(8, 25, engl?"walkway 1":"Дорожка 1", false, false, false, true, 1, 4).setDemo());
 			subsystem6.AddIndicator(new Lamp(22, 25, engl?"walkway 2":"Дорожка 2", false, false, false, true, 1, 4).setDemo());
 			subsystem6.AddIndicator(new Lamp(36, 25, engl?"walkway 3":"Дорожка 3", false, false, false, true, 1, 4).setDemo());
@@ -525,21 +531,21 @@ public class Config
 		m_cGroups.put(engl?"script":"Макросы", new ArrayList<Room>());
 		m_cGroups.get(engl?"script":"Макросы").add(room0);
 
-		m_cGroups.put(engl?"Group 1":"Группа 1", new ArrayList<Room>());
-		m_cGroups.get(engl?"Group 1":"Группа 1").add(room1);
-		m_cGroups.get(engl?"Group 1":"Группа 1").add(room1A);
-		m_cGroups.get(engl?"Group 1":"Группа 1").add(room1B1);
-		m_cGroups.get(engl?"Group 1":"Группа 1").add(room1B2);
-		m_cGroups.get(engl?"Group 1":"Группа 1").add(room1B3);
+		m_cGroups.put(engl?"Group 1":"Основные", new ArrayList<Room>());
+		m_cGroups.get(engl?"Group 1":"Основные").add(room1);
+		m_cGroups.get(engl?"Group 1":"Основные").add(room1A);
+		m_cGroups.get(engl?"Group 1":"Основные").add(room1B1);
+		m_cGroups.get(engl?"Group 1":"Основные").add(room1B2);
+		m_cGroups.get(engl?"Group 1":"Основные").add(room1B3);
 
-		m_cGroups.put(engl?"Group 2":"Группа 2", new ArrayList<Room>());
-		m_cGroups.get(engl?"Group 2":"Группа 2").add(room2);
-		m_cGroups.get(engl?"Group 2":"Группа 2").add(room3);
-		m_cGroups.get(engl?"Group 2":"Группа 2").add(room3a);
-		m_cGroups.get(engl?"Group 2":"Группа 2").add(room4a);
-		m_cGroups.get(engl?"Group 2":"Группа 2").add(room4b);
-		m_cGroups.get(engl?"Group 2":"Группа 2").add(room4c);
-		m_cGroups.get(engl?"Group 2":"Группа 2").add(room56);
+		m_cGroups.put(engl?"Group 2":"Дополнительные", new ArrayList<Room>());
+		m_cGroups.get(engl?"Group 2":"Дополнительные").add(room2);
+		m_cGroups.get(engl?"Group 2":"Дополнительные").add(room3);
+		m_cGroups.get(engl?"Group 2":"Дополнительные").add(room3a);
+		m_cGroups.get(engl?"Group 2":"Дополнительные").add(room4a);
+		m_cGroups.get(engl?"Group 2":"Дополнительные").add(room4b);
+		m_cGroups.get(engl?"Group 2":"Дополнительные").add(room4c);
+		m_cGroups.get(engl?"Group 2":"Дополнительные").add(room56);
 		Log.d("Glindor2","Конец Конфига");
 
 	}

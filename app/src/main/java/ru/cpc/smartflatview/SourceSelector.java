@@ -62,7 +62,7 @@ public class SourceSelector extends Indicator
     }
 
     @Override
-    public boolean SetValue(int iValue) {
+    public boolean SetValue(float iValue) {
         // TODO Auto-generated method stub
         return false;
     }

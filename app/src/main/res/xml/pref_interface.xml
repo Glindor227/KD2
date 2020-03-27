@@ -14,6 +14,15 @@
         android:title="@string/exit_title"
         android:defaultValue="true">
     </CheckBoxPreference>
+
+    <ListPreference
+        android:key="dis"
+        android:entryValues="@array/dis_values"
+        android:title="@string/dis_title"
+        android:entries="@array/dis_labels"
+        android:summary="@string/sum_dis_title"
+        android:defaultValue="3">
+    </ListPreference>
     <CheckBoxPreference
         android:key="new_dis"
         android:summary="@string/sum_new_dis_indicator"
@@ -23,8 +32,26 @@
     <CheckBoxPreference
         android:key="post_dis"
         android:summary="@string/sum_post_dis_indicator"
-        android:title="@string/post_dis_indicato"
+        android:title="@string/post_dis_indicator"
         android:defaultValue="true">
+    </CheckBoxPreference>
+    <CheckBoxPreference
+        android:key="post2_dis"
+        android:summary="@string/sum_post2_dis_indicator"
+        android:title="@string/post2_dis_indicator"
+        android:defaultValue="false">
+    </CheckBoxPreference>
+    <CheckBoxPreference
+        android:key="post3_dis"
+        android:summary="@string/sum_post3_dis_indicator"
+        android:title="@string/post3_dis_indicator"
+        android:defaultValue="false">
+    </CheckBoxPreference>
+    <CheckBoxPreference
+        android:key="post4_dis"
+        android:summary="@string/sum_post4_dis_indicator"
+        android:title="@string/post4_dis_indicator"
+        android:defaultValue="false">
     </CheckBoxPreference>
 
 

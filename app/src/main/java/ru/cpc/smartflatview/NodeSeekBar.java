@@ -17,17 +17,20 @@ import java.util.ArrayList;
 public class NodeSeekBar extends BaseRegulator
 {
     public String m_sButtonText = "";
-    private String m_sPattern = "%d °C";
+    private String m_sPattern = "%.1f °C";
 
     public NodeSeekBar(int iX, int iY, String sName, boolean bMetaInd, boolean bProtected, boolean bDoubleScale, boolean bQuick, int iReaction, int iScale)
     {
+
         super(iX, iY, -1, 8, sName, bMetaInd, bProtected, bDoubleScale, bQuick, iReaction, iScale);
 
         m_iValue = 20;
         m_bPower = true;
 
         m_bText2 = true;
-        m_sButtonText = String.format(m_sPattern, m_iValue);
+        Logger.Instance.AddDebugInfo("NodeSeekBar: Конструктор  m_iValue=" + m_iValue);
+
+        m_sButtonText = ScrollingDialog.SFSeeker.getFormatValue(m_sPattern,  (int)(m_iValue*ScrollingDialog.factorSet));
 
         m_bDoubleWidth = true;
     }
@@ -52,10 +55,14 @@ public class NodeSeekBar extends BaseRegulator
 
         if(bUpdated)
         {
-            if (m_pBar != null)
-                m_pBar.setProgress(m_iValue - (int) m_fValueMin);
+            if (m_pBar != null){
+                int progr = (int)(m_iValue*ScrollingDialog.factorSet - m_fValueMin*ScrollingDialog.factorSet);
+                m_pBar.setProgress(progr);
+            }
 
-            m_sButtonText = String.format(m_sPattern, m_iValue);
+            Logger.Instance.AddDebugInfo("NodeSeekBar: Process m_iValue=" + m_iValue);
+
+            m_sButtonText = ScrollingDialog.SFSeeker.getFormatValue(m_sPattern, (int)(m_iValue*ScrollingDialog.factorSet));
 
             return Update();
         }
@@ -78,7 +85,7 @@ public class NodeSeekBar extends BaseRegulator
     public void Load(char code)
     {
         super.Load(code);
-        m_sButtonText = String.format(m_sPattern, m_iValue);
+        m_sButtonText =ScrollingDialog.SFSeeker.getFormatValue(m_sPattern, (int)(m_iValue*ScrollingDialog.factorSet));
         Update();
     }
 
@@ -163,17 +170,17 @@ public class NodeSeekBar extends BaseRegulator
         //Log.d(TAG, "NodeSeekBar: Released - set LockUpdate=false" );
 
         if(m_pBar != null)
-            SetValue(m_pBar.getProgress() + (int) m_fValueMin);
+            SetValue(m_pBar.getProgress()+ (int) m_fValueMin*ScrollingDialog.factorSet);
     }
 
     @Override
-    public boolean SetValue(int iValue)
+    public boolean SetValue(float iValue)
     {
         Logger.Instance.AddDebugInfo("NodeSeekBar: SetValue = " + iValue );
         //Log.d(TAG, "NodeSeekBar: SetValue = " + iValue );
-        return super.SetValue(iValue);
+//        return super.SetValue(iValue+ (int) m_fValueMin);
+        return super.SetValue((float)iValue/ScrollingDialog.factorSet );
     }
-
 
     protected SeekBar m_pBar = null;
 
@@ -193,20 +200,25 @@ public class NodeSeekBar extends BaseRegulator
 //            params.setMargins(px, px, px, px);
 //            pText.setLayoutParams(params);
 
-            Logger.Instance.AddDebugInfo("NodeSeekBar: GetViewComponent - seekBar.progress = " + (m_iValue - (int) m_fValueMin));
+//            Logger.Instance.AddDebugInfo("NodeSeekBar: GetViewComponent - seekBar.progress = " + (m_iValue - (int) m_fValueMin));
             //Log.d(TAG, "NodeSeekBar: GetViewComponent - seekBar.progress = " + (m_iValue - (int) m_fValueMin));
 
             m_pBar = new SeekBar(context);
-            m_pBar.setMax((int) m_fValueMax - (int) m_fValueMin);
-            m_pBar.setProgress(m_iValue - (int) m_fValueMin);
+            int max = (int) m_fValueMax*ScrollingDialog.factorSet - (int) m_fValueMin*ScrollingDialog.factorSet;
+            m_pBar.setMax(max);
+            int progr = (int)(m_iValue*ScrollingDialog.factorSet - m_fValueMin*ScrollingDialog.factorSet);
+            m_pBar.setProgress(progr);
+            Logger.Instance.AddDebugInfo("NodeSeekBar: GetViewComponent(m_iValue="+m_iValue+" m_fValueMax="+m_fValueMax+" m_fValueMin=" + m_fValueMin + ")");
+            Logger.Instance.AddDebugInfo("NodeSeekBar: GetViewComponent SeekBar(max=" + max + " progress=" + progr+")");
 
             m_pBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener()
             {
                 @Override
                 public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser)
                 {
-                    int iValue = m_pBar.getProgress() + (int) m_fValueMin;
-                    m_sButtonText = String.format(m_sPattern, iValue);
+                    int iValue = m_pBar.getProgress() + (int) m_fValueMin*ScrollingDialog.factorSet;
+                    Logger.Instance.AddDebugInfo("NodeSeekBar: onProgressChanged SeekBar(iValue=" + iValue);
+                    m_sButtonText =ScrollingDialog.SFSeeker.getFormatValue(m_sPattern, iValue);
                     Update();
                     //if(m_dListener != null)
                     // m_dListener.onProgressChanged(seekBar, progress, fromUser);
@@ -222,8 +234,9 @@ public class NodeSeekBar extends BaseRegulator
                 @Override
                 public void onStopTrackingTouch(SeekBar seekBar)
                 {
-                    //Logger.Instance.AddDebugInfo("NodeSeekBar: onStopTrackingTouch" );
-                    //SetValue(seekBar.getProgress() + (int) m_fValueMin);
+                    int iValue = m_pBar.getProgress() + (int) m_fValueMin*ScrollingDialog.factorSet;
+                    Logger.Instance.AddDebugInfo("NodeSeekBar: onStopTrackingTouch" );
+                    SetValue(iValue);
                 }
             });
             /*m_pBar.setOnTouchListener(new View.OnTouchListener()
@@ -232,7 +245,7 @@ public class NodeSeekBar extends BaseRegulator
                 public boolean onTouch(View v, MotionEvent event)
                 {
                     int iValue = m_pBar.getProgress() + (int) m_fValueMin;
-                    m_sButtonText = String.format(m_sPattern, iValue);
+                    m_sButtonText = ScrollingDialog.SFSeeker.getFormatValue(m_sPattern, (int)(iValue*ScrollingDialog.factorSet));
                     Update();
                     return false;
                 }

@@ -1,18 +1,13 @@
 package ru.cpc.smartflatview;
 
-import java.util.HashMap;
-import java.util.Timer;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Paint;
 import android.graphics.PointF;
 import android.graphics.Rect;
-import android.text.InputType;
-import android.text.TextUtils;
+import android.os.Build;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.GestureDetector;
@@ -23,10 +18,13 @@ import android.view.ViewGroup;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.view.inputmethod.EditorInfo;
 import android.widget.TextView;
 
-import static ru.cpc.smartflatview.Indicator.posDez;
+import java.util.HashMap;
+import java.util.Timer;
+
+import ru.cpc.smartflatview.IndicatorPackage.AlarmSensor.FireSensor;
+
 
 public class IndicatorUI extends ViewGroup 
 {
@@ -69,6 +67,7 @@ public class IndicatorUI extends ViewGroup
         @Override
         public boolean onSingleTapUp(MotionEvent e) {
 			Log.d("Test13", m_pIndicator.m_sName + "(" + m_pIndicator.m_fXPercent + "," + m_pIndicator.m_fYPercent + ").onSingleTapUp");
+			Log.d("2click", "onSingleTapUp");
             m_pIndicator.Released();
             return true;
         }
@@ -77,6 +76,8 @@ public class IndicatorUI extends ViewGroup
 		@Override
 		public boolean onDoubleTap(MotionEvent e) {
 			Log.d("Test13", m_pIndicator.m_sName + "(" + m_pIndicator.m_fXPercent + "," + m_pIndicator.m_fYPercent + ").onDoubleTap");
+			Log.d("2click", "onDoubleTap");
+
 			m_pIndicator.Released();
 
 			m_pIndicator.GestureConfirmed();
@@ -112,6 +113,7 @@ public class IndicatorUI extends ViewGroup
 		public boolean onSingleTapConfirmed(MotionEvent e)
 		{
 			Log.d("Test13", m_pIndicator.m_sName + "(" + m_pIndicator.m_fXPercent + "," + m_pIndicator.m_fYPercent + ").onSingleTapConfirmed");
+			Log.d("2click", "onSingleTapConfirmed");
 			m_pIndicator.Released();
 			m_pIndicator.GestureConfirmed();
 
@@ -196,9 +198,14 @@ public class IndicatorUI extends ViewGroup
 		
 		addView(m_pOldView);
 		//addView(m_pNewView);
-		
+/*
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+			m_pOldView.setTranslationZ(50);
+			m_pOldView.setElevation(50);
+			Log.d("Elevation","Установили Elevation = "+m_pOldView.getElevation()+" у "+pIndicator.m_sName);
+		}
+*/
 		m_pOldView.setVisibility(VISIBLE);
-		//m_pNewView.setVisibility(GONE);
 
 //		Log.d("11111111111", "Trying to read bitmap " + m_pIndicator);
 //		Bitmap pBitmap = BitmapFactory.decodeResource(context.getResources(), m_pIndicator.m_iOldResID);
@@ -213,6 +220,9 @@ public class IndicatorUI extends ViewGroup
 		m_pText.setTextScaleX(3f/4f);
 		m_pText.setGravity(Gravity.CENTER);
 		m_pText.setVisibility(VISIBLE);
+//		m_pText.setTranslationZ(50);
+//		m_pText.setElevation(50);
+
 		if(!bBlack) {
 //			m_pText.setTextColor(context.getResources().getColor(android.R.color.primary_text_light));//, context.getTheme()));
 			m_pText.setTextColor(context.getResources().getColor(android.R.color.darker_gray));//, context.getTheme()));
@@ -267,7 +277,8 @@ public class IndicatorUI extends ViewGroup
 		{
 			public boolean onTouch(View v, MotionEvent event) 
 			{
-				Log.d(TAG, m_pIndicator.m_sName + "(" + m_pIndicator.m_fXPercent + "," + m_pIndicator.m_fYPercent + ").onTouchEvent: " + event.toString());
+/*				Log.d("2click", m_pIndicator.m_sName + "(" + m_pIndicator.m_fXPercent + "," + m_pIndicator.m_fYPercent + ").onTouchEvent: " + event.toString());
+
 				switch (event.getAction() & MotionEvent.ACTION_MASK)
 				{
 					case MotionEvent.ACTION_CANCEL:
@@ -277,13 +288,15 @@ public class IndicatorUI extends ViewGroup
 						m_pIndicator.Released();
 						break;
                     case MotionEvent.ACTION_UP:
-                        m_pIndicator.Released();
+						Log.d("2click", "MotionEvent.ACTION_UP");
+						m_pIndicator.Released();
                         break;
 				}
+				*/
 				return gestureDetector.onTouchEvent(event);
 			}
 		});
-		
+
 		if(m_pIndicator.m_bMetaIndicator)
 		{
 			m_pCog = new View(context);
@@ -397,6 +410,7 @@ public class IndicatorUI extends ViewGroup
 			{
 				if (m_pIndicator.m_iReaction == 2)
 					return;
+				Log.d("2click", "LonelyRelease("+m_pIndicator.m_sName+")");
 
 				if(m_pIndicator.SwitchOnOff(start.x, start.y))
 					invalidate();

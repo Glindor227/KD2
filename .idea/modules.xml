@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/KD.iml" filepath="$PROJECT_DIR$/KD.iml" />
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/redx/redx.iml" filepath="$PROJECT_DIR$/redx/redx.iml" />
+      <module fileurl="file://$PROJECT_DIR$/KD.iml" filepath="$PROJECT_DIR$/KD.iml" group="KD" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" group="KD/app" />
+      <module fileurl="file://$PROJECT_DIR$/redx/redx.iml" filepath="$PROJECT_DIR$/redx/redx.iml" group="KD/redx" />
     </modules>
   </component>
 </project>

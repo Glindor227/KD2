@@ -88,7 +88,7 @@ public class NodeAlarm extends Indicator
     }
 
     @Override
-    public boolean SetValue(int iValue)
+    public boolean SetValue(float iValue)
     {
         //if(m_bGuard)
         //	m_bAlarm = true;
