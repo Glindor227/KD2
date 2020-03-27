@@ -19,7 +19,7 @@ public class SourceSelector extends Indicator
                    boolean bDoubleSize, boolean bQuick, int iReaction, int iScale)
     {
         super(fX, fY,
-                newDez?(posDez?R.drawable.src_tv_p:R.drawable.src_tv_2):R.drawable.src_tv,
+                getIndDis(R.drawable.src_tv_p,R.drawable.src_tv_2,R.drawable.src_tv),
                 1, sName, bMetaInd, bProtected, bDoubleSize, bQuick, iReaction, iScale);
         // TODO Auto-generated constructor stub
     }
@@ -70,21 +70,21 @@ public class SourceSelector extends Indicator
     @Override
     protected boolean Update()
     {
-        int iResId = newDez?(posDez?R.drawable.src_off_p:R.drawable.src_off_2):R.drawable.src_off;
+        int iResId = getIndDis(R.drawable.src_off_p,R.drawable.src_off_2,R.drawable.src_off);
 
         switch (m_iSource)
         {
             case 1:
-                iResId = newDez?(posDez?R.drawable.src_tv_p:R.drawable.src_tv_2):R.drawable.src_tv;
+                iResId = getIndDis(R.drawable.src_tv_p,R.drawable.src_tv_2,R.drawable.src_tv);
                 break;
             case 2:
-                iResId = newDez?(posDez?R.drawable.src_sat_p:R.drawable.src_sat_2):R.drawable.src_sat;
+                iResId = getIndDis(R.drawable.src_sat_p,R.drawable.src_sat_2,R.drawable.src_sat);
                 break;
             case 3:
-                iResId = newDez?(posDez?R.drawable.src_dvd_p:R.drawable.src_dvd_2):R.drawable.src_dvd;
+                iResId = getIndDis(R.drawable.src_dvd_p,R.drawable.src_dvd_2,R.drawable.src_dvd);
                 break;
             case 4:
-                iResId = newDez?(posDez?R.drawable.src_srv_p:R.drawable.src_srv_2):R.drawable.src_srv;
+                iResId =getIndDis(R.drawable.src_srv_p,R.drawable.src_srv_2,R.drawable.src_srv);
                 break;
         }
 

@@ -15,13 +15,13 @@ public class PlusMinus extends Indicator
     private int m_iPressed = 0;
     private int m_iType;
 
-    private static int plus_minus_v = newDez?(posDez?R.drawable.plus_minus_v_p:R.drawable.plus_minus_v_2):R.drawable.plus_minus;
-    private static int plus_minus_v_p = newDez?(posDez?R.drawable.plus_minus_v_p_p:R.drawable.plus_minus_v_p_2):R.drawable.plus_minus_plus;
-    private static int plus_minus_v_m = newDez?(posDez?R.drawable.plus_minus_v_m_p:R.drawable.plus_minus_v_m_2):R.drawable.plus_minus_minus;
+    private static int plus_minus_v = getIndDis(R.drawable.plus_minus_v_p,R.drawable.plus_minus_v_2,R.drawable.plus_minus);
+    private static int plus_minus_v_p = getIndDis(R.drawable.plus_minus_v_p_p,R.drawable.plus_minus_v_p_2,R.drawable.plus_minus_plus);
+    private static int plus_minus_v_m = getIndDis(R.drawable.plus_minus_v_m_p,R.drawable.plus_minus_v_m_2,R.drawable.plus_minus_minus);
 
-    private static int plus_minus_ch = newDez?(posDez?R.drawable.plus_minus_ch_p:R.drawable.plus_minus_ch_2):R.drawable.plus_minus2;
-    private static int plus_minus_ch_p = newDez?(posDez?R.drawable.plus_minus_ch_p_p:R.drawable.plus_minus_ch_p_2):R.drawable.plus_minus2_plus;
-    private static int plus_minus_ch_m = newDez?(posDez?R.drawable.plus_minus_ch_m_p:R.drawable.plus_minus_ch_m_2):R.drawable.plus_minus2_minus;
+    private static int plus_minus_ch = getIndDis(R.drawable.plus_minus_ch_p,R.drawable.plus_minus_ch_2,R.drawable.plus_minus2);
+    private static int plus_minus_ch_p = getIndDis(R.drawable.plus_minus_ch_p_p,R.drawable.plus_minus_ch_p_2,R.drawable.plus_minus2_plus);
+    private static int plus_minus_ch_m = getIndDis(R.drawable.plus_minus_ch_m_p,R.drawable.plus_minus_ch_m_2,R.drawable.plus_minus2_minus);
 
     PlusMinus(float fX,
               float fY, int iType, String sName, boolean bMetaInd, boolean bProtected,

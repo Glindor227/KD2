@@ -13,11 +13,11 @@ import java.util.Random;
 
 public class Door extends Indicator 
 {
-	private static int id100 = newDez?(posDez?R.drawable.door_free_p:R.drawable.id102):R.drawable.id100;
-	private static int id102 = newDez?(posDez?R.drawable.door_free_p:R.drawable.id102):R.drawable.id102;
-	private static int id103 = newDez?(posDez?R.drawable.door_free_p:R.drawable.id102):R.drawable.id103;
-	private static int id105 = newDez?(posDez?R.drawable.door_free_p:R.drawable.id102):R.drawable.id105;
-	private static int id106 = newDez?(posDez?R.drawable.door_free_p:R.drawable.id102):R.drawable.id106;
+	private static int id100 = getIndDis(R.drawable.door_free_p,R.drawable.id102,R.drawable.id100);
+	private static int id102 = getIndDis(R.drawable.door_free_p,R.drawable.id102,R.drawable.id102);
+	private static int id103 = getIndDis(R.drawable.door_free_p,R.drawable.id102,R.drawable.id103);
+	private static int id105 = getIndDis(R.drawable.door_free_p,R.drawable.id102,R.drawable.id105);
+	private static int id106 = getIndDis(R.drawable.door_free_p,R.drawable.id102,R.drawable.id106);
 
 	public boolean m_bOpened = false;
 	public boolean m_bGuard = false;	

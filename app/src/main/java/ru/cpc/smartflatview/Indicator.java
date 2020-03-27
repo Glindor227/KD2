@@ -20,13 +20,15 @@ public abstract class Indicator
 	public static boolean pos3Dez;
 	public static boolean pos4Dez;
 
-
-	protected static int getIndDis(int old, int blue, int post){
-		if(typeDez>=3)
-			return post;
-		if(typeDez==2)
+	protected static int getIndDis2(int blue, int old){
+		if(typeDez>=2)
 			return blue;
 		return old;
+	}
+	protected static int getIndDis(int post, int blue, int old){
+		if(typeDez>=3)
+			return post;
+		return getIndDis2(blue,old);
 	}
 	static int getIndDisP(int old, int blue, int post1, int post2, int post3, int post4){
 		if(typeDez==6)

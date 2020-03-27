@@ -10,8 +10,8 @@ public class PowerControl extends BaseRelay
 	public PowerControl(int iX, int iY, String sName, boolean bMetaInd, boolean bProtected, boolean bDoubleScale, boolean bQuick, int iReaction, int iScale)
 	{
 		super(iX, iY,
-				newDez?(posDez?R.drawable.power_on_p:R.drawable.power_on_2):R.drawable.power_on,
-				newDez?(posDez?R.drawable.power_off_p:R.drawable.power_off_2):R.drawable.power_off,
+				getIndDis(R.drawable.power_on_p,R.drawable.power_on_2,R.drawable.power_on),
+				getIndDis(R.drawable.power_off_p,R.drawable.power_off_2,R.drawable.power_off),
 				8, sName, bMetaInd, bProtected, bDoubleScale, bQuick, iReaction, iScale);
 		// TODO Auto-generated constructor stub
 	}

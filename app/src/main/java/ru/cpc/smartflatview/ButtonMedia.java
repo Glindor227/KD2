@@ -96,27 +96,27 @@ public class ButtonMedia extends Indicator
         {
             case EJECT:
                 if(bPressed)
-                    iResId = newDez?(posDez?R.drawable.eject_p:R.drawable.eject_2):R.drawable.eject;
+                    iResId = getIndDis(R.drawable.eject_p,R.drawable.eject_2,R.drawable.eject);
                 else
-                    iResId = newDez?(posDez?R.drawable.eject_p:R.drawable.eject_2):R.drawable.eject;
+                    iResId = getIndDis(R.drawable.eject_p,R.drawable.eject_2,R.drawable.eject);
                 break;
             case PLAY:
                 if(bPressed)
-                    iResId = newDez?(posDez?R.drawable.play_p:R.drawable.play_2):R.drawable.play;
+                    iResId = getIndDis(R.drawable.play_p,R.drawable.play_2,R.drawable.play);
                 else
-                    iResId = newDez?(posDez?R.drawable.pause_p:R.drawable.pause_2):R.drawable.pause;
+                    iResId = getIndDis(R.drawable.pause_p,R.drawable.pause_2,R.drawable.pause);
                 break;
             case PAUSE:
                 if(bPressed)
-                    iResId = newDez?(posDez?R.drawable.pause_p:R.drawable.pause_2):R.drawable.pause;
+                    iResId = getIndDis(R.drawable.pause_p,R.drawable.pause_2,R.drawable.pause);
                 else
-                    iResId = newDez?(posDez?R.drawable.play_p:R.drawable.play_2):R.drawable.play;
+                    iResId = getIndDis(R.drawable.play_p,R.drawable.play_2,R.drawable.play);
                 break;
             case STOP:
                 if(bPressed)
-                    iResId =newDez?(posDez?R.drawable.stop_p:R.drawable.stop_2):R.drawable.stop;
+                    iResId =getIndDis(R.drawable.stop_p,R.drawable.stop_2,R.drawable.stop);
                 else
-                    iResId = newDez?(posDez?R.drawable.stop_p:R.drawable.stop_2):R.drawable.stop;
+                    iResId = getIndDis(R.drawable.stop_p,R.drawable.stop_2,R.drawable.stop);
                 break;
             case REC:
                 if(bPressed)
@@ -126,39 +126,39 @@ public class ButtonMedia extends Indicator
                 break;
             case FF:
                 if(bPressed)
-                    iResId = newDez?(posDez?R.drawable.forward_p:R.drawable.forward_2):R.drawable.forward_pressed;
+                    iResId = getIndDis(R.drawable.forward_p,R.drawable.forward_2,R.drawable.forward_pressed);
                 else
-                    iResId = newDez?(posDez?R.drawable.forward_p:R.drawable.forward_2):R.drawable.forward;
+                    iResId = getIndDis(R.drawable.forward_p,R.drawable.forward_2,R.drawable.forward);
                 break;
             case REW:
                 if(bPressed)
-                    iResId = newDez?(posDez?R.drawable.rewind_pressed_p:R.drawable.rewind_pressed_2):R.drawable.rewind_pressed;
+                    iResId = getIndDis(R.drawable.rewind_pressed_p,R.drawable.rewind_pressed_2,R.drawable.rewind_pressed);
                 else
-                    iResId = newDez?(posDez?R.drawable.rewind_p:R.drawable.rewind_2):R.drawable.rewind;
+                    iResId = getIndDis(R.drawable.rewind_p,R.drawable.rewind_2,R.drawable.rewind);
                 break;
             case SKIP_F:
                 if(bPressed)
-                    iResId = newDez?(posDez?R.drawable.skip_frwd_pressed_p:R.drawable.skip_frwd_pressed_2):R.drawable.skip_frwd_pressed;
+                    iResId = getIndDis(R.drawable.skip_frwd_pressed_p,R.drawable.skip_frwd_pressed_2,R.drawable.skip_frwd_pressed);
                 else
-                    iResId = newDez?(posDez?R.drawable.skip_frwd_p:R.drawable.skip_frwd_2):R.drawable.skip_frwd;
+                    iResId = getIndDis(R.drawable.skip_frwd_p,R.drawable.skip_frwd_2,R.drawable.skip_frwd);
                 break;
             case SKIP_B:
                 if(bPressed)
-                    iResId = newDez?(posDez?R.drawable.skip_back_pressed_p:R.drawable.skip_back_pressed_2):R.drawable.skip_back_pressed;
+                    iResId = getIndDis(R.drawable.skip_back_pressed_p,R.drawable.skip_back_pressed_2,R.drawable.skip_back_pressed);
                 else
-                    iResId = newDez?(posDez?R.drawable.skip_back_p:R.drawable.skip_back_2):R.drawable.skip_back;
+                    iResId = getIndDis(R.drawable.skip_back_p,R.drawable.skip_back_2,R.drawable.skip_back);
                 break;
             case MUTE:
                 if(bPressed)
-                    iResId =newDez?(posDez?R.drawable.mute_pressed_p:R.drawable.mute_pressed_2): R.drawable.mute_pressed;
+                    iResId =getIndDis(R.drawable.mute_pressed_p,R.drawable.mute_pressed_2, R.drawable.mute_pressed);
                 else
-                    iResId = newDez?(posDez?R.drawable.mute_p:R.drawable.mute_2):R.drawable.mute;
+                    iResId = getIndDis(R.drawable.mute_p,R.drawable.mute_2,R.drawable.mute);
                 break;
             case POWER:
                 if(bPressed)
-                    iResId = newDez?(posDez?R.drawable.power_p:R.drawable.power_2):R.drawable.power;
+                    iResId = getIndDis(R.drawable.power_p,R.drawable.power_2,R.drawable.power);
                 else
-                    iResId = newDez?(posDez?R.drawable.power_p:R.drawable.power_2):R.drawable.power;
+                    iResId = getIndDis(R.drawable.power_p,R.drawable.power_2,R.drawable.power);
                 break;
         }
 

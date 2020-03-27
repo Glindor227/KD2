@@ -14,8 +14,8 @@ public class Radiator extends BaseRelay
     public Radiator(int iX, int iY, String sName, boolean bMetaInd, boolean bProtected, boolean bDoubleScale, boolean bQuick, int iReaction, int iScale)
     {
         super(iX, iY,
-                newDez?R.drawable.radiator_on_2:R.drawable.radiator_on,
-                newDez?R.drawable.radiator_off_2:R.drawable.radiator_off,
+                getIndDis2(R.drawable.radiator_on_2,R.drawable.radiator_on),
+                getIndDis2(R.drawable.radiator_off_2,R.drawable.radiator_off),
                 5, sName, bMetaInd, bProtected, bDoubleScale, bQuick, iReaction, iScale);
         // TODO Auto-generated constructor stub
     }

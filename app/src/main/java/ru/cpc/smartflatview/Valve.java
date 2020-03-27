@@ -10,8 +10,8 @@ public class Valve extends BaseRelay
 	public Valve(int iX, int iY, String sName, boolean bMetaInd, boolean bProtected, boolean bDoubleScale, boolean bQuick, int iReaction, int iScale)
 	{
 		super(iX, iY,
-				newDez?(posDez?R.drawable.valve_on_p:R.drawable.valve_on):R.drawable.id083_cold,
-				newDez?(posDez?R.drawable.valve_off_p:R.drawable.valve_off):R.drawable.id085_cold,
+				getIndDis(R.drawable.valve_on_p,R.drawable.valve_on,R.drawable.id083_cold),
+			getIndDis(R.drawable.valve_off_p,R.drawable.valve_off,R.drawable.id085_cold),
 				3, sName, bMetaInd, bProtected, bDoubleScale, bQuick, iReaction, iScale);
 		// TODO Auto-generated constructor stub
 	}

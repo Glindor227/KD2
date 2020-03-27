@@ -11,9 +11,9 @@ public class DimmerLamp extends BaseRegulator
 {
 //	private static int on = newDez?(posDez?R.drawable.lamp_d100_p:R.drawable.lamp_d100):R.drawable.lamp03;
 //	private static int off = newDez?getOffLamp(R.drawable.lamp_d_off):R.drawable.lamp04;
-	private static int on = getIndDis(R.drawable.lamp03,
+	private static int on = getIndDis(R.drawable.lamp_d100_p,
 		R.drawable.lamp_d100,
-		R.drawable.lamp_d100_p);
+		R.drawable.lamp03);
 	private static int off = getIndDisP(R.drawable.lamp04,
 		R.drawable.lamp_d_off,
 		R.drawable.lamp_d_off_p,
@@ -141,31 +141,31 @@ public class DimmerLamp extends BaseRegulator
 			iResId = on;
 
 			if(iBright < 10)
-				getIndDis(on,R.drawable.lamp_d10,R.drawable.lamp_d10_p);
+				getIndDis(R.drawable.lamp_d10_p,R.drawable.lamp_d10,on);
 //				iResId = newDez?(posDez?R.drawable.lamp_d10_p:R.drawable.lamp_d10):on;
 			else if(iBright < 20)
-				getIndDis(on,R.drawable.lamp_d20,R.drawable.lamp_d20_p);
+				getIndDis(R.drawable.lamp_d20_p,R.drawable.lamp_d20,on);
 //				iResId = newDez?(posDez?R.drawable.lamp_d20_p:R.drawable.lamp_d20):on;
 			else if(iBright < 30)
-				getIndDis(on,R.drawable.lamp_d30,R.drawable.lamp_d30_p);
+				getIndDis(R.drawable.lamp_d30_p,R.drawable.lamp_d30,on);
 //				iResId = newDez?(posDez?R.drawable.lamp_d30_p:R.drawable.lamp_d30):on;
 			else if(iBright < 40)
-				getIndDis(on,R.drawable.lamp_d40,R.drawable.lamp_d40_p);
+				getIndDis(R.drawable.lamp_d40_p,R.drawable.lamp_d40,on);
 //				iResId = newDez?(posDez?R.drawable.lamp_d40_p:R.drawable.lamp_d40):on;
 			else if(iBright < 50)
-				getIndDis(on,R.drawable.lamp_d50,R.drawable.lamp_d50_p);
+				getIndDis(R.drawable.lamp_d50_p,R.drawable.lamp_d50,on);
 //				iResId = newDez?(posDez?R.drawable.lamp_d50_p:R.drawable.lamp_d50):on;
 			else if(iBright < 60)
-				getIndDis(on,R.drawable.lamp_d60,R.drawable.lamp_d60_p);
+				getIndDis(R.drawable.lamp_d60_p,R.drawable.lamp_d60,on);
 //				iResId = newDez?(posDez?R.drawable.lamp_d60_p:R.drawable.lamp_d60):on;
 			else if(iBright < 70)
-				getIndDis(on,R.drawable.lamp_d70,R.drawable.lamp_d70_p);
+				getIndDis(R.drawable.lamp_d70_p,R.drawable.lamp_d70,on);
 //				iResId = newDez?(posDez?R.drawable.lamp_d70_p:R.drawable.lamp_d70):on;
 			else if(iBright < 80)
-				getIndDis(on,R.drawable.lamp_d80,R.drawable.lamp_d80_p);
+				getIndDis(R.drawable.lamp_d80_p,R.drawable.lamp_d80,on);
 //				iResId = newDez?(posDez?R.drawable.lamp_d80_p:R.drawable.lamp_d80):on;
 			else if(iBright < 90)
-				getIndDis(on,R.drawable.lamp_d90,R.drawable.lamp_d90_p);
+				getIndDis(R.drawable.lamp_d90_p,R.drawable.lamp_d90,on);
 //				iResId = newDez?(posDez?R.drawable.lamp_d90_p:R.drawable.lamp_d90):on;
 		}
 		else

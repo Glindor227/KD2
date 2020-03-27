@@ -12,10 +12,10 @@ import android.widget.SeekBar;
 
 public class ClimatFan extends BaseClimat
 {
-    private static int cfan1 = newDez?(posDez?R.drawable.fan_off_p:R.drawable.fan_off):R.drawable.cfan1;
-    private static int cfan2=  newDez?(posDez?R.drawable.fan_s_p:R.drawable.fan_s):R.drawable.cfan2;
-    private static int cfan3= newDez?(posDez?R.drawable.fan_m_p:R.drawable.fan_m):R.drawable.cfan3;
-    private static int cfan4= newDez?(posDez?R.drawable.fan_b_p:R.drawable.fan_b):R.drawable.cfan4;
+    private static int cfan1 = getIndDis(R.drawable.fan_off_p,R.drawable.fan_off,R.drawable.cfan1);
+    private static int cfan2=  getIndDis(R.drawable.fan_s_p,R.drawable.fan_s,R.drawable.cfan2);
+    private static int cfan3= getIndDis(R.drawable.fan_m_p,R.drawable.fan_m,R.drawable.cfan3);
+    private static int cfan4= getIndDis(R.drawable.fan_b_p,R.drawable.fan_b,R.drawable.cfan4);
 
     public ClimatFan(int iX, int iY, String sName, boolean bMetaInd, boolean bProtected, boolean bDoubleScale, boolean bQuick, int iReaction, int iScale)
     {
@@ -124,10 +124,10 @@ public class ClimatFan extends BaseClimat
             }
         });
         final ScrollingDialog.SFModeSelector pSelector = (ScrollingDialog.SFModeSelector)ScrollingDialog.AddModeSelector(m_sVariableMode,
-                newDez?(posDez?R.drawable.cfan_mode1_p:R.drawable.cfan_mode1_2):R.drawable.cfan_mode1,
-                newDez?(posDez?R.drawable.cfan_mode2_p:R.drawable.cfan_mode2_2):R.drawable.cfan_mode2,
-                newDez?(posDez?R.drawable.cfan_mode3_p:R.drawable.cfan_mode3_2):R.drawable.cfan_mode3,
-                newDez?(posDez?R.drawable.cfan_mode4_p:R.drawable.cfan_mode4_2):R.drawable.cfan_mode4,
+                getIndDis(R.drawable.cfan_mode1_p,R.drawable.cfan_mode1_2,R.drawable.cfan_mode1),
+            getIndDis(R.drawable.cfan_mode2_p,R.drawable.cfan_mode2_2,R.drawable.cfan_mode2),
+            getIndDis(R.drawable.cfan_mode3_p,R.drawable.cfan_mode3_2,R.drawable.cfan_mode3),
+            getIndDis(R.drawable.cfan_mode4_p,R.drawable.cfan_mode4_2,R.drawable.cfan_mode4),
                 m_iMode, posDez?R.color.white:R.color.playlistBackground, R.color.colorAccent,
                 new View.OnClickListener() {
             @Override

@@ -20,7 +20,9 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Import.ImportActivity"></activity>
+        <activity
+            android:name="ru.cpc.smartflatview.Import.ImportActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".LaunchScreenActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"

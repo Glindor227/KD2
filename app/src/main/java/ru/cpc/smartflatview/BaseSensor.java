@@ -24,7 +24,7 @@ public abstract class BaseSensor extends Indicator
     {
 
 //        super(fX, fY, newDez?(posDez?R.drawable.empty_p:R.drawable.empty_2):R.drawable.empty, iSubType, sName, bMetaInd, bProtected, bDoubleSize, bQuick, iReaction, iScale);
-        super(fX, fY, getIndDis(R.drawable.empty,R.drawable.empty_2,R.drawable.empty_p), iSubType, sName, bMetaInd, bProtected, bDoubleSize, bQuick, iReaction, iScale);
+        super(fX, fY, getIndDis(R.drawable.empty_p,R.drawable.empty_2,R.drawable.empty), iSubType, sName, bMetaInd, bProtected, bDoubleSize, bQuick, iReaction, iScale);
         // TODO Auto-generated constructor stub
 
         m_bText2 = true;

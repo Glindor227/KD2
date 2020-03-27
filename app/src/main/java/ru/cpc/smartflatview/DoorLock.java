@@ -154,35 +154,21 @@ public class DoorLock extends Indicator
         int iResId = -1;
 
         int id100 = m_bLocked ?
-                (newDez?
-                        (posDez?R.drawable.door_block_guard_p:R.drawable.door_block_guard_2):
-                        R.drawable.door_block_guard) :
-                (newDez?
-                        (posDez?R.drawable.door_unblock_guard_p:R.drawable.door_unblock_guard_2):
-                        R.drawable.door_unblock_guard);
+                (getIndDis(R.drawable.door_block_guard_p,R.drawable.door_block_guard_2,R.drawable.door_block_guard)) :
+                (getIndDis(R.drawable.door_unblock_guard_p,R.drawable.door_unblock_guard_2,R.drawable.door_unblock_guard));
         int id102 = m_bLocked ?
-                (newDez?
-                        (posDez?R.drawable.door_block_p:R.drawable.door_block_2):
-                        R.drawable.door_block) :
-                (newDez?
-                        (posDez?R.drawable.door_unblock_p:R.drawable.door_unblock_2):
-                        R.drawable.door_unblock);
+                (getIndDis(R.drawable.door_block_p,R.drawable.door_block_2,R.drawable.door_block)) :
+                (getIndDis(R.drawable.door_unblock_p,R.drawable.door_unblock_2,R.drawable.door_unblock));
         int id103 = m_bLocked ?
-                (newDez?
-                        (posDez?R.drawable.door_block_alarm_p:R.drawable.door_block_alarm_2):
-                        R.drawable.door_block_alarm) :
-                (newDez?
-                        (posDez?R.drawable.door_unblock_alarm_p:R.drawable.door_unblock_alarm_2):
-                        R.drawable.door_unblock_alarm);
+                (getIndDis(R.drawable.door_block_alarm_p,R.drawable.door_block_alarm_2,R.drawable.door_block_alarm)) :
+                (getIndDis(R.drawable.door_unblock_alarm_p,R.drawable.door_unblock_alarm_2,R.drawable.door_unblock_alarm));
 
         if(m_bAlarm && m_pUI != null)
         {
             m_pUI.StartAnimation(id100);
 
             if(m_bOpened)
-                iResId = newDez?
-                        (posDez?R.drawable.door_free_alarm_p:R.drawable.door_free_alarm_2):
-                        R.drawable.door_free_alarm;
+                iResId = getIndDis(R.drawable.door_free_alarm_p,R.drawable.door_free_alarm_2,R.drawable.door_free_alarm);
             else
                 iResId = id103;
         }
@@ -193,9 +179,7 @@ public class DoorLock extends Indicator
             else
             {
                 if(m_bOpened)
-                    iResId = newDez?
-                            (posDez?R.drawable.door_free_p:R.drawable.door_free_2):
-                            R.drawable.door_free;
+                    iResId = getIndDis(R.drawable.door_free_p,R.drawable.door_free_2,R.drawable.door_free);
                 else
                     iResId = id102;
             }
