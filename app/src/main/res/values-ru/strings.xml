@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="import_file_title">Импорт из локального хранилища</string>
+    <string name="import_btn_title">Выбрать локальный файл</string>
+    <string name="import_repo_title">Импорт из репозитория</string>
+    <string name="import_link">Связь</string>
+    <string name="file_not">файл не выбран</string>
+    <string name="ip">192.168.1.68</string>
+    <string name="port">8189</string>
+
+</resources>
