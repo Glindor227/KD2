@@ -37,17 +37,17 @@ public abstract class Indicator
 			return post3;
 		if(typeDez==4)
 			return post2;
-		return getIndDis(old,blue,post1);
+		return getIndDis(post1,blue,old);
 	}
-	static int getIndDisPC(int old,int blue,int post1,int post2,int post3,int post4,int color){
+	protected static int getIndDisPC(int old, int blue, int post1, int post2, int post3, int post4, int color){
 		if(typeDez==7)
 			return color;
 		return getIndDisP(old,blue,post1,post2,post3,post4);
 	}
-	static int getIndDisC(int old,int blue,int post,int color){
+	protected static int getIndDisC(int post, int blue, int old, int color){
 		if(typeDez==7)
 			return color;
-		return getIndDis(old,blue,post);
+		return getIndDis(post,blue,old);
 	}
 
 

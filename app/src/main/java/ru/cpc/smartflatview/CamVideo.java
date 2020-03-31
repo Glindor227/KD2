@@ -22,7 +22,10 @@ public class CamVideo extends Indicator
 
     public CamVideo(int iX, int iY, String sName, boolean bMetaInd, boolean bProtected, boolean bDoubleScale, boolean bQuick, int iReaction, int iScale)
     {
-        super(iX, iY, R.drawable.cam1, 1, sName, bMetaInd, bProtected, bDoubleScale, false, iReaction, iScale);
+        super(iX, iY,
+                getIndDisC(R.drawable.cam_on_p,R.drawable.cam_on,R.drawable.cam2,R.drawable.cam_on_c),
+                1, sName, bMetaInd, bProtected, bDoubleScale, false, iReaction, iScale);
+
     }
 
     public CamVideo Bind(String sIP, String sPort, String sCamID, String sLogin, String sPass)

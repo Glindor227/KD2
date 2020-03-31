@@ -7,7 +7,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.PointF;
 import android.graphics.Rect;
-import android.os.Build;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.GestureDetector;
@@ -24,6 +23,9 @@ import java.util.HashMap;
 import java.util.Timer;
 
 import ru.cpc.smartflatview.IndicatorPackage.AlarmSensor.FireSensor;
+import ru.cpc.smartflatview.IndicatorPackage.AlarmSensor.LeakageSensor;
+import ru.cpc.smartflatview.IndicatorPackage.AlarmSensor.MotionSensor;
+import ru.cpc.smartflatview.IndicatorPackage.Macros.Macro;
 
 
 public class IndicatorUI extends ViewGroup 
@@ -300,14 +302,14 @@ public class IndicatorUI extends ViewGroup
 		if(m_pIndicator.m_bMetaIndicator)
 		{
 			m_pCog = new View(context);
-			m_pCog.setBackgroundResource(Indicator.getIndDis(R.drawable.shesterenka_2,R.drawable.shesterenka_p,R.drawable.shesterenka));
+			m_pCog.setBackgroundResource(Indicator.getIndDisC(R.drawable.shesterenka_2,R.drawable.shesterenka_p,R.drawable.shesterenka,R.drawable.shesterenka_c));
 			addView(m_pCog);
 		}
 		
 		if(m_pIndicator.m_bProtected)
 		{
 			m_pShield = new View(context);
-			m_pShield.setBackgroundResource(Indicator.getIndDis(R.drawable.shield_2,R.drawable.shield_p,R.drawable.shield));
+			m_pShield.setBackgroundResource(Indicator.getIndDisC(R.drawable.shield_2,R.drawable.shield_p,R.drawable.shield,R.drawable.shield_c));
 			addView(m_pShield);
 		}
 		
@@ -437,10 +439,10 @@ public class IndicatorUI extends ViewGroup
 	public int m_iX;
 	public int m_iY;
 
-	protected boolean m_bLoopAnimation = false;
+	public boolean m_bLoopAnimation = false;
     protected float m_fK = 1;
 	
-	protected boolean StartAnimation(int iResId)
+	public boolean StartAnimation(int iResId)
 	{
 		if(iResId != -1)
 		{
@@ -476,8 +478,8 @@ public class IndicatorUI extends ViewGroup
 	}
 	
 	
-	protected int m_iWidth = 0;
-	protected int m_iHeight = 0;
+	public int m_iWidth = 0;
+	public int m_iHeight = 0;
 
     @Override
 	protected void onLayout(boolean changed, int l, int t, int r, int b) 

@@ -30,6 +30,46 @@ import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
 import ru.cpc.smartflatview.IndicatorPackage.AlarmSensor.FireSensor;
+import ru.cpc.smartflatview.IndicatorPackage.AlarmSensor.LeakageSensor;
+import ru.cpc.smartflatview.IndicatorPackage.AlarmSensor.MotionSensor;
+import ru.cpc.smartflatview.IndicatorPackage.Climats.ClimatConditioner;
+import ru.cpc.smartflatview.IndicatorPackage.Climats.ClimatFan;
+import ru.cpc.smartflatview.IndicatorPackage.Climats.ClimatRadiator;
+import ru.cpc.smartflatview.IndicatorPackage.Climats.ClimatWarmFloor;
+import ru.cpc.smartflatview.IndicatorPackage.Doors.Door;
+import ru.cpc.smartflatview.IndicatorPackage.Doors.Door2;
+import ru.cpc.smartflatview.IndicatorPackage.Doors.DoorLock;
+import ru.cpc.smartflatview.IndicatorPackage.Macros.Macro;
+import ru.cpc.smartflatview.IndicatorPackage.Macros.MacroAlarm;
+import ru.cpc.smartflatview.IndicatorPackage.Macros.MacroCamOff;
+import ru.cpc.smartflatview.IndicatorPackage.Macros.MacroCamOn;
+import ru.cpc.smartflatview.IndicatorPackage.Macros.MacroDezinfection;
+import ru.cpc.smartflatview.IndicatorPackage.Macros.MacroFilterCleaning;
+import ru.cpc.smartflatview.IndicatorPackage.Macros.MacroFilterFail;
+import ru.cpc.smartflatview.IndicatorPackage.Macros.MacroFireSensor;
+import ru.cpc.smartflatview.IndicatorPackage.Macros.MacroFreePass;
+import ru.cpc.smartflatview.IndicatorPackage.Macros.MacroLowLevel;
+import ru.cpc.smartflatview.IndicatorPackage.Macros.MacroMotionSensor;
+import ru.cpc.smartflatview.IndicatorPackage.Macros.MacroPumpAddWater;
+import ru.cpc.smartflatview.IndicatorPackage.Macros.MacroPumpFail;
+import ru.cpc.smartflatview.IndicatorPackage.Macros.MacroPumpFilter;
+import ru.cpc.smartflatview.IndicatorPackage.Macros.MacroPumpWorkMode;
+import ru.cpc.smartflatview.IndicatorPackage.Regulators.Battery;
+import ru.cpc.smartflatview.IndicatorPackage.Regulators.Battery2;
+import ru.cpc.smartflatview.IndicatorPackage.Regulators.Conditioner;
+import ru.cpc.smartflatview.IndicatorPackage.Regulators.DimmerFan;
+import ru.cpc.smartflatview.IndicatorPackage.Regulators.DimmerLamp;
+import ru.cpc.smartflatview.IndicatorPackage.Regulators.WarmFloorDevi;
+import ru.cpc.smartflatview.IndicatorPackage.Regulators.WarmFloorDevi2;
+import ru.cpc.smartflatview.IndicatorPackage.Relays.Curtains;
+import ru.cpc.smartflatview.IndicatorPackage.Relays.Fan;
+import ru.cpc.smartflatview.IndicatorPackage.Relays.Fountain1;
+import ru.cpc.smartflatview.IndicatorPackage.Relays.Fountain2;
+import ru.cpc.smartflatview.IndicatorPackage.Relays.Lamp;
+import ru.cpc.smartflatview.IndicatorPackage.Relays.PowerControl;
+import ru.cpc.smartflatview.IndicatorPackage.Relays.Radiator;
+import ru.cpc.smartflatview.IndicatorPackage.Relays.Valve;
+import ru.cpc.smartflatview.IndicatorPackage.Relays.WarmFloor;
 import ru.cpc.smartflatview.IndicatorPackage.Sensor.SensorCO;
 import ru.cpc.smartflatview.IndicatorPackage.Sensor.SensorHumidity;
 import ru.cpc.smartflatview.IndicatorPackage.Sensor.SensorIlluminance;
@@ -716,8 +756,9 @@ public class Config
 								pIndicator instanceof MacroPumpWorkMode ||
 								pIndicator instanceof MacroFilterCleaning ||
 								pIndicator instanceof MacroPumpAddWater ||
-								pIndicator instanceof MacroAlarm ||
-								pIndicator instanceof MacroFlashlight)
+								pIndicator instanceof MacroAlarm
+//								||								pIndicator instanceof MacroFlashlight
+						)
 							macros++;
 
 						if (pIndicator instanceof ClimatConditioner ||
@@ -839,8 +880,9 @@ public class Config
 								pIndicator instanceof MacroPumpWorkMode ||
 								pIndicator instanceof MacroFilterCleaning ||
 								pIndicator instanceof MacroPumpAddWater ||
-								pIndicator instanceof MacroAlarm ||
-								pIndicator instanceof MacroFlashlight)
+								pIndicator instanceof MacroAlarm
+//								||pIndicator instanceof MacroFlashlight
+						)
 							pIndicator.SaveXML(serializer);
 					}
 
