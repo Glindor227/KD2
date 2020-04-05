@@ -6,7 +6,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.SeekBar;
 
-import ru.cpc.smartflatview.BaseClimat;
+import ru.cpc.smartflatview.IndicatorPackage.Base.BaseClimat;
 import ru.cpc.smartflatview.R;
 import ru.cpc.smartflatview.ScrollingDialog;
 
@@ -132,7 +132,7 @@ public class ClimatFan extends BaseClimat
             getIndDis(R.drawable.cfan_mode2_p,R.drawable.cfan_mode2_2,R.drawable.cfan_mode2),
             getIndDis(R.drawable.cfan_mode3_p,R.drawable.cfan_mode3_2,R.drawable.cfan_mode3),
             getIndDis(R.drawable.cfan_mode4_p,R.drawable.cfan_mode4_2,R.drawable.cfan_mode4),
-                m_iMode, posDez?R.color.white:R.color.playlistBackground, R.color.colorAccent,
+                m_iMode,typeDez==3?R.color.white:R.color.playlistBackground, R.color.colorAccent,
                 new View.OnClickListener() {
             @Override
             public void onClick(View v) {

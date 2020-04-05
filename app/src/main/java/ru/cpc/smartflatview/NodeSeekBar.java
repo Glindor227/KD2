@@ -1,18 +1,11 @@
 package ru.cpc.smartflatview;
 
 import android.content.Context;
-import android.content.res.Resources;
-import android.os.Build;
-import android.util.Log;
 import android.util.TypedValue;
-import android.view.Gravity;
-import android.view.MotionEvent;
 import android.view.View;
-import android.widget.LinearLayout;
 import android.widget.SeekBar;
-import android.widget.TextView;
 
-import java.util.ArrayList;
+import ru.cpc.smartflatview.IndicatorPackage.Base.BaseRegulator;
 
 public class NodeSeekBar extends BaseRegulator
 {

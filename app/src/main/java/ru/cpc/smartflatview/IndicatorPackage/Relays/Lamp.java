@@ -6,7 +6,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.CompoundButton;
 
-import ru.cpc.smartflatview.BaseRelay;
+import ru.cpc.smartflatview.IndicatorPackage.Base.BaseRelay;
 import ru.cpc.smartflatview.R;
 import ru.cpc.smartflatview.ScrollingDialog;
 

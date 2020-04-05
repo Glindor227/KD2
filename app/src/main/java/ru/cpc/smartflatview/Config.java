@@ -57,6 +57,7 @@ import ru.cpc.smartflatview.IndicatorPackage.Macros.MacroPumpWorkMode;
 import ru.cpc.smartflatview.IndicatorPackage.Regulators.Battery;
 import ru.cpc.smartflatview.IndicatorPackage.Regulators.Battery2;
 import ru.cpc.smartflatview.IndicatorPackage.Regulators.Conditioner;
+import ru.cpc.smartflatview.IndicatorPackage.Regulators.Conditioner2Temp;
 import ru.cpc.smartflatview.IndicatorPackage.Regulators.DimmerFan;
 import ru.cpc.smartflatview.IndicatorPackage.Regulators.DimmerLamp;
 import ru.cpc.smartflatview.IndicatorPackage.Regulators.WarmFloorDevi;
@@ -721,6 +722,7 @@ public class Config
 						if (pIndicator instanceof DimmerLamp ||
 								pIndicator instanceof DimmerFan ||
 								pIndicator instanceof Conditioner ||
+								pIndicator instanceof Conditioner2Temp ||
 								pIndicator instanceof Battery ||
 								pIndicator instanceof Battery2 ||
 								pIndicator instanceof WarmFloorDevi ||
@@ -824,6 +826,7 @@ public class Config
 						if (pIndicator instanceof DimmerLamp ||
 								pIndicator instanceof DimmerFan ||
 								pIndicator instanceof Conditioner ||
+								pIndicator instanceof Conditioner2Temp ||
 								pIndicator instanceof Battery ||
 								pIndicator instanceof Battery2 ||
 								pIndicator instanceof WarmFloorDevi ||

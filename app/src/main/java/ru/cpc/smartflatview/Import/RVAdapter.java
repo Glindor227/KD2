@@ -52,7 +52,7 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.RVViewHolder> {
         return data.size();
     }
 
-    class RVViewHolder extends RecyclerView.ViewHolder {
+    static class RVViewHolder extends RecyclerView.ViewHolder {
         TextView nameFile;
         TextView dateFile;
 

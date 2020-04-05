@@ -14,11 +14,12 @@ public abstract class Indicator
 {
 	protected static final String TAG = "SMARTFLAT" ;
 	public static int typeDez;
-	public static boolean newDez;
-	public static boolean posDez;
-	public static boolean pos2Dez;
-	public static boolean pos3Dez;
-	public static boolean pos4Dez;
+	protected final int m_iScale;
+//	public static boolean newDez;
+//	public static boolean posDez;
+//	public static boolean pos2Dez;
+//	public static boolean pos3Dez;
+//	public static boolean pos4Dez;
 
 	protected static int getIndDis2(int blue, int old){
 		if(typeDez>=2)
@@ -59,7 +60,8 @@ public abstract class Indicator
 	protected boolean m_bMetaIndicator = false;
 	protected boolean m_bProtected = false;
 	protected boolean m_bText2 = false;
-	protected int m_iSubType = 1;
+	protected boolean m_bText3 = false;
+	public int m_iSubType = 1;
 	
 	protected SFServer m_pServer;
 
@@ -77,7 +79,7 @@ public abstract class Indicator
 	
 	protected Indicator(float fX, float fY, int iResID, int iSubType, String sName, boolean bMetaInd, boolean bProtected, boolean bDoubleSize, boolean bQuick, int iReaction, int iScale)
 	{
-		Log.d("Glindor56", "Ind("+sName+") newDez = "+Indicator.newDez+" posDez = "+Indicator.posDez);
+//		Log.d("Glindor56", "Ind("+sName+") newDez = "+Indicator.newDez+" posDez = "+Indicator.posDez);
 
 		m_pSubsystem = null;
 
@@ -98,6 +100,7 @@ public abstract class Indicator
 		m_iOldResID = iResID;
 		m_iNewResID = iResID;
 
+		m_iScale = iScale;
 		//m_iFontSize = 54/iScale;
 		m_iFontSize = 33/iScale;
 	}

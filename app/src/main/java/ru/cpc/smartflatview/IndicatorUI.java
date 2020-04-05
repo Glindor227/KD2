@@ -35,7 +35,8 @@ public class IndicatorUI extends ViewGroup
 	protected View m_pOldView;
 	//private View m_pNewView;
 	protected TextView m_pText;
-	protected TextView m_pText2;
+	public TextView m_pText2;
+	public TextView m_pText3;
 	private View m_pCog = null;
 	private View m_pShield = null;
 	
@@ -227,7 +228,8 @@ public class IndicatorUI extends ViewGroup
 
 		if(!bBlack) {
 //			m_pText.setTextColor(context.getResources().getColor(android.R.color.primary_text_light));//, context.getTheme()));
-			m_pText.setTextColor(context.getResources().getColor(android.R.color.darker_gray));//, context.getTheme()));
+//			m_pText.setTextColor(context.getResources().getColor(android.R.color.darker_gray));//, context.getTheme()));
+			m_pText.setTextColor(context.getResources().getColor(R.color.ind_name));//, context.getTheme()));
 		}
 		else
 			m_pText.setTextColor(context.getResources().getColor(android.R.color.primary_text_dark));//, context.getTheme()));
@@ -247,7 +249,17 @@ public class IndicatorUI extends ViewGroup
 				m_pText2.setTextColor(context.getResources().getColor(android.R.color.primary_text_dark));//, context.getTheme()));
 			addView(m_pText2);
 		}
-		
+		if(m_pIndicator.m_bText3)
+		{
+			m_pText3 = new TextView(context);
+			m_pText3.setText("");
+			m_pText3.setTextSize(m_pIndicator.m_iFontSize);
+			m_pText3.setTextScaleX(3f/4f);
+			m_pText3.setGravity(Gravity.CENTER);
+			m_pText3.setVisibility(VISIBLE);
+			m_pText3.setTextColor(context.getResources().getColor(android.R.color.primary_text_dark));//, context.getTheme()));
+			addView(m_pText3);
+		}
 		m_pFadeInAnimation = AnimationUtils.loadAnimation(context,android.R.anim.fade_in);
 		m_pFadeInAnimation.setRepeatMode(Animation.REVERSE);
 		m_pFadeInAnimation.setDuration(1500);

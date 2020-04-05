@@ -5,7 +5,7 @@ import android.content.Context;
 import android.view.View;
 import android.widget.SeekBar;
 
-import ru.cpc.smartflatview.BaseRegulator;
+import ru.cpc.smartflatview.IndicatorPackage.Base.BaseRegulator;
 import ru.cpc.smartflatview.R;
 import ru.cpc.smartflatview.ScrollingDialog;
 

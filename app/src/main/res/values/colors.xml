@@ -10,4 +10,6 @@
     <color name="colorRed">#FFFF0000</color>
     <color name="link_text_light">#0000ee</color>
     <color name="white">#FFFFFF</color>
+    <color name="ind_name"> #4D4D4D</color>
+    <color name="ind_text1">#323366</color>
 </resources>

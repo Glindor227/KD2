@@ -1,6 +1,6 @@
 package ru.cpc.smartflatview.IndicatorPackage.AlarmSensor;
 
-import ru.cpc.smartflatview.BaseAlarmSensor;
+import ru.cpc.smartflatview.IndicatorPackage.Base.BaseAlarmSensor;
 import ru.cpc.smartflatview.R;
 
 public class LeakageSensor extends BaseAlarmSensor

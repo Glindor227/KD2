@@ -1,9 +1,5 @@
 package ru.cpc.smartflatview.IndicatorPackage.Macros;
 
-import android.content.Context;
-
-import ru.cpc.smartflatview.BaseMacro;
-import ru.cpc.smartflatview.R;
 /*
 public class MacroFlashlight extends BaseMacro
 {

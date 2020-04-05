@@ -1,4 +1,4 @@
-package ru.cpc.smartflatview;
+package ru.cpc.smartflatview.IndicatorPackage.Base;
 
 import android.util.Log;
 
@@ -6,7 +6,10 @@ import org.xmlpull.v1.XmlSerializer;
 
 import java.io.IOException;
 
-public abstract class BaseRelay extends Indicator 
+import ru.cpc.smartflatview.AddressString;
+import ru.cpc.smartflatview.Indicator;
+
+public abstract class BaseRelay extends Indicator
 {
 	protected int m_iResIDOn;
 	protected int m_iResIDOff;

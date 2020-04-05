@@ -39,6 +39,7 @@ import ru.cpc.smartflatview.IndicatorPackage.Macros.MacroPumpWorkMode;
 import ru.cpc.smartflatview.IndicatorPackage.Regulators.Battery;
 import ru.cpc.smartflatview.IndicatorPackage.Regulators.Battery2;
 import ru.cpc.smartflatview.IndicatorPackage.Regulators.Conditioner;
+import ru.cpc.smartflatview.IndicatorPackage.Regulators.Conditioner2Temp;
 import ru.cpc.smartflatview.IndicatorPackage.Regulators.DimmerFan;
 import ru.cpc.smartflatview.IndicatorPackage.Regulators.DimmerLamp;
 import ru.cpc.smartflatview.IndicatorPackage.Regulators.WarmFloorDevi;
@@ -429,7 +430,12 @@ public class RoomsParser extends DefaultHandler
 	
 	                String attrAddress2 = atts.getValue("valueaddress");
 
-                    String attrNoPower = atts.getValue("nopower");
+					String attrAddress3 = atts.getValue("tempaddress");//todo may be null
+					if(attrAddress3==null)
+						attrAddress3="";
+
+
+					String attrNoPower = atts.getValue("nopower");
                     boolean bNoPower = attrNoPower != null && Integer.parseInt(attrNoPower) != 0;
 
 	    			String attrValue1 = "1";
@@ -511,18 +517,16 @@ public class RoomsParser extends DefaultHandler
 						case -8:
 							m_pSubsystem.AddIndicator(new NodeSeekBar(iPosX/10, iPosY/10, attrName, true, bProtected, bDoubleScale, bQuick, iReaction, m_pSubsystem.m_iGridWidth).Bind(attrAddress1, attrAddress2, attrValue1, attrValue0, true, attrValueMin, attrValueMax, attrValueMed));
 							break;
-//						case 3:
-//							m_pSubsystem.AddIndicator(new GaugeH(iPosX/10, iPosY/10, attrName, false, bProtected, bDoubleScale, bQuick, iReaction, m_pSubsystem.m_iGridWidth).Bind(attrAddress1, attrAddress2, attrValue1, attrValue0));
-//							break;
-//						case -3:
-//							m_pSubsystem.AddIndicator(new GaugeH(iPosX/10, iPosY/10, attrName, true, bProtected, bDoubleScale, bQuick, iReaction, m_pSubsystem.m_iGridWidth).Bind(attrAddress1, attrAddress2, attrValue1, attrValue0));
-//							break;
-//						case 4:
-//							m_pSubsystem.AddIndicator(new GaugeV(iPosX/10, iPosY/10, attrName, false, bProtected, bDoubleScale, bQuick, iReaction, m_pSubsystem.m_iGridWidth).Bind(attrAddress1, attrAddress2, attrValue1, attrValue0));
-//							break;
-//						case -4:
-//							m_pSubsystem.AddIndicator(new GaugeV(iPosX/10, iPosY/10, attrName, true, bProtected, bDoubleScale, bQuick, iReaction, m_pSubsystem.m_iGridWidth).Bind(attrAddress1, attrAddress2, attrValue1, attrValue0));
-//							break;
+						case 9:
+						case 10:
+						case 11:
+							m_pSubsystem.AddIndicator(new Conditioner2Temp(iPosX/10, iPosY/10, attrName, false, bProtected, bDoubleScale, bQuick, iReaction, m_pSubsystem.m_iGridWidth,iSubType).Bind(attrAddress1, attrAddress2, attrValue1, attrValue0, bNoPower, attrValueMin, attrValueMax, attrValueMed).BindTemp(attrAddress3));
+							break;
+						case -9:
+						case -10:
+						case -11:
+							m_pSubsystem.AddIndicator(new Conditioner2Temp(iPosX/10, iPosY/10, attrName, true, bProtected, bDoubleScale, bQuick, iReaction, m_pSubsystem.m_iGridWidth,iSubType).Bind(attrAddress1, attrAddress2, attrValue1, attrValue0, bNoPower, attrValueMin, attrValueMax, attrValueMed).BindTemp(attrAddress3));
+							break;
 					}
 	        	}
 	        }            

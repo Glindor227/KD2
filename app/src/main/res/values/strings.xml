@@ -123,7 +123,7 @@
         "when a user tries to pick up one of cards.\n\n"
     </string>
     <string name="appName">SMARTFLAT VIEW</string>
-    <string name="appVersion">Version 2.12.0</string>
+    <string name="appVersion">Version 2.12.1</string>
     <string name="appLogoDescription">LOGO</string>
     <string name="passwordDefault">1234</string>
     <string name="indicatorPower">Power supply</string>
@@ -182,7 +182,7 @@
     <string name="sdBlock">Lock</string>
     <string name="sdFreePass">Free access</string>
     <string name="idisTimeSelect">Timing</string>
-    <string name="idisGoTo">Go to ...</string>
+    <string name="idisGoTo">Go to …</string>
     <string name="idisWaiting">Expectation…</string>
     <string name="idisVideo">Video</string>
     <string name="idisNoCarrier">NO CONNECTION</string>
@@ -199,7 +199,7 @@
     <string name="logNoErrors">There are no communication errors..</string>
     <string name="logDataReceived">Data received.</string>
     <string name="logConnectionTry">Connection with %s:%d (attempt %d)…</string>
-    <string name="logConnectionOK">Connection established ...</string>
+    <string name="logConnectionOK">Connection established …</string>
     <string name="logNoAccess">No access to %s:%d.</string>
     <string name="logNoWiFi">WiFi network is not available!</string>
     <string name="logUseMobile">We use the mobile Internet…</string>

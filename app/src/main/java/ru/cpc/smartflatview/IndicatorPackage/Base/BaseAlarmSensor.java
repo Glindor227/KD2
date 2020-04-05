@@ -1,4 +1,4 @@
-package ru.cpc.smartflatview;
+package ru.cpc.smartflatview.IndicatorPackage.Base;
 
 import android.app.Activity;
 import android.content.Context;
@@ -11,7 +11,13 @@ import org.xmlpull.v1.XmlSerializer;
 import java.io.IOException;
 import java.util.Random;
 
-public abstract class BaseAlarmSensor extends Indicator 
+import ru.cpc.smartflatview.AddressString;
+import ru.cpc.smartflatview.Config;
+import ru.cpc.smartflatview.Indicator;
+import ru.cpc.smartflatview.R;
+import ru.cpc.smartflatview.ScrollingDialog;
+
+public abstract class BaseAlarmSensor extends Indicator
 {
 	protected int m_iResIDGuardOff; 
 	protected int m_iResIDGuardOn; 

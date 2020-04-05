@@ -1,4 +1,4 @@
-package ru.cpc.smartflatview;
+package ru.cpc.smartflatview.IndicatorPackage.Base;
 
 import android.content.Context;
 import android.util.Log;
@@ -7,7 +7,12 @@ import android.util.TypedValue;
 import org.xmlpull.v1.XmlSerializer;
 
 import java.io.IOException;
-import java.util.ArrayList;
+
+import ru.cpc.smartflatview.AddressString;
+import ru.cpc.smartflatview.Indicator;
+import ru.cpc.smartflatview.IndicatorUI;
+import ru.cpc.smartflatview.R;
+import ru.cpc.smartflatview.SFServer;
 
 /**
  * Created by Вик on 026. 26.04.16.

@@ -23,6 +23,7 @@
         android:summary="@string/sum_dis_title"
         android:defaultValue="3">
     </ListPreference>
+    <!--, окончание -
     <CheckBoxPreference
         android:key="new_dis"
         android:summary="@string/sum_new_dis_indicator"
@@ -53,6 +54,6 @@
         android:title="@string/post4_dis_indicator"
         android:defaultValue="false">
     </CheckBoxPreference>
-
+    -->
 
 </PreferenceScreen>

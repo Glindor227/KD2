@@ -1,10 +1,13 @@
-package ru.cpc.smartflatview;
+package ru.cpc.smartflatview.IndicatorPackage.Base;
 
 import android.util.Log;
 
 import org.xmlpull.v1.XmlSerializer;
 
 import java.io.IOException;
+
+import ru.cpc.smartflatview.AddressString;
+import ru.cpc.smartflatview.Indicator;
 
 /**
  * Created by Вик on 028. 28. 12. 16.

@@ -2,7 +2,7 @@ package ru.cpc.smartflatview.IndicatorPackage.Macros;
 
 import android.content.Context;
 
-import ru.cpc.smartflatview.BaseMacro;
+import ru.cpc.smartflatview.IndicatorPackage.Base.BaseMacro;
 import ru.cpc.smartflatview.R;
 
 public class MacroDezinfection extends BaseMacro

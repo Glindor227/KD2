@@ -6,15 +6,14 @@ import android.content.Context;
 import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
-import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
-import android.preference.PreferenceScreen;
 import android.support.v7.app.ActionBar;
 import android.view.MenuItem;
 
 import java.util.List;
+import java.util.Objects;
 
 /**
  * A {@link PreferenceActivity} that presents a set of application settings. On
@@ -46,7 +45,6 @@ public class Prefs extends AppCompatPreferenceActivity
 
     private static final String OPT_DIS = "dis" ;
     private static final String OPT_DIS_DEF = "3";
-
 
     private static final String OPT_EXIT = "exit" ;
     private static final boolean OPT_EXIT_DEF = true;
@@ -114,10 +112,11 @@ public class Prefs extends AppCompatPreferenceActivity
     {
         boolean p1 = PreferenceManager.getDefaultSharedPreferences(context)
                 .getBoolean(OPT_POST_DIS, OPT_POST_DIS_DEF);
-        boolean p2 = getPost2Dis(context);
-        boolean p3 = getPost3Dis(context);
-        boolean p4 = getPost4Dis(context);
-        return p1||p2||p3||p4;
+//        boolean p2 = getPost2Dis(context);
+  //      boolean p3 = getPost3Dis(context);
+    //    boolean p4 = getPost4Dis(context);
+      //  return p1||p2||p3||p4;
+        return true;
     }
 
     public static boolean getPost2Dis(Context context)
@@ -169,14 +168,14 @@ public class Prefs extends AppCompatPreferenceActivity
 
     public static int getStart(Context context)
     {
-        return Integer.valueOf(PreferenceManager.getDefaultSharedPreferences(context)
-                .getString(OPT_START, OPT_START_DEF));
+        return Integer.parseInt(Objects.requireNonNull(PreferenceManager.getDefaultSharedPreferences(context)
+                .getString(OPT_START, OPT_START_DEF)));
     }
 
     public static int getDis(Context context)
     {
-        return Integer.valueOf(PreferenceManager.getDefaultSharedPreferences(context)
-                .getString(OPT_DIS, OPT_DIS_DEF));
+        return Integer.parseInt(Objects.requireNonNull(PreferenceManager.getDefaultSharedPreferences(context)
+                .getString(OPT_DIS, OPT_DIS_DEF)));
     }
 
 
