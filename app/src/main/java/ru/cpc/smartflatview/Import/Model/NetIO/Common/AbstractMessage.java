@@ -1,4 +1,4 @@
-package ru.cpc.smartflatview.Import.Common;
+package ru.cpc.smartflatview.Import.Model.NetIO.Common;
 
 import java.io.Serializable;
 

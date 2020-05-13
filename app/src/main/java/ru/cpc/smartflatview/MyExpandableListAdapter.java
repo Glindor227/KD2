@@ -7,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
-import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -18,12 +17,9 @@ public class MyExpandableListAdapter extends BaseExpandableListAdapter
     private Context mContext;
     private List<ExpandedMenuModel> mListData; // header titles
 
-    ExpandableListView expandList;
-
-    public MyExpandableListAdapter(Context context, List<ExpandedMenuModel> listData, ExpandableListView mView) {
+    MyExpandableListAdapter(Context context, List<ExpandedMenuModel> listData) {
         this.mContext = context;
         this.mListData = listData;
-        this.expandList = mView;
     }
 
     @Override
@@ -42,8 +38,7 @@ public class MyExpandableListAdapter extends BaseExpandableListAdapter
         if(mListData == null)
             return 0;
 
-        int childCount = this.mListData.get(groupPosition).m_cNestedMenu.size();
-        return childCount;
+        return this.mListData.get(groupPosition).m_cNestedMenu.size();
     }
 
     @Override
@@ -98,12 +93,12 @@ public class MyExpandableListAdapter extends BaseExpandableListAdapter
                 convertView = infalInflater.inflate(R.layout.list_submenu, null);
         }
 
-        TextView txtListHeader = (TextView)convertView.findViewById(R.id.submenu);
+        TextView txtListHeader = convertView.findViewById(R.id.submenu);
 
         txtListHeader.setText(headerTitle.getName());
         if( getChildrenCount( groupPosition ) == 0 )
         {
-            ImageView childIcon = (ImageView)convertView.findViewById(R.id.iconimage);
+            ImageView childIcon = convertView.findViewById(R.id.iconimage);
             if(childIcon != null && headerTitle.getIcon() != -1)
                 childIcon.setImageResource(headerTitle.getIcon());
 
@@ -135,16 +130,12 @@ public class MyExpandableListAdapter extends BaseExpandableListAdapter
     {
         ExpandedMenuModel childItem = (ExpandedMenuModel) getChild(groupPosition, childPosition);
 
-        //if (convertView == null)
-        {
-            LayoutInflater infalInflater = (LayoutInflater)this.mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = infalInflater.inflate(R.layout.listheader, null);
-        }
+        LayoutInflater infalInflater = (LayoutInflater)this.mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        convertView = infalInflater.inflate(R.layout.listheader, null);//TODO разобраться, что делать с желтым  null. Если не null - падает.
 
-        TextView lblListChild = (TextView)convertView.findViewById(R.id.submenu);
-        ImageView childIcon = (ImageView)convertView.findViewById(R.id.iconimage);
+        TextView lblListChild = convertView.findViewById(R.id.submenu);
+        ImageView childIcon = convertView.findViewById(R.id.iconimage);
 
-        //lblListChild.setTypeface(null, Typeface.BOLD);
         lblListChild.setText(childItem.getName());
 
         if(childIcon != null && childItem.getIcon() != -1)

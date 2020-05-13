@@ -17,7 +17,7 @@ public class Fan extends BaseRelay
 				getIndDisC(R.drawable.fan_b_p,R.drawable.fan_b,R.drawable.id091,R.drawable.fan_b_c),
 			getIndDisC(R.drawable.fan_off_p,R.drawable.fan_off,R.drawable.id089,R.drawable.fan_off_c),
 				4, sName, bMetaInd, bProtected, bDoubleScale, bQuick, iReaction, iScale);
-		// TODO Auto-generated constructor stub
+
 	}
 
 	@Override

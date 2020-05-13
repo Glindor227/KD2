@@ -1,6 +1,5 @@
 package ru.cpc.smartflatview;
 
-import android.app.Activity;
 import android.app.DialogFragment;
 import android.os.Bundle;
 import android.util.Log;
@@ -8,14 +7,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.Locale;
 
-/**
- * Created by Вик on 023. 23.03.16.
- */
+
 public class PlaylistDialog extends DialogFragment{
 
     protected Button firstButton;
@@ -46,20 +42,19 @@ public class PlaylistDialog extends DialogFragment{
     private OnPlaylistDialogListener callback = null;
 
     public interface OnPlaylistDialogListener {
-        public void onPlaylistDialogSubmit(String friendEmail);
+        void onPlaylistDialogSubmit(String friendEmail);
     }
 
-    public void SetCallback(OnPlaylistDialogListener _callback)
-    {
+    public void SetCallback(OnPlaylistDialogListener _callback){
         callback = _callback;
     }
 
     protected class LineClickListener implements View.OnClickListener
     {
-        public int m_iLine = -1;
+        int m_iLine;
         private TextView m_pView;
 
-        public LineClickListener(int iLine, TextView pView)
+        LineClickListener(int iLine, TextView pView)
         {
             m_iLine = iLine;
             m_pView = pView;
@@ -87,79 +82,64 @@ public class PlaylistDialog extends DialogFragment{
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         getDialog().setTitle(R.string.titlePlaylist);
-        View v = inflater.inflate(R.layout.playlist_dialog, null);
+        View v = inflater.inflate(R.layout.playlist_dialog, null);//TODO разобраться, что делать с желтым  null. Если не null - падает.
         //Toolbar toolbar = (Toolbar)v.findViewById(R.id.toolbar);
         //v.setSupportActionBar(toolbar);
 
-        firstButton = (Button)v.findViewById(R.id.PL_start);
-        prevButton = (Button)v.findViewById(R.id.PL_back);
-        nextButton = (Button)v.findViewById(R.id.PL_next);
-        lastButton = (Button)v.findViewById(R.id.PL_finish);
+        firstButton =v.findViewById(R.id.PL_start);
+        prevButton = v.findViewById(R.id.PL_back);
+        nextButton = v.findViewById(R.id.PL_next);
+        lastButton = v.findViewById(R.id.PL_finish);
 
-        firstButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                m_iFirst = 0;
+        firstButton.setOnClickListener(v12 -> {
+            m_iFirst = 0;
+            Update();
+        });
+
+        nextButton.setOnClickListener(v13 -> {
+            if(m_iFirst + 10 < m_iTotal)
+            {
+                m_iFirst += 10;
                 Update();
             }
         });
 
-        nextButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(m_iFirst + 10 < m_iTotal)
-                {
-                    m_iFirst += 10;
-                    Update();
-                }
-            }
-        });
-
-        prevButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(m_iFirst - 10 >= 0)
-                {
-                    m_iFirst -= 10;
-                    Update();
-                }
-            }
-        });
-
-        lastButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                m_iFirst = m_iTotal-11;
+        prevButton.setOnClickListener(v14 -> {
+            if(m_iFirst - 10 >= 0)
+            {
+                m_iFirst -= 10;
                 Update();
             }
         });
 
-        clearButton = (Button)v.findViewById(R.id.PL_clear);
-        addButton = (Button)v.findViewById(R.id.PL_add);
-        loadButton = (Button)v.findViewById(R.id.PL_load);
-
-        addButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                MediaLibraryDialog dlg = new MediaLibraryDialog();
-                dlg.show(getFragmentManager(), "dlg");
-
-            }
+        lastButton.setOnClickListener(v15 -> {
+            m_iFirst = m_iTotal-11;
+            Update();
         });
 
-        firstLine = (TextView)v.findViewById(R.id.PL_first);
-        linesCount = (TextView)v.findViewById(R.id.PL_total);
+        clearButton = v.findViewById(R.id.PL_clear);
+        addButton = v.findViewById(R.id.PL_add);
+        loadButton = v.findViewById(R.id.PL_load);
 
-        line01 = (TextView)v.findViewById(R.id.PL_line01);
-        line02 = (TextView)v.findViewById(R.id.PL_line02);
-        line03 = (TextView)v.findViewById(R.id.PL_line03);
-        line04 = (TextView)v.findViewById(R.id.PL_line04);
-        line05 = (TextView)v.findViewById(R.id.PL_line05);
-        line06 = (TextView)v.findViewById(R.id.PL_line06);
-        line07 = (TextView)v.findViewById(R.id.PL_line07);
-        line08 = (TextView)v.findViewById(R.id.PL_line08);
-        line09 = (TextView)v.findViewById(R.id.PL_line09);
-        line10 = (TextView)v.findViewById(R.id.PL_line10);
+        addButton.setOnClickListener(v1 -> {
+            MediaLibraryDialog dlg = new MediaLibraryDialog();
+            dlg.show(getFragmentManager(), "dlg");
+
+        });
+
+        firstLine = v.findViewById(R.id.PL_first);
+        linesCount = v.findViewById(R.id.PL_total);
+
+        line01 = v.findViewById(R.id.PL_line01);
+        line02 = v.findViewById(R.id.PL_line02);
+        line03 = v.findViewById(R.id.PL_line03);
+        line04 = v.findViewById(R.id.PL_line04);
+        line05 = v.findViewById(R.id.PL_line05);
+        line06 = v.findViewById(R.id.PL_line06);
+        line07 = v.findViewById(R.id.PL_line07);
+        line08 = v.findViewById(R.id.PL_line08);
+        line09 = v.findViewById(R.id.PL_line09);
+        line10 = v.findViewById(R.id.PL_line10);
 
         line01.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
         m_sLastSelected = line01;

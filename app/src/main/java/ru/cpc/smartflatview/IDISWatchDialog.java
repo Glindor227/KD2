@@ -1,60 +1,6 @@
 package ru.cpc.smartflatview;
 
-import android.app.ActivityManager;
-import android.app.AlertDialog;
-import android.app.DialogFragment;
-import android.content.DialogInterface;
-import android.graphics.drawable.Drawable;
-import android.os.Bundle;
-import android.support.constraint.ConstraintLayout;
-import android.support.constraint.ConstraintSet;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.DatePicker;
-import android.widget.FrameLayout;
-import android.widget.TextView;
-import android.widget.TimePicker;
-import android.widget.Toast;
-
-import com.idis.android.redx.ConnectionType;
-import com.idis.android.redx.PlaySpeed;
-import com.idis.android.redx.RAudioFormat;
-import com.idis.android.redx.RDate;
-import com.idis.android.redx.RDateTime;
-import com.idis.android.redx.RDisconnectInfo;
-import com.idis.android.redx.REvent;
-import com.idis.android.redx.RPtzPreset;
-import com.idis.android.redx.RSize;
-import com.idis.android.redx.RStatus;
-import com.idis.android.redx.RString;
-import com.idis.android.redx.RTime;
-import com.idis.android.redx.RUpgradeDevice;
-import com.idis.android.redx.RUpgradeFile;
-import com.idis.android.redx.WhyDisconnected;
-import com.idis.android.redx.core.RCore;
-import com.idis.android.redx.searcher.RSearcher;
-import com.idis.android.redx.searcher.RSearcherListener;
-import com.idis.android.redx.util.PeerMemory;
-import com.idis.android.redx.watcher.PTZMoveCommand;
-import com.idis.android.redx.watcher.PTZMoveMethod;
-import com.idis.android.redx.watcher.PTZUseCommand;
-import com.idis.android.redx.watcher.RWatcher;
-import com.idis.android.redx.watcher.RWatcherListener;
-
-import java.util.Arrays;
-import java.util.Locale;
-import java.util.Random;
-
-import ru.IDIS.Ips;
-import ru.IDIS.ScreenLayout;
-import ru.IDIS.view.VideoBitmapPool;
-
-import static android.content.Context.ACTIVITY_SERVICE;
-
+/*
 public class IDISWatchDialog extends DialogFragment
         implements
         RWatcherListener,RSearcherListener,OnClickListener,IDISWatchDialogFullScreenExitListener
@@ -241,62 +187,7 @@ public class IDISWatchDialog extends DialogFragment
                 else
                     Toast.makeText(getActivity(), "mRWatcher NOT enable", Toast.LENGTH_SHORT).show();
                 break;
-/*
-            case R.id.button2:
-                Log.v(TAG, "onClick(+) button2");
 
-                final String[] speed_string = {
-                        "HALF",
-                        "x1",
-                        "x2",
-                        "x4",
-                        "x8",
-                        "x16",
-                        "x32",
-                };
-                AlertDialog.Builder builder_set_speed = new AlertDialog.Builder(getActivity());
-                builder_set_speed.setTitle("Play Speed");
-                builder_set_speed.setSingleChoiceItems(speed_string, -1,
-                        new DialogInterface.OnClickListener() {
-
-                            public void onClick(DialogInterface dialog, int item) {
-
-                                int speed = 0;
-
-                                switch (item) {
-                                    case 0:
-                                        speed = PlaySpeed.PLAY_SPEED_HALF;
-                                        break;
-                                    case 1:
-                                        speed = PlaySpeed.PLAY_SPEED_X1;
-                                        break;
-                                    case 2:
-                                        speed = PlaySpeed.PLAY_SPEED_X2;
-                                        break;
-                                    case 3:
-                                        speed = PlaySpeed.PLAY_SPEED_X4;
-                                        break;
-                                    case 4:
-                                        speed = PlaySpeed.PLAY_SPEED_X8;
-                                        break;
-                                    case 5:
-                                        speed = PlaySpeed.PLAY_SPEED_X16;
-                                        break;
-                                    case 6:
-                                        speed = PlaySpeed.PLAY_SPEED_X32;
-                                        break;
-                                }
-
-                                Log.v(TAG2, "onClick(button3) mSearcher.setSpeed(" + speed + ")");
-                                mSearcher.setSpeed(speed);
-                                dialog.dismiss();
-                            }
-                        });
-
-                AlertDialog dlg_set_speed = builder_set_speed.create();
-                dlg_set_speed.show();
-                break;
-                */
             case R.id.button3:
                 Log.v(TAG, "onClick(+) button3");
 
@@ -527,15 +418,6 @@ public class IDISWatchDialog extends DialogFragment
         bb.setEnabled(type==1);
         bb.invalidate();
 
-/*        bb = (Button)viewBig.findViewById(R.id.button11);bb.setEnabled(stopPress);bb.invalidate();
-        bb = (Button)viewBig.findViewById(R.id.button12);bb.setEnabled(stopPress);bb.invalidate();
-        bb = (Button)viewBig.findViewById(R.id.button13);bb.setEnabled(stopPress);bb.invalidate();
-        bb = (Button)viewBig.findViewById(R.id.button14);bb.setEnabled(stopPress);bb.invalidate();
-        bb = (Button)viewBig.findViewById(R.id.button15);bb.setEnabled(stopPress);bb.invalidate();
-        bb = (Button)viewBig.findViewById(R.id.button16);bb.setEnabled(stopPress);bb.invalidate();
-        bb = (Button)viewBig.findViewById(R.id.button2);bb.setEnabled(stopPress);bb.invalidate();
-        bb = (Button)viewBig.findViewById(R.id.button3);bb.setEnabled(stopPress);bb.invalidate();
-        */
 
 
 
@@ -633,10 +515,6 @@ public class IDISWatchDialog extends DialogFragment
         contentHolder.addView(mScreenLayout);
 
         Connect();
-/*        mRWatcher = new RWatcher();
-        mRWatcher.setListener(this);
-        int res = mRWatcher.connect(mCamVideo.mConnectionType, mCamVideo.m_sIP, mCamVideo.m_iPort, mCamVideo.m_sLogin, mCamVideo.m_sPass, mCamVideo.mUnityPort);
-*/
 //        if (res < 0) {
 //            Toast.makeText(this, "Unable to connect to the site", Toast.LENGTH_SHORT).show();
 //            //finish();
@@ -922,11 +800,6 @@ public class IDISWatchDialog extends DialogFragment
                             mNoCarrierTextView.setVisibility(View.GONE);
                             Log.v(TAG,"onFrameLoaded !13! "+rnd);
 
-/*                    if(mMode==0)
-                        tv1.setText("W FrameLoaded");
-                    if(mMode==1)
-                        tv1.setText("S FrameLoaded");
-*/
 //                    Toast.makeText(getActivity(), "frame on:" + cvtSize.height() + "X"+cvtSize.width()+" - "+ originSize.height() + "X"+originSize.width(), Toast.LENGTH_SHORT).show();
                             synchronized(lock1) {
                                 Log.v(TAG,"onFrameLoaded !13! lock_in "+rnd);
@@ -1044,66 +917,7 @@ public class IDISWatchDialog extends DialogFragment
 
             @Override
             public void run() {
-                // TODO Auto-generated method stub
 
-//                Toast.makeText(WatchScreenActivity.this, "Audio connected", Toast.LENGTH_SHORT).show();
-
-//                if (_audioDlg != null) {
-//                    _audioDlg.dismiss();
-//                    _audioDlg = null;
-//                }
-//
-//                AlertDialog dlg = AudioControlDialog.createDialog(WatchScreenActivity.this, new AudioControlDialog.OnAudioControlListener() {
-//
-//                    @Override
-//                    public void onSpeakerEnabled(boolean enable) {
-//                        // TODO Auto-generated method stub
-//                        if (mRWatcher == null) {
-//                            return;
-//                        }
-//                        if (_status.audioInStatus(AUDIO_CAMERA) == 0) {
-//                            Toast.makeText(WatchScreenActivity.this, "Audio-in is not available", Toast.LENGTH_SHORT).show();
-//                            return;
-//                        }
-//                        if (enable) {
-//                            mRWatcher.startReceivingAudio(AUDIO_CAMERA);
-//                        }
-//                        else {
-//                            mRWatcher.stopReceivingAudio(AUDIO_CAMERA);
-//                        }
-//                    }
-//
-//                    @Override
-//                    public void onMicEnabled(boolean enable) {
-//                        // TODO Auto-generated method stub
-//                        if (mRWatcher == null) {
-//                            return;
-//                        }
-//                        if (_status.audioOutStatus(AUDIO_CAMERA) == 0) {
-//                            Toast.makeText(WatchScreenActivity.this, "Audio-out is not available", Toast.LENGTH_SHORT).show();
-//                            return;
-//                        }
-//                        if (enable) {
-//                            mRWatcher.startSendingAudio(AUDIO_CAMERA);
-//                        }
-//                        else {
-//                            AudioRecorder.getInstance().stop();
-//                            mRWatcher.stopSendingAudio(AUDIO_CAMERA);
-//                        }
-//                    }
-//
-//                    @Override
-//                    public void onClose() {
-//                        // TODO Auto-generated method stub
-//                        if (mRWatcher == null) {
-//                            return;
-//                        }
-//                        mRWatcher.disconnectAudio();
-//                    }
-//                });
-//                dlg.show();
-//
-//                _audioDlg = dlg;
             }
 
         });
@@ -1114,23 +928,6 @@ public class IDISWatchDialog extends DialogFragment
     @Override
     public void onAudioDisconnected(int reason) {
 
-//        AudioPlayer.getInstance().stop();
-//        AudioRecorder.getInstance().stop();
-//
-//        runOnUiThread(new Runnable() {
-//
-//            @Override
-//            public void run() {
-//                // TODO Auto-generated method stub
-//
-//                Toast.makeText(WatchScreenActivity.this, "Audio disconnected", Toast.LENGTH_SHORT).show();
-//
-//                if (_audioDlg != null) {
-//                    _audioDlg.dismiss();
-//                    _audioDlg = null;
-//                }
-//            }
-//        });
     }
 
     @Override
@@ -1159,19 +956,6 @@ public class IDISWatchDialog extends DialogFragment
         }
         Log.v(TAG, "onReceiveSendingAudioFormat");
 
-//        AudioRecorder.getInstance().initialize(sendInfo, new AudioRecorder.OnAudioCapturedListener() {
-//
-//            @Override
-//            public boolean onAudioCaptured(byte[] data, int dataLen) {
-//                // TODO Auto-generated method stub
-//
-//                Log.v(TAG, "sendAudio " + dataLen);
-//
-//                mRWatcher.sendAudio(data, dataLen, WatchScreenActivity.AUDIO_CAMERA);
-//                return false;
-//            }
-//        });
-//        AudioRecorder.getInstance().start();
         Log.v(TAG,"onReceiveSendingAudioFormat(+)");
 
     }
@@ -1207,3 +991,4 @@ public class IDISWatchDialog extends DialogFragment
 
     }
 }
+*/

@@ -13,7 +13,7 @@ public class MacroDezinfection extends BaseMacro
 				getIndDisC(R.drawable.st10_1_p,R.drawable.st10_1_2,R.drawable.st10_1,R.drawable.st10_1_c),
 			getIndDisC(R.drawable.st10_0_p,R.drawable.st10_0_2,R.drawable.st10_0,R.drawable.st10_0_c),
 				10, sName, sButtonName, bMetaInd, bProtected, bDoubleScale, bQuick, iReaction, iScale);
-		// TODO Auto-generated constructor stub
+
 		m_bText2 = false;
 	}
 

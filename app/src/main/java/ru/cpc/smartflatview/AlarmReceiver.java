@@ -10,9 +10,7 @@ import android.os.SystemClock;
 import android.support.v4.content.WakefulBroadcastReceiver;
 import android.util.Log;
 
-/**
- * Created by Вик on 016. 16. 04. 18.
- */
+
 
 public class AlarmReceiver extends WakefulBroadcastReceiver
 {

@@ -1,23 +1,23 @@
 package ru.cpc.smartflatview;
 
-public class IndicatorLayout
+class IndicatorLayout
 {
-    public int m_iWidth;
-    public int m_iHeight;
+    int m_iWidth;
+    int m_iHeight;
 
-    public int m_iLeft;
-    public int m_iTop;
+    int m_iLeft;
+    int m_iTop;
 
-    public int m_iTextSize;
+    int m_iTextSize;
 
-    public IndicatorLayout(Indicator pIndicator, float fK, int l, int t, int r, int b)
+    IndicatorLayout(Indicator pIndicator, float fK, int l, int t, int r, int b)
     {
         int iWidth = r-l;
         int iHeight = b-t;
 
         //Высота, отведённая под подпись индикатора.
         //int iText = (int)(m_iHeight*1.25f/8);
-        //VP 05.10.15 - для индикаторов двойного размера размер текста уменьшаем вдвое, чтобы он был такой же, как размер текста обычных индикаторов.
+        // для индикаторов двойного размера размер текста уменьшаем вдвое, чтобы он был такой же, как размер текста обычных индикаторов.
         float fTextScale = 1.25f;
         if(pIndicator.m_bDoubleScale)
             fTextScale *= 0.5f;

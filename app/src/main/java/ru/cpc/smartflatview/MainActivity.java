@@ -1,13 +1,13 @@
 package ru.cpc.smartflatview;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.AlarmManager;
 import android.app.AlertDialog;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
@@ -30,7 +30,6 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
-import android.support.v4.view.MenuItemCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -43,43 +42,32 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
-import android.widget.Toast;
-import android.widget.ViewFlipper;
 
+//import com.idis.android.redx.RSize;
+//import com.idis.android.redx.core.RCore;
 
-import com.idis.android.redx.RSize;
-import com.idis.android.redx.core.RCore;
-
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 
-import ru.cpc.smartflatview.Import.ImportActivity;
+import ru.cpc.smartflatview.Import.UI.ImportActivity;
 
 public class MainActivity extends AppCompatActivity {
 
     private static Context mAppContext = null;
 
-    public  static final boolean USE_ORIGINAL_RESOLUTION = true;
+//    public  static final boolean USE_ORIGINAL_RESOLUTION = true;
 
-    public static Context getAppContext() {
-        return mAppContext;
-    }
+    public static Context getAppContext() {return mAppContext;}
 
-    public static boolean canUseGL() {
-        return false;
-    }
+    public static boolean canUseGL() {return false;}
 
     private static final int REQUEST_READWRITE_STORAGE = 100;
 
@@ -119,12 +107,10 @@ public class MainActivity extends AppCompatActivity {
                 dlgAlert.setMessage(R.string.error_FileAccess);
                 dlgAlert.setTitle(R.string.app_name);
                 dlgAlert.setPositiveButton(R.string.ok,
-                                           new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
+                        (dialog, which) -> {
 //                                SafeExit();
 //                                finish();
 //                                System.exit(0);
-                            }
                         });
                 dlgAlert.setCancelable(false);
                 dlgAlert.create().show();
@@ -195,6 +181,10 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onStart() {
+
+//        Indicator.typeDez = Prefs.getDis(this);
+        Indicator.delta = Prefs.getDelta(this);
+
         if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
             Log.d("Glindor3!3", "MainActivity onStart ORIENTATION_LANDSCAPE");
         }
@@ -204,8 +194,10 @@ public class MainActivity extends AppCompatActivity {
         super.onStart();
     }
 
+    @SuppressLint("SourceLockedOrientationActivity")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
 
         Log.d("Glindor3!3", "setRequestedOrientation");
         if(Config.portOrientation){
@@ -216,7 +208,6 @@ public class MainActivity extends AppCompatActivity {
             Log.d("Glindor3!3", "setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE)");
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         }
-
 
         Log.d("Glindor3!3", "onCreate");
         if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
@@ -247,7 +238,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         super.onCreate(savedInstanceState);
-        RCore.getInstance().setResolution(new RSize());
+//        RCore.getInstance().setResolution(new RSize());
         Log.d("Glindor3","MainActivity onCreate 2");
 
         mAppContext = getApplicationContext();
@@ -255,7 +246,7 @@ public class MainActivity extends AppCompatActivity {
         //StartCheckAlarmShedule();
 
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         Log.d("Glindor3","MainActivity onCreate 3");
 
@@ -275,14 +266,14 @@ public class MainActivity extends AppCompatActivity {
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager(), 0);
 
         // Set up the ViewPager with the sections adapter.
-        mViewPager = (ViewPager) findViewById(R.id.container);
+        mViewPager = findViewById(R.id.container);
         if (mViewPager != null)
         {
             mViewPager.setAdapter(mSectionsPagerAdapter);
         }
         Log.d("Glindor3","MainActivity onCreate 5");
 
-        tabLayout = (TabLayout) findViewById(R.id.tabs);
+        tabLayout = findViewById(R.id.tabs);
         if (tabLayout != null)
         {
             tabLayout.setupWithViewPager(mViewPager);
@@ -291,7 +282,7 @@ public class MainActivity extends AppCompatActivity {
 
         //Настраиваем боковое меню
         if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
-            DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+            DrawerLayout drawer = findViewById(R.id.drawer_layout);
             ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                     this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
             if (drawer != null) {
@@ -301,7 +292,7 @@ public class MainActivity extends AppCompatActivity {
         }
         Log.d("Glindor3","MainActivity onCreate 6");
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        NavigationView navigationView = findViewById(R.id.nav_view);
 
         if (navigationView != null)
         {
@@ -312,42 +303,83 @@ public class MainActivity extends AppCompatActivity {
         if(Config.Instance != null)
             prepareListData();
 
-        ExpandableListView expandableList= (ExpandableListView) findViewById(R.id.navigationmenu);
+        ExpandableListView expandableList= findViewById(R.id.navigationmenu);
         if (expandableList != null)
         {
-            expandableList.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
-                @Override
-                public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id)
+            expandableList.setOnChildClickListener((parent, v, groupPosition, childPosition, id) -> {
+
+                int iRoom = m_cListData.get(groupPosition).m_cNestedMenu.get(childPosition).getRoom();
+
+                Log.d("111111111111111", "Clicked " + groupPosition + ":" + childPosition);
+                Log.d("111111111111111", "Switching to room #" + iRoom);
+
+                if(iRoom == -1)
+                    return  true;
+
+                Objects.requireNonNull(getSupportActionBar()).setTitle(Config.Instance.m_cRooms.get(iRoom).m_sName);
+
+                mSectionsPagerAdapter.m_iRoom = iRoom;
+                Objects.requireNonNull(mViewPager.getAdapter()).notifyDataSetChanged();
+
+                tabLayout.removeAllTabs();
+                for (Subsystem pSubsystem : Config.Instance.m_cRooms.get(iRoom).m_cSubsystems) {
+                    TabLayout.Tab newTab = tabLayout.newTab();
+                    if(pSubsystem.m_sName.equalsIgnoreCase("0"))
+                        newTab.setIcon(R.drawable.tab_light_indicator);
+                    else
+                        newTab.setIcon(R.drawable.tab_media_indicator);
+                    newTab.setText(pSubsystem.m_sName);
+                    Log.d("Glindor4","Новая закладка "+pSubsystem.m_sName);
+                    tabLayout.addTab(newTab);
+                }
+                Objects.requireNonNull(tabLayout.getTabAt(0)).select();
+
+                if(Config.Instance.m_cRooms.get(iRoom).m_cSubsystems.size() > 1)
+                    tabLayout.setVisibility(View.VISIBLE);
+                else
+                    tabLayout.setVisibility(View.GONE);
+
+                //mSectionsPagerAdapter = (SectionsPagerAdapter)mViewPager.getAdapter();
+                mViewPager.getAdapter().notifyDataSetChanged();
+
+                DrawerLayout drawer = findViewById(R.id.drawer_layout);
+                if (drawer != null)
                 {
-                    //Toast.makeText(MainActivity.this, "clicked " + m_cListData.get(groupPosition).m_cNestedMenu.get(childPosition).toString(), Toast.LENGTH_SHORT).show();
+                    drawer.closeDrawers();
+                }
 
-                    int iRoom = m_cListData.get(groupPosition).m_cNestedMenu.get(childPosition).getRoom();
+                return true;
+            });
+            expandableList.setOnGroupClickListener((parent, v, groupPosition, id) -> {
+                if(m_cListData.get(groupPosition).m_cNestedMenu.size() == 0)
+                {
+                    //Toast.makeText(MainActivity.this, "clicked " + m_cListData.get(groupPosition).toString(), Toast.LENGTH_SHORT).show();
 
-                    Log.d("111111111111111", "Clicked " + groupPosition + ":" + childPosition);
-                    Log.d("111111111111111", "Switching to room #" + iRoom);
+                    int iGroup = m_cListData.get(groupPosition).getRoom();
 
-                    if(iRoom == -1)
-                        return  true;
+                    if(iGroup == -1)
+                        return true;
 
-                    getSupportActionBar().setTitle(Config.Instance.m_cRooms.get(iRoom).m_sName);
+                    Objects.requireNonNull(getSupportActionBar()).setTitle(Config.Instance.m_cRooms.get(iGroup).m_sName);
 
-                    mSectionsPagerAdapter.m_iRoom = iRoom;
-                    mViewPager.getAdapter().notifyDataSetChanged();
+                    Log.d("111111111111111", "Switching to group #" + id);
+
+                    mSectionsPagerAdapter.m_iRoom = iGroup;
+                    Objects.requireNonNull(mViewPager.getAdapter()).notifyDataSetChanged();
 
                     tabLayout.removeAllTabs();
-                    for (Subsystem pSubsystem : Config.Instance.m_cRooms.get(iRoom).m_cSubsystems) {
+                    for (Subsystem pSubsystem : Config.Instance.m_cRooms.get(iGroup).m_cSubsystems) {
                         TabLayout.Tab newTab = tabLayout.newTab();
                         if(pSubsystem.m_sName.equalsIgnoreCase("0"))
                             newTab.setIcon(R.drawable.tab_light_indicator);
                         else
                             newTab.setIcon(R.drawable.tab_media_indicator);
                         newTab.setText(pSubsystem.m_sName);
-                        Log.d("Glindor4","Новая закладка "+pSubsystem.m_sName);
                         tabLayout.addTab(newTab);
                     }
-                    tabLayout.getTabAt(0).select();
+                    Objects.requireNonNull(tabLayout.getTabAt(0)).select();
 
-                    if(Config.Instance.m_cRooms.get(iRoom).m_cSubsystems.size() > 1)
+                    if(Config.Instance.m_cRooms.get(iGroup).m_cSubsystems.size() > 1)
                         tabLayout.setVisibility(View.VISIBLE);
                     else
                         tabLayout.setVisibility(View.GONE);
@@ -355,7 +387,7 @@ public class MainActivity extends AppCompatActivity {
                     //mSectionsPagerAdapter = (SectionsPagerAdapter)mViewPager.getAdapter();
                     mViewPager.getAdapter().notifyDataSetChanged();
 
-                    DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+                    DrawerLayout drawer = findViewById(R.id.drawer_layout);
                     if (drawer != null)
                     {
                         drawer.closeDrawers();
@@ -363,61 +395,11 @@ public class MainActivity extends AppCompatActivity {
 
                     return true;
                 }
-            });
-            expandableList.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
-                @Override
-                public boolean onGroupClick(ExpandableListView parent, View v, int groupPosition, long id)
-                {
-                    if(m_cListData.get(groupPosition).m_cNestedMenu.size() == 0)
-                    {
-                        //Toast.makeText(MainActivity.this, "clicked " + m_cListData.get(groupPosition).toString(), Toast.LENGTH_SHORT).show();
 
-                        int iGroup = m_cListData.get(groupPosition).getRoom();
-
-                        if(iGroup == -1)
-                            return true;
-
-                        getSupportActionBar().setTitle(Config.Instance.m_cRooms.get(iGroup).m_sName);
-
-                        Log.d("111111111111111", "Switching to group #" + id);
-
-                        mSectionsPagerAdapter.m_iRoom = iGroup;
-                        mViewPager.getAdapter().notifyDataSetChanged();
-
-                        tabLayout.removeAllTabs();
-                        for (Subsystem pSubsystem : Config.Instance.m_cRooms.get(iGroup).m_cSubsystems) {
-                            TabLayout.Tab newTab = tabLayout.newTab();
-                            if(pSubsystem.m_sName.equalsIgnoreCase("0"))
-                                newTab.setIcon(R.drawable.tab_light_indicator);
-                            else
-                                newTab.setIcon(R.drawable.tab_media_indicator);
-                            newTab.setText(pSubsystem.m_sName);
-                            tabLayout.addTab(newTab);
-                        }
-                        tabLayout.getTabAt(0).select();
-
-                        if(Config.Instance.m_cRooms.get(iGroup).m_cSubsystems.size() > 1)
-                            tabLayout.setVisibility(View.VISIBLE);
-                        else
-                            tabLayout.setVisibility(View.GONE);
-
-                        //mSectionsPagerAdapter = (SectionsPagerAdapter)mViewPager.getAdapter();
-                        mViewPager.getAdapter().notifyDataSetChanged();
-
-                        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-                        if (drawer != null)
-                        {
-                            drawer.closeDrawers();
-                        }
-
-                        return true;
-                    }
-
-                    return false;
-                }
+                return false;
             });
 
-            MyExpandableListAdapter mMenuAdapter = new MyExpandableListAdapter(this, m_cListData, expandableList);
+            MyExpandableListAdapter mMenuAdapter = new MyExpandableListAdapter(this, m_cListData);
             expandableList.setAdapter(mMenuAdapter);
         }
 
@@ -453,7 +435,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void prepareListData()
     {
-        m_cListData = new ArrayList<ExpandedMenuModel>();
+        m_cListData = new ArrayList<>();
         m_cMenu.clear();
 
         if(Config.Instance == null)
@@ -483,13 +465,13 @@ public class MainActivity extends AppCompatActivity {
 
             for (String key : Config.Instance.m_cGroups.keySet())
             {
-                if (Config.Instance.m_cGroups.get(key).size() > 0)
+                if (Objects.requireNonNull(Config.Instance.m_cGroups.get(key)).size() > 0)
                 {
-                    if (Config.Instance.m_cGroups.get(key).size() > 1)
+                    if (Objects.requireNonNull(Config.Instance.m_cGroups.get(key)).size() > 1)
                     {
                         ExpandedMenuModel group = new ExpandedMenuModel(key, -1, -1);
                         m_cListData.add(group);
-                        for (Room pRoom : Config.Instance.m_cGroups.get(key)) {
+                        for (Room pRoom : Objects.requireNonNull(Config.Instance.m_cGroups.get(key))) {
                             if(pRoom==null){
                                 Log.e("SF", "ВНИМАНИЕ! В группе "+key+" существует пустая подсистема!");
                                 continue;
@@ -507,7 +489,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                     else
                     {
-                        Room pRoom = Config.Instance.m_cGroups.get(key).get(0);
+                        Room pRoom = Objects.requireNonNull(Config.Instance.m_cGroups.get(key)).get(0);
                         Log.d("SF", "prepareListData, room[" + pRoom.m_iIndex + "] = '" + pRoom.m_sName + "'");
                         ExpandedMenuModel item0 = new ExpandedMenuModel(pRoom.m_sName, R.drawable.ic_ok, pRoom.m_iIndex);
                         m_cListData.add(item0);
@@ -564,7 +546,7 @@ public class MainActivity extends AppCompatActivity {
     //По кнопке "Назад" закрываем боковое меню
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         if (drawer != null)
         {
             if (drawer.isDrawerOpen(GravityCompat.START)) {
@@ -704,13 +686,13 @@ public class MainActivity extends AppCompatActivity {
             }
             if(roomIndex != -1)
             {
-                getSupportActionBar().setTitle(Config.Instance.m_cRooms.get(roomIndex).m_sName);
+                Objects.requireNonNull(getSupportActionBar()).setTitle(Config.Instance.m_cRooms.get(roomIndex).m_sName);
 
                 Log.d("111111111111111", "Switching to room #" + roomIndex);
 
                 //mSectionsPagerAdapter = (SectionsPagerAdapter)mViewPager.getAdapter();
                 mSectionsPagerAdapter.m_iRoom = roomIndex;
-                mViewPager.getAdapter().notifyDataSetChanged();
+                Objects.requireNonNull(mViewPager.getAdapter()).notifyDataSetChanged();
 
                 tabLayout.removeAllTabs();
                 for (Subsystem pSubsystem : Config.Instance.m_cRooms.get(roomIndex).m_cSubsystems) {
@@ -722,7 +704,7 @@ public class MainActivity extends AppCompatActivity {
                     newTab.setText(pSubsystem.m_sName);
                     tabLayout.addTab(newTab);
                 }
-                tabLayout.getTabAt(subsystemIndex).select();
+                Objects.requireNonNull(tabLayout.getTabAt(subsystemIndex)).select();
 
                 if(Config.Instance.m_cRooms.get(roomIndex).m_cSubsystems.size() > 1)
                     tabLayout.setVisibility(View.VISIBLE);
@@ -771,13 +753,13 @@ public class MainActivity extends AppCompatActivity {
         {
             if (pSubsystem.m_sID.equals(subsystemId))
             {
-                getSupportActionBar().setTitle(pSubsystem.m_pRoom.m_sName);
+                Objects.requireNonNull(getSupportActionBar()).setTitle(pSubsystem.m_pRoom.m_sName);
 
                 Log.d("111111111111111", "Switching to room #" + pSubsystem.m_pRoom.m_iIndex);
 
                 //mSectionsPagerAdapter = (SectionsPagerAdapter)mViewPager.getAdapter();
                 mSectionsPagerAdapter.m_iRoom = pSubsystem.m_pRoom.m_iIndex;
-                mViewPager.getAdapter().notifyDataSetChanged();
+                Objects.requireNonNull(mViewPager.getAdapter()).notifyDataSetChanged();
 
                 tabLayout.removeAllTabs();
                 for (Subsystem pRoomSubsystem : pSubsystem.m_pRoom.m_cSubsystems)
@@ -787,10 +769,11 @@ public class MainActivity extends AppCompatActivity {
                     //    newTab.setIcon(R.drawable.tab_light_indicator);
                     //else
                     //    newTab.setIcon(R.drawable.tab_media_indicator);
-                    newTab.setText(pSubsystem.m_sName);
+
+                    newTab.setText(pSubsystem.m_sName);//TODO тут кажется бага. По иде надо pRoomSubsystem.m_sName
                     tabLayout.addTab(newTab);
                 }
-                tabLayout.getTabAt(pSubsystem.m_pRoom.m_cSubsystems.indexOf(pSubsystem)).select();
+                Objects.requireNonNull(tabLayout.getTabAt(pSubsystem.m_pRoom.m_cSubsystems.indexOf(pSubsystem))).select();
 
                 if(pSubsystem.m_pRoom.m_cSubsystems.size() > 1)
                     tabLayout.setVisibility(View.VISIBLE);
@@ -809,7 +792,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume()
     {
-        // TODO Auto-generated method stub
+
         super.onResume();
 
         Log.d("SF", "onResume, calling StopCheckAlarmShedule()" );
@@ -822,7 +805,7 @@ public class MainActivity extends AppCompatActivity {
         UpdateConnectionStatus();
     }
 
-    public ArrayList<String> m_cLogLines = new ArrayList<String>();
+    public ArrayList<String> m_cLogLines = new ArrayList<>();
 
     private boolean m_bOldAlarm = false;
 
@@ -831,8 +814,8 @@ public class MainActivity extends AppCompatActivity {
         if(!m_bStarted)
             return;
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        //final Menu menu = navigationView.getMenu();
+//        NavigationView navigationView = findViewById(R.id.nav_view);
+//        final Menu menu = navigationView.getMenu();
 
         boolean bAlarm = false;
         int alarmsCount = 0;
@@ -872,13 +855,15 @@ public class MainActivity extends AppCompatActivity {
         else
             Log.e("UpdateAlarmStatus", "Config.Instance is NULL !!!!");
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         final MenuItem alarmItem =
                 toolbar != null ? toolbar.getMenu().findItem(R.id.action_alarm) : null;
         if(alarmItem != null) {
             //alarmItem.setIcon(bAlarm ? R.drawable.ic_alarm : R.drawable.ic_ok);
 
-            ImageView imageView = (ImageView)MenuItemCompat.getActionView(alarmItem);
+//            ImageView imageView = (ImageView)MenuItemCompat.getActionView(alarmItem);
+            ImageView imageView = (ImageView)alarmItem.getActionView();
+
             if(imageView == null)
             {
                 LayoutInflater inflater = (LayoutInflater) this.getSystemService(LAYOUT_INFLATER_SERVICE);
@@ -887,15 +872,12 @@ public class MainActivity extends AppCompatActivity {
                     imageView = (ImageView) inflater.inflate(R.layout.alarm_refresh, null);
                     imageView.setImageResource(R.drawable.ic_ok);
 
-                    imageView.setOnTouchListener(new View.OnTouchListener() {
-                        @Override
-                        public boolean onTouch(View v, MotionEvent event) {
-                            onOptionsItemSelected(alarmItem);
-                            return false;
-                        }
+                    imageView.setOnTouchListener((v, event) -> {
+                        onOptionsItemSelected(alarmItem);
+                        return false;
                     });
 
-                    MenuItemCompat.setActionView(alarmItem, imageView);
+                    alarmItem.setActionView(imageView);
                 }
             }
 
@@ -990,7 +972,7 @@ public class MainActivity extends AppCompatActivity {
         if(!m_bStarted)
             return;
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         MenuItem alarmItem = null;
         if (toolbar != null)
         {
@@ -1068,7 +1050,7 @@ public class MainActivity extends AppCompatActivity {
         if(indicators.length() < iIndCount + 1)
         {
             mSectionsPagerAdapter.m_iRoom = 0;
-            mViewPager.getAdapter().notifyDataSetChanged();
+            Objects.requireNonNull(mViewPager.getAdapter()).notifyDataSetChanged();
 
             tabLayout.removeAllTabs();
             for (Subsystem pSubsystem : Config.Instance.m_cRooms.get(mSectionsPagerAdapter.m_iRoom).m_cSubsystems) {
@@ -1080,7 +1062,7 @@ public class MainActivity extends AppCompatActivity {
                 newTab.setText(pSubsystem.m_sName);
                 tabLayout.addTab(newTab);
             }
-            tabLayout.getTabAt(0).select();
+            Objects.requireNonNull(tabLayout.getTabAt(0)).select();
 
             if(Config.Instance.m_cRooms.get(mSectionsPagerAdapter.m_iRoom).m_cSubsystems.size() > 1) {
                 tabLayout.setVisibility(View.VISIBLE);
@@ -1088,7 +1070,7 @@ public class MainActivity extends AppCompatActivity {
             else
                 tabLayout.setVisibility(View.GONE);
 
-            getSupportActionBar().setTitle(Config.Instance.m_cRooms.get(mSectionsPagerAdapter.m_iRoom).m_sName);
+            Objects.requireNonNull(getSupportActionBar()).setTitle(Config.Instance.m_cRooms.get(mSectionsPagerAdapter.m_iRoom).m_sName);
             return;
         }
         Log.d("Glindor3","MainActivity Load 3");
@@ -1102,7 +1084,7 @@ public class MainActivity extends AppCompatActivity {
             mSectionsPagerAdapter.m_iRoom = 0;
         Log.d("Glindor3","MainActivity Load 4");
 
-        mViewPager.getAdapter().notifyDataSetChanged();
+        Objects.requireNonNull(mViewPager.getAdapter()).notifyDataSetChanged();
         Log.d("Glindor3","MainActivity Load 5");
 
         tabLayout.removeAllTabs();
@@ -1117,7 +1099,7 @@ public class MainActivity extends AppCompatActivity {
         }
         Log.d("Glindor3","MainActivity Load 6");
 
-        tabLayout.getTabAt(0).select();
+        Objects.requireNonNull(tabLayout.getTabAt(0)).select();
         Log.d("Glindor3","MainActivity Load 7");
 
         if(Config.Instance.m_cRooms.get(mSectionsPagerAdapter.m_iRoom).m_cSubsystems.size() > 1) {
@@ -1127,7 +1109,7 @@ public class MainActivity extends AppCompatActivity {
             tabLayout.setVisibility(View.GONE);
         Log.d("Glindor3","MainActivity Load 9");
 
-        getSupportActionBar().setTitle(Config.Instance.m_cRooms.get(mSectionsPagerAdapter.m_iRoom).m_sName);
+        Objects.requireNonNull(getSupportActionBar()).setTitle(Config.Instance.m_cRooms.get(mSectionsPagerAdapter.m_iRoom).m_sName);
         Log.d("Glindor3","MainActivity Load 10");
 
         int iPos = 1;
@@ -1141,7 +1123,7 @@ public class MainActivity extends AppCompatActivity {
     {
         StringBuilder sRes = new StringBuilder();
 
-        sRes.append(String.valueOf((char) mSectionsPagerAdapter.m_iRoom));
+        sRes.append((char) mSectionsPagerAdapter.m_iRoom);
 
         for (Subsystem pSubsystem : Config.Instance.m_cSubsystems)
         {
@@ -1170,19 +1152,20 @@ public class MainActivity extends AppCompatActivity {
      */
     public class SectionsPagerAdapter extends FragmentStatePagerAdapter
     {
-        public int m_iRoom;
+        int m_iRoom;
 
-        public SectionsPagerAdapter(FragmentManager fm, int room)
+        SectionsPagerAdapter(FragmentManager fm, int room)
         {
             super(fm);
             m_iRoom = room;
         }
 
+
         @Override
         public Fragment getItem(int position) {
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
-            Log.d("111111111111111", "Creating fragment #" + position + " for room #" + m_iRoom);
+            Log.d("Regul2222", "Creating fragment #" + position + " for room #" + m_iRoom);
             return PlaceholderFragment.newInstance(m_iRoom, position);
         }
 
@@ -1195,13 +1178,13 @@ public class MainActivity extends AppCompatActivity {
         }
 
         @Override
-        public int getItemPosition(Object object) {
+        public int getItemPosition(@NonNull Object object) {
             return POSITION_NONE;
         }
 
         @Override
         public CharSequence getPageTitle(int position) {
-            int[] imageResId = {R.drawable.light2, R.drawable.media1};
+//            int[] imageResId = {R.drawable.light2, R.drawable.media1};
 
             String text = Config.Instance.m_cRooms.get(m_iRoom).m_cSubsystems.get(position).m_sName;
 
@@ -1239,22 +1222,26 @@ public class MainActivity extends AppCompatActivity {
             args.putInt(ARG_ROOM_NUMBER, room);
             args.putInt(ARG_SUBSYSTEM_NUMBER, subsystem);
             fragment.setArguments(args);
+            Log.d("Regul2222", "setArguments(sys:"+subsystem+" room:"+ room+")");
             return fragment;
         }
 
         public PlaceholderFragment() {
         }
 
-        private float lastX;
-        private ViewFlipper viewFlipper;
+//        private float lastX;
+  //      private ViewFlipper viewFlipper;
 
         @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
+        public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState)
         {
-            Integer roodId = getArguments().getInt(ARG_ROOM_NUMBER);
-            Log.d("ISTRA", "Create View for room #" + roodId + ", subsystem #" + getArguments().getInt(ARG_SUBSYSTEM_NUMBER));
-            View rootView = new SubsystemUI(SFServer.Instance, getContext(), Config.Instance.m_cRooms.get(getArguments().getInt(ARG_ROOM_NUMBER)).m_cSubsystems.get(getArguments().getInt(ARG_SUBSYSTEM_NUMBER)));
+            int roodId = Objects.requireNonNull(getArguments()).getInt(ARG_ROOM_NUMBER);
+            int ssNum = getArguments().getInt(ARG_SUBSYSTEM_NUMBER);
+            Log.d("Regul2222", "Create View for room #" + roodId + ", subsystem #" + ssNum);
+            Room room = Config.Instance.m_cRooms.get(roodId);
+            Subsystem s1 =  room.m_cSubsystems.get(ssNum);
+            View rootView = new SubsystemUI(SFServer.Instance, getContext(),s1);
 
 //            по этой формуле мы запоминаем список опрашиваемых переменых не для всей комнаты, а только для подсистемы. А так как этот конструктор вызвается для каждой подсистемы - непоследний затирается
 //            SFServer.Instance.m_pRoomQuery = Config.Instance.m_cRooms.get(getArguments().getInt(ARG_ROOM_NUMBER)).m_cSubsystems.get(getArguments().getInt(ARG_SUBSYSTEM_NUMBER)).GetQueryString();

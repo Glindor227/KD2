@@ -94,24 +94,24 @@ public class LaunchScreenActivity extends AppCompatActivity
             return pConfig;
         }
         @Override
-        protected void onPostExecute(Config o) {
+        protected void onPostExecute(Config config) {
             Log.d("Glindor3","BackgroundTask onPostExecute 1");
 
-            super.onPostExecute(o);
+            super.onPostExecute(config);
             Log.d("LaunchScreen", "onPostExecute()");
 
-            Config.Instance = o;
+            Config.Instance = config;
             TextView pTextName = (TextView) findViewById(R.id.summary_name);
             TextView pTextDesc = (TextView) findViewById(R.id.summary_description);
             Log.d("Glindor3","BackgroundTask onPostExecute 2");
 
             if (pTextName != null)
             {
-                pTextName.setText(o.m_sSummaryName);
+                pTextName.setText(config.m_sSummaryName);
             }
             if (pTextDesc != null)
             {
-                pTextDesc.setText(o.m_sSummaryText);
+                pTextDesc.setText(config.m_sSummaryText);
             }
             Log.d("Glindor3","BackgroundTask onPostExecute 3");
 
@@ -215,7 +215,10 @@ public class LaunchScreenActivity extends AppCompatActivity
         Log.d("Glindor3","LaunchScreenActivity onCreate 3");
 
 
+        //TODO надо чтобы эти параметры вступалив силу без перезагрузки
         Indicator.typeDez = Prefs.getDis(this);
+//        Indicator.delta = Prefs.getDelta(this);
+
 //        Indicator.newDez = Prefs.getNewDis(this);
 //        Indicator.posDez = Prefs.getPostDis(this);
 //        Indicator.pos2Dez = Prefs.getPost2Dis(this);

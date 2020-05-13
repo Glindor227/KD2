@@ -1,4 +1,4 @@
-package ru.cpc.smartflatview.Import.FileRepository;
+package ru.cpc.smartflatview.Import.Model.NetIO.FileRepository;
 
 
 import android.os.Build;
@@ -9,13 +9,13 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
-import ru.cpc.smartflatview.Import.Common.AbstractMessage;
-import ru.cpc.smartflatview.Import.Common.FileMessage;
-import ru.cpc.smartflatview.Import.Common.FileRequest;
-import ru.cpc.smartflatview.Import.Common.FilesListRequest;
-import ru.cpc.smartflatview.Import.Common.FilesListRezult;
-import ru.cpc.smartflatview.Import.Common.MyError;
-import ru.cpc.smartflatview.Import.ImportActivity;
+import ru.cpc.smartflatview.Import.Model.NetIO.Common.AbstractMessage;
+import ru.cpc.smartflatview.Import.Model.NetIO.Common.FileMessage;
+import ru.cpc.smartflatview.Import.Model.NetIO.Common.FileRequest;
+import ru.cpc.smartflatview.Import.Model.NetIO.Common.FilesListRequest;
+import ru.cpc.smartflatview.Import.Model.NetIO.Common.FilesListRezult;
+import ru.cpc.smartflatview.Import.Model.NetIO.Common.MyError;
+import ru.cpc.smartflatview.Import.UI.ImportActivity;
 
 public class ServerFile {
     private ImportActivity importActivity;
@@ -61,9 +61,7 @@ public class ServerFile {
                                 importActivity.setInput_IS(targetStream);
                                 Log.d(ImportActivity.TAG, "Считали нужный InputStream");
                             });
-
                         }
-
                     }
                     if(am instanceof FilesListRezult) {
                         Log.d(ImportActivity.TAG, "Пришло FilesListRezult");

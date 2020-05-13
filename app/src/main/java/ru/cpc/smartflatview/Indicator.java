@@ -13,15 +13,15 @@ import java.util.TimerTask;
 public abstract class Indicator
 {
 	protected static final String TAG = "SMARTFLAT" ;
-	public static int typeDez;
+	protected static int typeDez;
+	public static float delta;
 	protected final int m_iScale;
-//	public static boolean newDez;
-//	public static boolean posDez;
-//	public static boolean pos2Dez;
-//	public static boolean pos3Dez;
-//	public static boolean pos4Dez;
 
-	protected static int getIndDis2(int blue, int old){
+	protected static int getTypeDez() {
+		return typeDez;
+	}
+
+	private static int getIndDis2(int blue, int old){
 		if(typeDez>=2)
 			return blue;
 		return old;
@@ -31,7 +31,7 @@ public abstract class Indicator
 			return post;
 		return getIndDis2(blue,old);
 	}
-	static int getIndDisP(int old, int blue, int post1, int post2, int post3, int post4){
+	private static int getIndDisP(int old, int blue, int post1, int post2, int post3, int post4){
 		if(typeDez==6)
 			return post4;
 		if(typeDez==5)
@@ -52,26 +52,27 @@ public abstract class Indicator
 	}
 
 
-	protected int m_iOldResID = -1;
-	protected int m_iNewResID = -1;
+	protected int m_iOldResID;
+	protected int m_iNewResID;
 
-	protected boolean m_bQuick = true;
-	protected int m_iReaction = 1;
-	protected boolean m_bMetaIndicator = false;
-	protected boolean m_bProtected = false;
+	protected boolean m_bQuick;
+	protected int m_iReaction;
+	protected boolean m_bMetaIndicator;
+	boolean m_bProtected;
 	protected boolean m_bText2 = false;
 	protected boolean m_bText3 = false;
-	public int m_iSubType = 1;
+	protected boolean m_bText4 = false;
+	protected int m_iSubType;
 	
 	protected SFServer m_pServer;
 
-	protected int m_iFontSize;
+	int m_iFontSize;
 
-	protected boolean m_bDoubleScale = false;
+	protected boolean m_bDoubleScale;
 	protected boolean m_bDoubleWidth = false;
 
-	protected float m_fXPercent;
-	protected float m_fYPercent;
+	float m_fXPercent;
+	float m_fYPercent;
 	protected String m_sName;
 	protected Subsystem m_pSubsystem;
 
@@ -118,23 +119,13 @@ public abstract class Indicator
 			serializer.attribute(null, "quick", String.valueOf(m_bQuick ? 1 : 0));
 			serializer.attribute(null, "reaction", String.valueOf(m_iReaction));
 		}
-        catch (IllegalArgumentException e) 
+        catch (IllegalArgumentException | IllegalStateException | IOException e)
         {
 			Log.v("Glindor",e.getMessage());
 
 			e.printStackTrace();
-		} 
-        catch (IllegalStateException e) 
-        {
-			Log.v("Glindor",e.getMessage());
-			e.printStackTrace();
-		} 
-        catch (IOException e) 
-        {
-			Log.v("Glindor",e.getMessage());
-			e.printStackTrace();
 		}
-	}
+    }
 	
 	protected abstract boolean Update();
 
@@ -177,7 +168,7 @@ public abstract class Indicator
 		timer.schedule(lonelyRelease, 1000);
 	}
 
-	public void GestureConfirmed()
+	void GestureConfirmed()
 	{
 		if(timer != null)
 		{

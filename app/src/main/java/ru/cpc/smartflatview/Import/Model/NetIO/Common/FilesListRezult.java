@@ -1,6 +1,5 @@
-package ru.cpc.smartflatview.Import.Common;
+package ru.cpc.smartflatview.Import.Model.NetIO.Common;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class FilesListRezult extends AbstractMessage {

@@ -1,4 +1,4 @@
-package ru.cpc.smartflatview.Import;
+package ru.cpc.smartflatview.Import.UI;
 
 import android.content.Context;
 import android.content.Intent;
@@ -24,7 +24,7 @@ import java.util.Objects;
 
 import ru.cpc.smartflatview.Config;
 import ru.cpc.smartflatview.FileChooser;
-import ru.cpc.smartflatview.Import.FileRepository.ServerFile;
+import ru.cpc.smartflatview.Import.Model.NetIO.FileRepository.ServerFile;
 import ru.cpc.smartflatview.MainActivity;
 import ru.cpc.smartflatview.R;
 

@@ -6,11 +6,8 @@ import android.graphics.Canvas;
 import android.graphics.Path;
 import android.graphics.Rect;
 import android.util.AttributeSet;
-import android.widget.TextView;
 
-/**
- * Created by Вик on 011. 11. 03. 18.
- */
+
 
 public class VerticalTextView extends android.support.v7.widget.AppCompatTextView {
 

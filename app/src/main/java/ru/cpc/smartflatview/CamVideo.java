@@ -1,18 +1,17 @@
 package ru.cpc.smartflatview;
 
-import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
-
-import com.idis.android.redx.ConnectionType;
 
 import org.xmlpull.v1.XmlSerializer;
 
 import java.io.IOException;
 
+//import com.idis.android.redx.ConnectionType;
+
 public class CamVideo extends Indicator
 {
-    public int mConnectionType = ConnectionType.DIRECT;
+//    public int mConnectionType = ConnectionType.DIRECT;
     public boolean mUnityPort = true;
     public String m_sIP = "46.148.195.2";
     public int m_iPort = 8016;
@@ -102,9 +101,9 @@ public class CamVideo extends Indicator
     public boolean ShowPopup(Context context) {
         Log.v("IDISWatchDialog","IDISWatchDialog show+");
         try {
-            IDISWatchDialog dlg = new IDISWatchDialog();
-            dlg.Init(this);
-            dlg.show(((Activity) context).getFragmentManager(), "dlg");
+//            IDISWatchDialog dlg = new IDISWatchDialog();
+  //          dlg.Init(this);
+    //        dlg.show(((Activity) context).getFragmentManager(), "dlg");
         }catch (Exception e)
         {
             Log.v("IDISWatchDialog","IDISWatchDialog Exception");

@@ -14,7 +14,7 @@ public class FireSensor extends BaseAlarmSensor
 					1, sName, bMetaInd, bProtected, bDoubleScale, bQuick, iReaction, iScale);
 
 
-		// TODO Auto-generated constructor stub
+
 		m_iImitateAlarmChance = 15;
 	}
 }

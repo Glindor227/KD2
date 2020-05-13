@@ -6,14 +6,23 @@
         android:title="@string/start_screen"
         android:entries="@array/start_screens_labels"
         android:summary="@string/start_screen_summary"
-        android:defaultValue="2">
-    </ListPreference>
+        android:defaultValue="2"/>
     <CheckBoxPreference
         android:key="exit"
         android:summary="@string/exit_summary"
         android:title="@string/exit_title"
-        android:defaultValue="true">
-    </CheckBoxPreference>
+        android:defaultValue="true"/>
+    <CheckBoxPreference
+        android:key="black"
+        android:summary="Режим, при котором фон темный, а надписи светлые"
+        android:title="Темный фон"
+        android:defaultValue="false"/>
+
+    <CheckBoxPreference
+        android:key="bold"
+        android:summary="Жирный шрифт в наименовании индикаторов"
+        android:title="Жирные наименования"
+        android:defaultValue="false"/>
 
     <ListPreference
         android:key="dis"
@@ -21,39 +30,12 @@
         android:title="@string/dis_title"
         android:entries="@array/dis_labels"
         android:summary="@string/sum_dis_title"
-        android:defaultValue="3">
-    </ListPreference>
-    <!--, окончание -
-    <CheckBoxPreference
-        android:key="new_dis"
-        android:summary="@string/sum_new_dis_indicator"
-        android:title="@string/new_dis_indicator"
-        android:defaultValue="true">
-    </CheckBoxPreference>
-    <CheckBoxPreference
-        android:key="post_dis"
-        android:summary="@string/sum_post_dis_indicator"
-        android:title="@string/post_dis_indicator"
-        android:defaultValue="true">
-    </CheckBoxPreference>
-    <CheckBoxPreference
-        android:key="post2_dis"
-        android:summary="@string/sum_post2_dis_indicator"
-        android:title="@string/post2_dis_indicator"
-        android:defaultValue="false">
-    </CheckBoxPreference>
-    <CheckBoxPreference
-        android:key="post3_dis"
-        android:summary="@string/sum_post3_dis_indicator"
-        android:title="@string/post3_dis_indicator"
-        android:defaultValue="false">
-    </CheckBoxPreference>
-    <CheckBoxPreference
-        android:key="post4_dis"
-        android:summary="@string/sum_post4_dis_indicator"
-        android:title="@string/post4_dis_indicator"
-        android:defaultValue="false">
-    </CheckBoxPreference>
-    -->
+        android:defaultValue="3"/>
+    <EditTextPreference
+        android:key="deltatext"
+        android:summary="Смещение надписи на индикаторе"
+        android:title="Смещение"
+        android:text="1.0"/>
+
 
 </PreferenceScreen>

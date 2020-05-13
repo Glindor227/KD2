@@ -17,7 +17,7 @@ public class Valve extends BaseRelay
 				getIndDisC(R.drawable.valve_on_p,R.drawable.valve_on,R.drawable.id083_cold,R.drawable.valve_on_c),
 			getIndDisC(R.drawable.valve_off_p,R.drawable.valve_off,R.drawable.id085_cold,R.drawable.valve_off_c),
 				3, sName, bMetaInd, bProtected, bDoubleScale, bQuick, iReaction, iScale);
-		// TODO Auto-generated constructor stub
+
 	}
 
 	@Override

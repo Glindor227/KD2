@@ -13,7 +13,7 @@ public class MacroLowLevel extends BaseMacro
 				getIndDisC(R.drawable.st9_1_p,R.drawable.st9_1_2,R.drawable.st9_1,R.drawable.st9_1_c),
 				getIndDisC(R.drawable.st9_0_p,R.drawable.st9_0_2,R.drawable.st9_0,R.drawable.st9_0_c),
                 9, sName, sButtonName, bMetaInd, bProtected, bDoubleScale, bQuick, iReaction, iScale);
-		// TODO Auto-generated constructor stub
+
 		m_bText2 = false;
 	}
 

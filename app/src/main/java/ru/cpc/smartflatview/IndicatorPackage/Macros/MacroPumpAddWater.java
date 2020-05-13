@@ -14,7 +14,6 @@ public class MacroPumpAddWater extends BaseMacro
 				getIndDisC(R.drawable.st16_p,R.drawable.st16_2,R.drawable.st16,R.drawable.st16_c),
 				16, sName, sButtonName, bMetaInd, bProtected, bDoubleScale, bQuick, iReaction, iScale);
 
-		// TODO Auto-generated constructor stub
 		m_bText2 = false;
 	}
 

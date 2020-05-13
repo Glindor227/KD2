@@ -1,23 +1,25 @@
 package ru.cpc.smartflatview;
 
+import android.support.annotation.NonNull;
+
 import java.util.ArrayList;
 
 public class Subsystem
 {
-	public int m_iIndex;
-	public String m_sID;
+	int m_iIndex;
+	String m_sID;
 
 	public String m_sName;
 
-	protected ArrayList<Indicator> m_cIndicators = new ArrayList<Indicator>();
-	protected int m_iGridWidth;
-	protected int m_iGridHeight;
+	ArrayList<Indicator> m_cIndicators = new ArrayList<>();
+	int m_iGridWidth;
+	int m_iGridHeight;
 
-	protected Room m_pRoom = null;
+	Room m_pRoom = null;
 
 	protected SubsystemUI m_pUI = null;
 
-	public String m_sAlarm = "-1";
+	String m_sAlarm = "-1";
 	
 	public Subsystem(String sID, int index, int iScaleX, int iScaleY, String sName)
 	{
@@ -39,7 +41,7 @@ public class Subsystem
 		return this;
 	}
 
-	public void AddIndicator(Indicator pNewInd)
+	void AddIndicator(Indicator pNewInd)
 	{
 		if(pNewInd != null)
 		{
@@ -48,14 +50,9 @@ public class Subsystem
 		}
 	}
 
-	protected boolean m_bAlarmed = false;
-	
-	public boolean IsAlarmed()
-	{
-		return m_bAlarmed;
-	}
-	
-	public void Process(String sAddr, String sVal) 
+	boolean m_bAlarmed = false;
+
+	public void Process(String sAddr, String sVal)
 	{
 		if(m_sAlarm.equalsIgnoreCase(sAddr))
 			m_bAlarmed = Float.parseFloat(sVal) == 1;
@@ -63,8 +60,7 @@ public class Subsystem
 		m_pUI.Update();
 	}	
 	
-	public int getIndicatorsCount()
-	{
+	int getIndicatorsCount(){
 		return m_cIndicators.size();
 	}
 
@@ -94,7 +90,7 @@ public class Subsystem
 		CheckDemoAlarm();
 	}
 
-	public void CheckDemoAlarm()
+	void CheckDemoAlarm()
 	{
 		m_bAlarmed = false;
 		
@@ -109,7 +105,7 @@ public class Subsystem
 			m_pUI.Update();
 	}
 
-	public int GetAlarmedCount()
+	int GetAlarmedCount()
 	{
 		int count = 0;
 		for(Indicator pInd : m_cIndicators)
@@ -122,19 +118,10 @@ public class Subsystem
 
 		return count;
 	}
-	
-	public AddressString GetQueryString()
-	{
-		AddressString pAddr = new AddressString();
-		for(Indicator pInd : m_cIndicators)
-			pInd.GetAddresses(pAddr);
-		
-		return pAddr;
-	}
-	
+
+	@NonNull
 	@Override
-    public String toString() 
-    {
+    public String toString(){
         return m_sName;
     }
 }

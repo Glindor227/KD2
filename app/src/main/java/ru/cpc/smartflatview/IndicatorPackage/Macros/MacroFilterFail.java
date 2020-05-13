@@ -13,7 +13,7 @@ public class MacroFilterFail extends BaseMacro
 				getIndDisC(R.drawable.st12_1_p,R.drawable.st12_1_b,R.drawable.st12_1,R.drawable.st12_1_c),
 				getIndDisC(R.drawable.st12_0_p,R.drawable.st12_0_b,R.drawable.st12_0,R.drawable.st12_0_c),
 				12, sName, sButtonName, bMetaInd, bProtected, bDoubleScale, bQuick, iReaction, iScale);
-		// TODO Auto-generated constructor stub
+
 		m_bText2 = false;
 	}
 

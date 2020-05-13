@@ -9,10 +9,10 @@ import ru.cpc.smartflatview.IndicatorPackage.Base.BaseRegulator;
 
 public class NodeSeekBar extends BaseRegulator
 {
-    public String m_sButtonText = "";
+    private String m_sButtonText;
     private String m_sPattern = "%.1f °C";
 
-    public NodeSeekBar(int iX, int iY, String sName, boolean bMetaInd, boolean bProtected, boolean bDoubleScale, boolean bQuick, int iReaction, int iScale)
+    NodeSeekBar(int iX, int iY, String sName, boolean bMetaInd, boolean bProtected, boolean bDoubleScale, boolean bQuick, int iReaction, int iScale)
     {
 
         super(iX, iY, -1, 8, sName, bMetaInd, bProtected, bDoubleScale, bQuick, iReaction, iScale);
@@ -106,40 +106,21 @@ public class NodeSeekBar extends BaseRegulator
 
         iHeight -= pLayout.m_iTextSize*2.2;
 
-        //m_pUI.m_pText2.setGravity(Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL);
-
-        //m_iHeight -= iText*2.2;
-        //int iText = iWidth/6;
-//
-        //iHeight -= iText*2.2;
-//
-//        if(m_bDoubleScale)
-//        {
-//            m_pUI.m_pText.layout(-5, (int) (iHeight-iText*2.2), iWidth, iHeight - iText);
-//        }
-//        else
-//        {
-//            m_pUI.m_pText.layout(-5, (int) (iHeight-iText*2.6), iWidth, iHeight - iText);
-//        }
-        m_pUI.m_pOldView.layout(0, (int) (iHeight/2 - iText), iWidth, (int)(iHeight*0.65f + iText));//iHeight/2 + iText*2);
+        m_pUI.m_pOldView.layout(0, iHeight/2 - iText, iWidth, (int)(iHeight*0.65f + iText));//iHeight/2 + iText*2);
 
         if(m_bDoubleScale)
         {
             m_pUI.m_pText2.layout(0, (int) (iHeight/2-iText*2f), iWidth, iHeight/2 + iText);
-            //m_pUI.m_pText2.layout(0, (int) (iHeight/2+iText*0.3f), iWidth, iHeight);
             m_pUI.m_pText2.setTextSize(TypedValue.COMPLEX_UNIT_PX, iText*1.5f);
-            //m_pUI.m_pText2.setTextSize(TypedValue.COMPLEX_UNIT_PX, iText*0.95f);
         }
         else
         {
             m_pUI.m_pText2.layout(0, (int) (iHeight/2-iText*1.6f), iWidth, (int)(iHeight/2 + iText*0.8f));
-            //m_pUI.m_pText2.layout(0, (int) (iHeight/2+iText*0.125f), iWidth, iHeight);
             m_pUI.m_pText2.setTextSize(TypedValue.COMPLEX_UNIT_PX, iText*1.25f);
-            //m_pUI.m_pText2.setTextSize(TypedValue.COMPLEX_UNIT_PX, iText*0.75f);
         }
     }
 
-    public boolean m_bLockUpdate = false;
+    private boolean m_bLockUpdate = false;
 
     @Override
     public void Pressed(float iX, float iY)
@@ -172,10 +153,10 @@ public class NodeSeekBar extends BaseRegulator
         Logger.Instance.AddDebugInfo("NodeSeekBar: SetValue = " + iValue );
         //Log.d(TAG, "NodeSeekBar: SetValue = " + iValue );
 //        return super.SetValue(iValue+ (int) m_fValueMin);
-        return super.SetValue((float)iValue/ScrollingDialog.factorSet );
+        return super.SetValue(iValue /ScrollingDialog.factorSet );
     }
 
-    protected SeekBar m_pBar = null;
+    private SeekBar m_pBar = null;
 
     @Override
     public View GetViewComponent(Context context)

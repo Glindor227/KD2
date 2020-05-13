@@ -29,7 +29,6 @@ public abstract class BaseAlarmSensor extends Indicator
 	{
 		super(fX, fY, iResIDGuardOff, iSubType, sName, bMetaInd, bProtected, bDoubleSize, bQuick, iReaction,
 				iScale);
-		// TODO Auto-generated constructor stub
 		m_iResIDAlarm = iResIDAlarm;
 		m_iResIDGuardOff = iResIDGuardOff;
 		m_iResIDGuardOn = iResIDGuardOn;

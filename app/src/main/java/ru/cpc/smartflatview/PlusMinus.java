@@ -7,9 +7,7 @@ import org.xmlpull.v1.XmlSerializer;
 
 import java.io.IOException;
 
-/**
- * Created by Вик on 022. 22.03.16.
- */
+
 public class PlusMinus extends Indicator
 {
     private int m_iPressed = 0;
@@ -29,7 +27,7 @@ public class PlusMinus extends Indicator
     {
         super(fX, fY, iType == 0 ?plus_minus_v : plus_minus_ch, 1, sName, bMetaInd, bProtected, bDoubleSize, bQuick, iReaction, iScale);
         m_iType = iType;
-        // TODO Auto-generated constructor stub
+
     }
 
     private String m_sVariableUp = "-1";
@@ -54,20 +52,20 @@ public class PlusMinus extends Indicator
 
     @Override
     public boolean SwitchOnOff(float iX, float iY) {
-        // TODO Auto-generated method stub
+
         return false;
     }
 
     @Override
     public boolean SetValue(float iX, float iY) {
-        // TODO Auto-generated method stub
+
         return false;
     }
 
     @Override
     public boolean SetValue(float iValue)
     {
-        // TODO Auto-generated method stub
+
         return false;
     }
 
@@ -144,25 +142,25 @@ public class PlusMinus extends Indicator
 
     @Override
     public void Load(char code) {
-        // TODO Auto-generated method stub
+
 
     }
 
     @Override
     public String Save() {
-        // TODO Auto-generated method stub
+
         return null;
     }
 
     @Override
     public void GetAddresses(AddressString sAddr) {
-        // TODO Auto-generated method stub
+
 
     }
 
     @Override
     public boolean Process(String sAddr, String sVal) {
-        // TODO Auto-generated method stub
+
         return false;
     }
 

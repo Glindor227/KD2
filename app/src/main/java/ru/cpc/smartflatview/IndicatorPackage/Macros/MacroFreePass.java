@@ -5,9 +5,7 @@ import android.content.Context;
 import ru.cpc.smartflatview.IndicatorPackage.Base.BaseMacro;
 import ru.cpc.smartflatview.R;
 
-/**
- * Created by Вик on 013. 13. 08. 17.
- */
+
 
 public class MacroFreePass extends BaseMacro {
     public MacroFreePass(int iX, int iY, String sName, String sButtonName, boolean bMetaInd, boolean bProtected, boolean bDoubleScale, boolean bQuick, int iReaction, int iScale)
@@ -16,9 +14,7 @@ public class MacroFreePass extends BaseMacro {
                 getIndDisC(R.drawable.door_free_p,R.drawable.door_free_2,R.drawable.door_free,R.drawable.door_free_c),
                 getIndDisC(R.drawable.door_unblock_p,R.drawable.door_unblock_2,R.drawable.door_unblock,R.drawable.door_unblock_c),
                 8, sName, sButtonName, bMetaInd, bProtected, bDoubleScale, bQuick, iReaction, iScale);
-        // TODO Auto-generated constructor stub
-
-        m_bText2 = false;
+         m_bText2 = false;
     }
 
 //    @Override

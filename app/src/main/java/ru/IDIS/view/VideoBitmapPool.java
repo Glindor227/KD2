@@ -60,7 +60,7 @@ public final class VideoBitmapPool {
             = new VideoBitmapLruCache(DEFAULT_CACHE_SIZE + EXTRA_CACHE_SIZE, COLOR_CONFIG);
     
         public void clearDefault(int key) {
-            // TODO Auto-generated method stub
+
 
             BitmapDrawable drawable = _cache.get(key);
             if (drawable != null) {
@@ -72,12 +72,12 @@ public final class VideoBitmapPool {
         }
         
         public void clearExtra(int key) {
-            // TODO Auto-generated method stub
+
             clearDefault(DEFAULT_ELEMENT_COUNT + key);
         }
         
         public BitmapDrawable getDefault(int key, int width, int height) {
-            // TODO Auto-generated method stub
+
             return _cache.get(key, width, height);
         }
         
@@ -119,7 +119,7 @@ public final class VideoBitmapPool {
             = new VideoBitmapLruCache(EXTRA_ELEMENT_COUNT * EXTRA_ELEMENT_WIDTH * EXTRA_ELEMENT_HEIGHT, COLOR_CONFIG);
         
         public void clearDefault(int key) {
-            // TODO Auto-generated method stub
+
             BitmapDrawable drawable = _cacheDefault.get(key);
             if (drawable != null) {
                 Bitmap bitmap = drawable.getBitmap();
@@ -130,7 +130,7 @@ public final class VideoBitmapPool {
         }
         
         public void clearExtra(int key) {
-            // TODO Auto-generated method stub
+
             BitmapDrawable drawable = _cacheExtra.get(key);
             if (drawable != null) {
                 Bitmap bitmap = drawable.getBitmap();
@@ -141,7 +141,7 @@ public final class VideoBitmapPool {
         }
         
         public BitmapDrawable getDefault(int key, int width, int height) {
-            // TODO Auto-generated method stub
+
             return _cacheDefault.get(key, width, height);
         }
         

@@ -2,16 +2,13 @@ package ru.cpc.smartflatview.IndicatorPackage.Regulators;
 
 import android.app.Activity;
 import android.content.Context;
-import android.view.View;
 import android.widget.SeekBar;
 
 import ru.cpc.smartflatview.IndicatorPackage.Base.BaseRegulator;
 import ru.cpc.smartflatview.R;
 import ru.cpc.smartflatview.ScrollingDialog;
 
-/**
- * Created by Вик on 022. 22. 08. 16.
- */
+
 public class Battery extends BaseRegulator
 {
     public Battery(int iX, int iY, String sName, boolean bMetaInd, boolean bProtected, boolean bDoubleScale, boolean bQuick, int iReaction, int iScale)
@@ -29,18 +26,15 @@ public class Battery extends BaseRegulator
 
         if(m_bICP)
         {
-            if(m_bPower)
-            {
-                if(m_iValue == 0)
-                    m_pServer.SendCommand(m_sVariableValue, "3711");
-                else
-                    m_pServer.SendCommand(m_sVariableValue, String.valueOf(3584 + m_iValue));
-            }
+            if(m_iValue == 0)
+                m_pServer.SendCommand(m_sVariableValue, "3711");
             else
-                m_pServer.SendCommand(m_sVariableValue, "3584");
+                m_pServer.SendCommand(m_sVariableValue, String.valueOf(3584 + m_iValue));
+
+//                m_pServer.SendCommand(m_sVariableValue, "3584"); ICP off
         }
         else
-            m_pServer.SendCommand(m_sVariablePower, String.valueOf(m_bPower ? m_fValueOn : m_fValueOff));
+            m_pServer.SendCommand(m_sVariablePower, String.valueOf(m_fValueOn));
 
         return Update();
     }
@@ -48,19 +42,19 @@ public class Battery extends BaseRegulator
     @Override
     public boolean SetValue(float iX, float iY)
     {
-        // TODO Auto-generated method stub
+
         return false;
     }
 
     @Override
     protected boolean Update()
     {
-        int iResId = -1;
-
-        iResId = getIndDis(R.drawable.radiator_cool_p,R.drawable.radiator_cool_2,R.drawable.radiator_cold);
+        int iResId;
 
         if(m_iValue > m_fValueMed)
-            iResId = getIndDis(R.drawable.radiator_hot_p,R.drawable.radiator_hot_2,R.drawable.radiator_hot);
+            iResId = getIndDisC(R.drawable.radiator_hot_p,R.drawable.radiator_hot_2,R.drawable.radiator_hot,R.drawable.radiator_hot_c);
+        else
+            iResId = getIndDisC(R.drawable.radiator_cool_p,R.drawable.radiator_cool_2,R.drawable.radiator_cold,R.drawable.radiator_cool_c);
 
         if(m_pUI == null)
         {
@@ -97,16 +91,10 @@ public class Battery extends BaseRegulator
             }
         });
 
-        //Intent myIntent = new Intent(context, ScrollingActivity.class);
-        //context.startActivity(myIntent);
-
         if(m_iReaction == 1)
-            ScrollingDialog.AddAcceptBtn(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if(m_iValue != pSeeker.m_iValue)
-                        SetValue(pSeeker.m_iValue);
-                }
+            ScrollingDialog.AddAcceptBtn(v -> {
+                if(m_iValue != pSeeker.m_iValue)
+                    SetValue(pSeeker.m_iValue);
             });
 
         ScrollingDialog dlg = new ScrollingDialog();

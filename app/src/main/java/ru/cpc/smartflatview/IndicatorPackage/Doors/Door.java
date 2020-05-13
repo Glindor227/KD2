@@ -98,7 +98,7 @@ public class Door extends Indicator
 	@Override
 	public boolean SetValue(float iX, float iY) 
 	{
-		// TODO Auto-generated method stub
+
 		return false;
 	}
 

@@ -10,9 +10,6 @@ import ru.cpc.smartflatview.IndicatorPackage.Base.BaseRegulator;
 import ru.cpc.smartflatview.R;
 import ru.cpc.smartflatview.ScrollingDialog;
 
-/**
- * Created by Вик on 025. 25.04.16.
- */
 public class WarmFloorDevi extends BaseRegulator
 {
     public WarmFloorDevi(int iX, int iY, String sName, boolean bMetaInd, boolean bProtected, boolean bDoubleScale, boolean bQuick, int iReaction, int iScale)
@@ -27,7 +24,7 @@ public class WarmFloorDevi extends BaseRegulator
     @Override
     public boolean SetValue(float iX, float iY)
     {
-        // TODO Auto-generated method stub
+
         return false;
     }
 

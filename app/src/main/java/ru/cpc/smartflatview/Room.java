@@ -2,9 +2,7 @@ package ru.cpc.smartflatview;
 
 import java.util.ArrayList;
 
-/**
- * Created by Вик on 022. 22.01.16.
- */
+
 public class Room
 {
     public int m_iIndex;

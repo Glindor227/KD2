@@ -16,9 +16,7 @@ import ru.cpc.smartflatview.Indicator;
 import ru.cpc.smartflatview.R;
 import ru.cpc.smartflatview.ScrollingDialog;
 
-/**
- * Created by Вик on 005. 05. 04. 18.
- */
+
 
 public class DoorLock extends Indicator
 {
@@ -110,7 +108,7 @@ public class DoorLock extends Indicator
     @Override
     public boolean SetValue(float iX, float iY)
     {
-        // TODO Auto-generated method stub
+
         return false;
     }
 

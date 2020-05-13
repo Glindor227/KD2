@@ -7,6 +7,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.PointF;
 import android.graphics.Rect;
+import android.graphics.Typeface;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.GestureDetector;
@@ -37,6 +38,7 @@ public class IndicatorUI extends ViewGroup
 	protected TextView m_pText;
 	public TextView m_pText2;
 	public TextView m_pText3;
+	public TextView m_pText4;
 	private View m_pCog = null;
 	private View m_pShield = null;
 	
@@ -55,6 +57,26 @@ public class IndicatorUI extends ViewGroup
 	
 	Timer m_pTimer;
 	GestureDetector gestureDetector;
+	private Boolean mTextColorBlock = false;
+
+
+	public void setBlack(boolean bBlack) {
+		setAllTextColor(bBlack);
+	}
+
+	private void setAllTextColor(boolean bBlack) {
+		m_pText.setTextColor(this.getResources().getColor(bBlack?android.R.color.primary_text_dark:R.color.ind_name));
+
+		if(mTextColorBlock)
+			return;
+
+		if(m_pIndicator.m_bText2)
+			m_pText2.setTextColor(this.getResources().getColor(!bBlack ? android.R.color.primary_text_light :	android.R.color.primary_text_dark));
+		if(m_pIndicator.m_bText3)
+			m_pText3.setTextColor(this.getResources().getColor(!bBlack ? android.R.color.primary_text_light :	android.R.color.primary_text_dark));//, context.getTheme()));
+		if(m_pIndicator.m_bText4)
+			m_pText4.setTextColor(this.getResources().getColor(!bBlack ? android.R.color.primary_text_light :	android.R.color.primary_text_dark));//, context.getTheme()));
+	}
 
 	private class GestureListener extends GestureDetector.SimpleOnGestureListener
 	{
@@ -190,8 +212,7 @@ public class IndicatorUI extends ViewGroup
 
 		m_pIndicator = pIndicator;
 		
-		boolean bBlack = false;
-		
+
 		m_pOldView = pIndicator.GetViewComponent(context);
 		if(m_pIndicator.m_iOldResID != -1)
 			m_pOldView.setBackgroundResource(m_pIndicator.m_iOldResID);
@@ -223,16 +244,11 @@ public class IndicatorUI extends ViewGroup
 		m_pText.setTextScaleX(3f/4f);
 		m_pText.setGravity(Gravity.CENTER);
 		m_pText.setVisibility(VISIBLE);
+		if(Prefs.getNameBold(context))
+			m_pText.setTypeface(m_pText.getTypeface(), Typeface.BOLD);
+
 //		m_pText.setTranslationZ(50);
 //		m_pText.setElevation(50);
-
-		if(!bBlack) {
-//			m_pText.setTextColor(context.getResources().getColor(android.R.color.primary_text_light));//, context.getTheme()));
-//			m_pText.setTextColor(context.getResources().getColor(android.R.color.darker_gray));//, context.getTheme()));
-			m_pText.setTextColor(context.getResources().getColor(R.color.ind_name));//, context.getTheme()));
-		}
-		else
-			m_pText.setTextColor(context.getResources().getColor(android.R.color.primary_text_dark));//, context.getTheme()));
         addView(m_pText);
 		
 		if(m_pIndicator.m_bText2)
@@ -243,10 +259,12 @@ public class IndicatorUI extends ViewGroup
 			m_pText2.setTextScaleX(3f/4f);
 			m_pText2.setGravity(Gravity.CENTER);
 			m_pText2.setVisibility(VISIBLE);
-			if(bBlack)
+/*			if(bBlack)
 				m_pText2.setTextColor(context.getResources().getColor(android.R.color.primary_text_light));//, context.getTheme()));
 			else
 				m_pText2.setTextColor(context.getResources().getColor(android.R.color.primary_text_dark));//, context.getTheme()));
+
+ */
 			addView(m_pText2);
 		}
 		if(m_pIndicator.m_bText3)
@@ -257,9 +275,22 @@ public class IndicatorUI extends ViewGroup
 			m_pText3.setTextScaleX(3f/4f);
 			m_pText3.setGravity(Gravity.CENTER);
 			m_pText3.setVisibility(VISIBLE);
-			m_pText3.setTextColor(context.getResources().getColor(android.R.color.primary_text_dark));//, context.getTheme()));
+//			m_pText3.setTextColor(context.getResources().getColor(android.R.color.primary_text_dark));//, context.getTheme()));
 			addView(m_pText3);
 		}
+		if(m_pIndicator.m_bText4)
+		{
+			m_pText4 = new TextView(context);
+			m_pText4.setText("");
+			m_pText4.setTextSize(m_pIndicator.m_iFontSize);
+			m_pText4.setTextScaleX(3f/4f);
+			m_pText4.setGravity(Gravity.CENTER);
+			m_pText4.setVisibility(VISIBLE);
+//			m_pText4.setTextColor(context.getResources().getColor(android.R.color.primary_text_dark));//, context.getTheme()));
+			addView(m_pText4);
+		}
+		setAllTextColor(false);
+
 		m_pFadeInAnimation = AnimationUtils.loadAnimation(context,android.R.anim.fade_in);
 		m_pFadeInAnimation.setRepeatMode(Animation.REVERSE);
 		m_pFadeInAnimation.setDuration(1500);
@@ -277,13 +308,11 @@ public class IndicatorUI extends ViewGroup
                 m_pIndicator.m_iOldResID = m_pIndicator.m_iNewResID;
         	}
 
-			public void onAnimationRepeat(Animation animation) 
-			{
-				// TODO Auto-generated method stub
+			public void onAnimationRepeat(Animation animation) {
+
 			}
 
-			public void onAnimationStart(Animation animation) 
-			{
+			public void onAnimationStart(Animation animation) {
 	        }
 		});		
 
@@ -463,32 +492,18 @@ public class IndicatorUI extends ViewGroup
 			m_pIndicator.m_iOldResID = m_pIndicator.m_iNewResID;
 		}
 
-//		if(m_pIndicator.m_iNewResID == iResId && m_pOldView.getAnimation() != null)
-//			return false;
-//
-//		m_pOldView.setBackgroundResource(m_pIndicator.m_iNewResID);
-//
-//		m_pIndicator.m_iNewResID = iResId;
-//
-//		m_pNewView.setBackgroundResource(m_pIndicator.m_iNewResID);
-//
-//		if(m_bLoopAnimation)
-//		{
-//			m_pFadeInAnimation.setRepeatCount(Animation.INFINITE);
-//			m_pFadeOutAnimation.setRepeatCount(Animation.INFINITE);
-//		}
-//		else
-//		{
-//			m_pFadeInAnimation.setRepeatCount(0);
-//			m_pFadeOutAnimation.setRepeatCount(0);
-//		}
-//
-//  		m_pOldView.startAnimation(m_pFadeOutAnimation);
-//  		m_pNewView.startAnimation(m_pFadeInAnimation);
-  		
   		return true;
 	}
-	
+	public boolean StartAnimation(int iResId,boolean black)
+	{
+		int color = getResources().getColor(black?android.R.color.white:android.R.color.black);
+		mTextColorBlock = true;
+		if(m_pText2!=null)	m_pText2.setTextColor(color);
+		if(m_pText3!=null)	m_pText3.setTextColor(color);
+		if(m_pText4!=null)	m_pText4.setTextColor(color);
+		return StartAnimation(iResId);
+	}
+
 	
 	public int m_iWidth = 0;
 	public int m_iHeight = 0;

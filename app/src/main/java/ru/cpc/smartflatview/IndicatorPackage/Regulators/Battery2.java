@@ -10,9 +10,7 @@ import ru.cpc.smartflatview.IndicatorPackage.Base.BaseRegulator;
 import ru.cpc.smartflatview.R;
 import ru.cpc.smartflatview.ScrollingDialog;
 
-/**
- * Created by Вик on 028. 28. 12. 16.
- */
+
 
 public class Battery2 extends BaseRegulator
 {
@@ -26,7 +24,7 @@ public class Battery2 extends BaseRegulator
     @Override
     public boolean SetValue(float iX, float iY)
     {
-        // TODO Auto-generated method stub
+
         return false;
     }
 
@@ -57,7 +55,7 @@ public class Battery2 extends BaseRegulator
             return false;
         }
 
-        return m_pUI.StartAnimation(iResId);
+        return m_pUI.StartAnimation(iResId,false);
     }
 
     @Override

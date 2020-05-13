@@ -64,8 +64,7 @@ import ru.cpc.smartflatview.IndicatorPackage.Regulators.WarmFloorDevi;
 import ru.cpc.smartflatview.IndicatorPackage.Regulators.WarmFloorDevi2;
 import ru.cpc.smartflatview.IndicatorPackage.Relays.Curtains;
 import ru.cpc.smartflatview.IndicatorPackage.Relays.Fan;
-import ru.cpc.smartflatview.IndicatorPackage.Relays.Fountain1;
-import ru.cpc.smartflatview.IndicatorPackage.Relays.Fountain2;
+import ru.cpc.smartflatview.IndicatorPackage.Relays.Fountain;
 import ru.cpc.smartflatview.IndicatorPackage.Relays.Lamp;
 import ru.cpc.smartflatview.IndicatorPackage.Relays.PowerControl;
 import ru.cpc.smartflatview.IndicatorPackage.Relays.Radiator;
@@ -140,8 +139,8 @@ public class Config
 		Subsystem subsystem1;
 		if(port) {
 			subsystem1 = new Subsystem("1-0", subsystemIndex++, 3, 4, "0");
-			subsystem1.AddIndicator(new Lamp(25, 12, engl?"wall lamp":"Бра", false, false, false, true, 1, 3).setDemo());
-			subsystem1.AddIndicator(new Lamp(75, 12, engl?"night-light":"Ночник", false, false, false, true, 1, 3).setDemo());
+			subsystem1.AddIndicator(new Lamp(25, 12, engl?"wall lamp":"Бра", false, false, false, true, 1, 3,1).setDemo());
+			subsystem1.AddIndicator(new Lamp(75, 12, engl?"night-light":"Ночник", false, false, false, true, 1, 3,1).setDemo());
 			subsystem1.AddIndicator(new DimmerLamp(50, 37, engl?"ceiling lamp":"Люстра", false, false, false, true, 1, 3).setDemo());
 			subsystem1.AddIndicator(new WarmFloor(25, 62, engl?"underfloor heating ":"Тепл.пол", false, false, false, true, 1, 3).setDemo());
 			subsystem1.AddIndicator(new Conditioner(75, 62, engl?"Air conditioning":"Кондиционер", false, false, false, true, 1, 3).setDemo());
@@ -150,8 +149,8 @@ public class Config
 		}else {
 
 			subsystem1 = new Subsystem("1-0", 0, 4, 2, "0");
-			subsystem1.AddIndicator(new Lamp(25, 25, engl?"wall lamp":"Бра", false, false, false, true, 1, 3).setDemo());
-			subsystem1.AddIndicator(new Lamp(50, 25, engl?"night-light":"Ночник", false, false, false, true, 1, 3).setDemo());
+			subsystem1.AddIndicator(new Lamp(25, 25, engl?"wall lamp":"Бра", false, false, false, true, 1, 3,1).setDemo());
+			subsystem1.AddIndicator(new Lamp(50, 25, engl?"night-light":"Ночник", false, false, false, true, 1, 3,1).setDemo());
 			subsystem1.AddIndicator(new DimmerLamp(75, 25, engl?"ceiling lamp":"Люстра", false, false, false, true, 1, 3).setDemo());
 			subsystem1.AddIndicator(new WarmFloor(13, 75, engl?"underfloor heating ":"Тепл.пол", false, false, false, true, 1, 3).setDemo());
 			subsystem1.AddIndicator(new Conditioner(37, 75, engl?"Air conditioning":"Кондиционер", false, false, false, true, 1, 3).setDemo());
@@ -712,8 +711,8 @@ public class Config
 								pIndicator instanceof Fan ||
 								pIndicator instanceof Valve ||
                                 pIndicator instanceof Radiator ||
-                                pIndicator instanceof Fountain1 ||
-                                pIndicator instanceof Fountain2 ||
+                                pIndicator instanceof Fountain ||
+//                                pIndicator instanceof Fountain2 ||
 //                			pIndicator instanceof ButtonOn ||
 //                			pIndicator instanceof ButtonOff ||
 								pIndicator instanceof PowerControl)
@@ -809,8 +808,8 @@ public class Config
 								pIndicator instanceof Fan ||
 								pIndicator instanceof Valve ||
 								pIndicator instanceof Radiator ||
-                                pIndicator instanceof Fountain1 ||
-                                pIndicator instanceof Fountain2 ||
+                                pIndicator instanceof Fountain ||
+//                                pIndicator instanceof Fountain2 ||
 //                			pIndicator instanceof ButtonOn ||
 //                			pIndicator instanceof ButtonOff ||
 								pIndicator instanceof PowerControl)

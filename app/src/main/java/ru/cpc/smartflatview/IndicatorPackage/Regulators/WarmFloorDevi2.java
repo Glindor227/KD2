@@ -9,9 +9,6 @@ import ru.cpc.smartflatview.IndicatorPackage.Base.BaseRegulator;
 import ru.cpc.smartflatview.R;
 import ru.cpc.smartflatview.ScrollingDialog;
 
-/**
- * Created by Вик on 028. 28. 12. 16.
- */
 // Это "без функции включения выключения" видимо
 public class WarmFloorDevi2 extends BaseRegulator
 {
@@ -51,7 +48,7 @@ public class WarmFloorDevi2 extends BaseRegulator
     @Override
     public boolean SetValue(float iX, float iY)
     {
-        // TODO Auto-generated method stub
+
         return false;
     }
 

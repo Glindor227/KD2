@@ -5,9 +5,7 @@ import android.widget.ImageView;
 
 import java.util.ArrayList;
 
-/**
- * Created by Вик on 016. 16.03.16.
- */
+
 public class ExpandedMenuModel {
 
     String m_sName = "";

@@ -1,6 +1,7 @@
 package ru.cpc.smartflatview.IndicatorPackage.Base;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.util.Log;
 import android.util.TypedValue;
 
@@ -11,7 +12,6 @@ import java.io.IOException;
 import ru.cpc.smartflatview.AddressString;
 import ru.cpc.smartflatview.Indicator;
 import ru.cpc.smartflatview.IndicatorUI;
-import ru.cpc.smartflatview.R;
 import ru.cpc.smartflatview.SFServer;
 
 public abstract class BaseRegulator extends Indicator
@@ -24,32 +24,40 @@ public abstract class BaseRegulator extends Indicator
 	{
 		super(fX, fY, iResID, iSubType, sName, bMetaInd, bProtected, bDoubleSize, bQuick, iReaction,
 				iScale);
-		// TODO Auto-generated constructor stub
-	}
-	public String m_sTemp1Text = "23.7";
-	public String m_sTemp2Text = "23.9";
+		Log.d("Regul222", "конструктор (name:"+sName+")");
 
-	public float m_iTemp = 0; // текущее значение комнатной температуры
+
+	}
+	protected String m_sTemp2Text = "23.7";
+	protected String m_sTemp3Text = "23.9";
+	protected String m_sTemp4Text = "N/A";
+	protected boolean init = true;
+
+	protected boolean m_iState = true; // текущее значение состояния
+	protected float m_iTemp = 0; // текущее значение комнатной температуры
 	public float m_iValue = 0; // текущее значение целевой температуры
 	public boolean m_bPower = false; //текущее значение вкл/выкл
 	public int m_iMaxValue = 100;
 	
 	public String m_sVariableValue = "-1";
 	public String m_sVariablePower = "-1";
-	public String m_sVariableTemp = "-1";
-	public float m_fValueOn = 1;
-	public float m_fValueOff = 0;
+	private String m_sVariableTemp = "-1";
+	private String m_sVariableState = "-1";
+	protected float m_fValueOn = 1;
+	protected float m_fValueOff = 0;
 	public float m_fValueMin = 16;
 	public float m_fValueMax = 30;
-	public float m_fValueMed = 23;
+	protected float m_fValueMed = 23;
 
 	protected boolean m_bICP = false;
-	protected int m_prefix = 0;
+	private int m_prefix = 0;
 
 	protected boolean m_bNoPower = false;
 
 	public BaseRegulator Bind(String sAddressPower, String sAddressValue, String sValueOn, String sValueOff, boolean bNoPower, String sValueMin, String sValueMax, String sValueMed)
 	{
+		Log.d("Regul222", "Bind(name:"+ m_sName+")");
+
 		m_sVariablePower = sAddressPower;
 		m_sVariableValue = sAddressValue;
 
@@ -76,30 +84,49 @@ public abstract class BaseRegulator extends Indicator
 
 		return this;
 	}
-	public BaseRegulator BindTemp(String sAddressTemp){
+	public BaseRegulator BindAddParam(String sAddressTemp,String sAddressSate){
+
 		m_bText2 = true;
 		m_bText3 = true;
 		m_sVariableTemp = sAddressTemp;
+
+		if(sAddressSate!=null) {
+			m_bText4 = true;
+			m_sVariableState = sAddressSate;
+		}
+
 		return this;
 	}
 	@Override
 	public void BindUI(SFServer pServer, Context context, IndicatorUI pUI)
 	{
+		Log.d("Regul222", "BindUI(sys:"+m_pSubsystem.m_sName+" name:"+ m_sName+")");
+
+
 		super.BindUI(pServer, context, pUI);
+
 //		m_pUI.m_pText2.setTextColor(context.getResources().getColor(android.R.color.primary_text_dark));//, context.getTheme()));
 		if(m_bText2) {
-			m_pUI.m_pText2.setTextColor(context.getResources().getColor(R.color.ind_text1));//, context.getTheme()));
-			m_pUI.m_pText2.setText(m_sTemp1Text);
+			//m_pUI.m_pText2.setTextColor(context.getResources().getColor(R.color.ind_text1));//, context.getTheme()));
+			m_pUI.m_pText2.setTypeface(m_pUI.m_pText2.getTypeface(), Typeface.BOLD);
+			m_pUI.m_pText2.setText(m_sTemp2Text);
 		}
 		if(m_bText3) {
-			m_pUI.m_pText3.setTextColor(context.getResources().getColor(R.color.ind_text1));//, context.getTheme()));
-			m_pUI.m_pText3.setText(m_sTemp2Text);
+//			m_pUI.m_pText3.setTextColor(context.getResources().getColor(R.color.ind_text1));//, context.getTheme()));
+			m_pUI.m_pText3.setTypeface(m_pUI.m_pText3.getTypeface(), Typeface.BOLD);
+			m_pUI.m_pText3.setText(m_sTemp3Text);
+		}
+		if(m_bText4) {
+//			m_pUI.m_pText4.setTextColor(context.getResources().getColor(R.color.ind_text1));//, context.getTheme()));
+			m_pUI.m_pText4.setText(m_sTemp4Text);
 		}
 	}
 
 	@Override
 	public void FixLayout(int l, int t, int r, int b)
 	{
+		Log.d("Regul222", "FixLayout(sys:"+m_pSubsystem.m_sName+" name:"+ m_sName+") delta =" +Indicator.delta);
+
 		int iWidth = r-l;
 		int iHeight = b-t;
 
@@ -107,30 +134,48 @@ public abstract class BaseRegulator extends Indicator
 		if(m_bDoubleScale)
 		{
 			iText = iHeight/4;
-			if(m_bText2) {
-				int lH = (int) (iHeight * 0.80) + (m_iScale-2)*5;
-				m_pUI.m_pText2.layout(0, lH - (int) (iText * 1.1), iWidth, lH);//нижняя температура
-				m_pUI.m_pText2.setTextSize(TypedValue.COMPLEX_UNIT_PX, iText * 0.9f);//нижняя температура
-			}
-
 			if(m_bText3) {
 				m_pUI.m_pText3.layout(0, -(int) (iText * 0.2), iWidth, iText);//верхняя температура
 				m_pUI.m_pText3.setTextSize(TypedValue.COMPLEX_UNIT_PX, iText);//верхняя температура
 			}
-		}
-		else
-		{
-			iText = iHeight/6;
+
 			if(m_bText2) {
-				int lH = (int) (iHeight * 0.61) + (m_iScale-2)*5;
+				int lH = (int) (iHeight * 0.80* Indicator.delta) + (m_iScale-2)*5;
 				m_pUI.m_pText2.layout(0, lH - (int) (iText * 1.1), iWidth, lH);//нижняя температура
 				m_pUI.m_pText2.setTextSize(TypedValue.COMPLEX_UNIT_PX, iText * 0.9f);//нижняя температура
 			}
 
+			if(m_bText4) {
+				m_pUI.m_pText4.layout((int)(iWidth*0.55f*Indicator.delta - (5-m_iScale)*30) , iHeight/2-iText, iWidth, iHeight/2 + iText);//справа состояние реле
+				m_pUI.m_pText4.setTextSize(TypedValue.COMPLEX_UNIT_PX, iText);
+			}
+		}
+		else
+		{
+
+			iText = iHeight/6;
 			if(m_bText3) {
 				m_pUI.m_pText3.layout(0, -(int) (iText * 0.17), iWidth, iText);//верхняя температура
 				m_pUI.m_pText3.setTextSize(TypedValue.COMPLEX_UNIT_PX, iText);//верхняя температура
 			}
+
+			if(m_bText2) {
+				int lH = (int) (iHeight * 0.61 * Indicator.delta) + (m_iScale-2)*5;
+				m_pUI.m_pText2.layout(0, lH - (int) (iText * 1.1), iWidth, lH);//нижняя температура
+				m_pUI.m_pText2.setTextSize(TypedValue.COMPLEX_UNIT_PX, iText * 0.9f);//нижняя температура
+			}
+
+			if(m_bText4) {
+				float k1 = 30;
+				int k2 = 7;
+				m_pUI.m_pText4.layout(
+						(int)(( (Indicator.delta-1)*4 +1 )*(iWidth*1.05f)/2-(5-m_iScale)*k1),
+						(int) (iHeight*0.45f-iText*1.125f)-(5-m_iScale)*k2,
+						iWidth,
+						(int)(iHeight*0.45f + iText));
+				m_pUI.m_pText4.setTextSize(TypedValue.COMPLEX_UNIT_PX, iText);
+			}
+
 		}
 	}
 
@@ -142,18 +187,23 @@ public abstract class BaseRegulator extends Indicator
 		sAddr.Add(m_sVariableValue, this);
 		if(!m_sVariableTemp.isEmpty())
 			sAddr.Add(m_sVariableTemp, this);
+		if(!m_sVariableState.isEmpty())
+			sAddr.Add(m_sVariableState, this);
 
 	}
 
 	@Override
 	public boolean Process(String sAddr, String sVal)
 	{
-		Log.d("Regul", "BaseRegulator.Process1("+m_sVariableValue+") m_iValue = "+m_iValue);
+		Log.d("Regul222", "BaseRegulator(sys:"+m_pSubsystem.m_sName+" name:"+ m_sName+").Process1("+sAddr+") m_iValue = "+sVal);
 
 		boolean bPowerOld = m_bPower;
 		float iValueOld = m_iValue;
 		float iTempOld = m_iTemp;
+		boolean iStateOld = m_iState;
 
+		if(m_sVariableState.equalsIgnoreCase(sAddr))
+			m_iState = Float.parseFloat(sVal) == 1;
 		if(m_sVariablePower.equalsIgnoreCase(sAddr))
 			m_bPower = Float.parseFloat(sVal) == m_fValueOn;
 		if(m_sVariableTemp.equalsIgnoreCase(sAddr)) {
@@ -184,10 +234,17 @@ public abstract class BaseRegulator extends Indicator
 		}
 		Log.d("Regul", "BaseRegulator.Process3 m_iValue = "+m_iValue);
 
-		if(m_bPower != bPowerOld || m_iValue != iValueOld || iTempOld != m_iTemp){
+		if(init || m_bPower != bPowerOld || m_iValue != iValueOld || iTempOld != m_iTemp || iStateOld != m_iState){
+			Log.d("Regul222", "BaseRegulator OK (sys:"+m_pSubsystem.m_sName+" name:"+ m_sName+")");
+
 //			if(m_iSubType==9)
 //				m_pUI.m_pText2.setText(String.valueOf(m_iValue));
+			init = false;
 		    return Update();
+		}
+		else {
+			Log.d("Regul222", "BaseRegulator NO (sys:"+m_pSubsystem.m_sName+" name:"+ m_sName+")");
+
 		}
 
 		return false;
@@ -268,6 +325,8 @@ public abstract class BaseRegulator extends Indicator
 			WriteCommonAttributes(serializer);
             serializer.attribute(null, "poweraddress", m_sVariablePower);
             serializer.attribute(null, "valueaddress", m_sVariableValue);
+			serializer.attribute(null, "tempaddress", m_sVariableTemp);
+			serializer.attribute(null, "stateaddress", m_sVariableState);
 			serializer.attribute(null, "onvalue", String.valueOf(m_fValueOn));
 			serializer.attribute(null, "offvalue", String.valueOf(m_fValueOff));
 			serializer.attribute(null, "nopower", m_bNoPower ? "1":"0");

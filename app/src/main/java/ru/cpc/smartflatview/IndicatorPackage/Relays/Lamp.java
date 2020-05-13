@@ -12,38 +12,50 @@ import ru.cpc.smartflatview.ScrollingDialog;
 
 public class Lamp extends BaseRelay
 {
-	/*
-	private static int off = newDez?R.drawable.lamp_off:R.drawable.lamp04;
-	static int getOffLamp(int inLamp){
-		if(pos4Dez) return R.drawable.lamp_off_p4;
-		if(pos3Dez) return R.drawable.lamp_off_p3;
-		if(pos2Dez) return R.drawable.lamp_off_p2;
-		if(posDez) return R.drawable.lamp_off_p;
-		return inLamp;
+	private static int getLampIndDis(boolean on, int type){
+		if(on){
+			switch (type)
+			{
+				case 1: return getIndDisPC(
+					R.drawable.lamp03,
+					R.drawable.lamp_on,
+					R.drawable.lamp_on_p,
+					R.drawable.lamp_on_p,
+					R.drawable.lamp_on_p,
+					R.drawable.lamp_on_p,
+					R.drawable.lamp_on_c);
+			}
+		}
+		else{
+			switch (type) {
+				case 1:
+					return getIndDisPC(
+							R.drawable.lamp04,
+							R.drawable.lamp_off,
+							R.drawable.lamp_off_p,
+							R.drawable.lamp_off_p2,
+							R.drawable.lamp_off_p3,
+							R.drawable.lamp_off_p4,
+							R.drawable.lamp_off_c);
+			}
+		}
+		return 0;
 	}
-*/
+	public Lamp(int iX, int iY, String sName, boolean bMetaInd, boolean bProtected, boolean bDoubleScale, boolean bQuick, int iReaction, int iScale,int type)
+	{
+			super(iX, iY,
+					getLampIndDis(true,type),
+					getLampIndDis(false,type),
+					type, sName, bMetaInd, bProtected, bDoubleScale, bQuick, iReaction, iScale);
+
+	}
 	public Lamp(int iX, int iY, String sName, boolean bMetaInd, boolean bProtected, boolean bDoubleScale, boolean bQuick, int iReaction, int iScale)
 	{
-
 		super(iX, iY,
-				getIndDisPC(
-						R.drawable.lamp03,
-						R.drawable.lamp_on,
-						R.drawable.lamp_on_p,
-						R.drawable.lamp_on_p,
-						R.drawable.lamp_on_p,
-						R.drawable.lamp_on_p,
-						R.drawable.lamp_on_c),
-				getIndDisPC(
-						R.drawable.lamp04,
-						R.drawable.lamp_off,
-						R.drawable.lamp_off_p,
-						R.drawable.lamp_off_p2,
-						R.drawable.lamp_off_p3,
-						R.drawable.lamp_off_p4,
-						R.drawable.lamp_off_c),
+				getLampIndDis(true,1),
+				getLampIndDis(false,1),
 				1, sName, bMetaInd, bProtected, bDoubleScale, bQuick, iReaction, iScale);
-		// TODO Auto-generated constructor stub
+
 	}
 
 	@Override

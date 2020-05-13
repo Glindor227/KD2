@@ -1,16 +1,16 @@
-package ru.cpc.smartflatview.Import.FileRepository;
+package ru.cpc.smartflatview.Import.Model.NetIO.FileRepository;
 
 import android.util.Log;
-
-import io.netty.handler.codec.serialization.ObjectDecoderInputStream;
-import io.netty.handler.codec.serialization.ObjectEncoderOutputStream;
-import ru.cpc.smartflatview.Import.Common.AbstractMessage;
-import ru.cpc.smartflatview.Import.ImportActivity;
 
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.Socket;
+
+import io.netty.handler.codec.serialization.ObjectDecoderInputStream;
+import io.netty.handler.codec.serialization.ObjectEncoderOutputStream;
+import ru.cpc.smartflatview.Import.Model.NetIO.Common.AbstractMessage;
+import ru.cpc.smartflatview.Import.UI.ImportActivity;
 
 class Network {
     private static Socket socket;

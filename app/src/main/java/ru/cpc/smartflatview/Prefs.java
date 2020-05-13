@@ -41,10 +41,20 @@ public class Prefs extends AppCompatPreferenceActivity
     private static final String OPT_FIREWALL_DEF = "";
 
     private static final String OPT_START = "start" ;
-    private static final String OPT_START_DEF = "2";
+    private static final String OPT_START_DEF = "1";
+
+    private static final String OPT_BOLD = "bold" ;
+    private static final boolean OPT_BOLD_DEF = false;
+
+    private static final String OPT_BLACK = "black" ;
+    private static final boolean OPT_BLACK_DEF = false;
+
 
     private static final String OPT_DIS = "dis" ;
     private static final String OPT_DIS_DEF = "3";
+
+    private static final String OPT_DELTA = "deltatext" ;
+    private static final String OPT_DELTA_DEF = "1.0";
 
     private static final String OPT_EXIT = "exit" ;
     private static final boolean OPT_EXIT_DEF = true;
@@ -168,14 +178,33 @@ public class Prefs extends AppCompatPreferenceActivity
 
     public static int getStart(Context context)
     {
+        try{
         return Integer.parseInt(Objects.requireNonNull(PreferenceManager.getDefaultSharedPreferences(context)
-                .getString(OPT_START, OPT_START_DEF)));
+                .getString(OPT_START, OPT_START_DEF)));}
+        catch (NumberFormatException e){
+            return 1;
+        }
+    }
+
+    public static Boolean getNameBold(Context context)
+    {
+        return PreferenceManager.getDefaultSharedPreferences(context).getBoolean(OPT_BOLD, OPT_BOLD_DEF);
+    }
+    public static Boolean getBlack(Context context)
+    {
+        return PreferenceManager.getDefaultSharedPreferences(context).getBoolean(OPT_BLACK, OPT_BLACK_DEF);
     }
 
     public static int getDis(Context context)
     {
         return Integer.parseInt(Objects.requireNonNull(PreferenceManager.getDefaultSharedPreferences(context)
                 .getString(OPT_DIS, OPT_DIS_DEF)));
+    }
+
+    public static float getDelta(Context context)
+    {
+        return Float.parseFloat(Objects.requireNonNull(PreferenceManager.getDefaultSharedPreferences(context)
+                .getString(OPT_DELTA, OPT_DELTA_DEF)));
     }
 
 

@@ -4,7 +4,6 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
@@ -14,38 +13,36 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
+import java.lang.ref.WeakReference;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.concurrent.ExecutionException;
 
-/**
- * Created by Вик on 018. 18.01.16.
- */
+
 public class SFServer
 {
-    public static SFServer Instance = null;
+    static SFServer Instance = null;
 
-    public AddressString m_pRoomQuery = new AddressString();
+    AddressString m_pRoomQuery = new AddressString();
 
-    private ArrayList<String> m_aSendQueue = new ArrayList<String>();
+    private ArrayList<String> m_aSendQueue = new ArrayList<>();
     
     private String m_sLastSendPacket = "";
 
     private MainActivity m_pMainActivity;
 
-    public SFServer(MainActivity context)
-    {
+    public SFServer(MainActivity context){
         m_pMainActivity = context;
         m_pPollThread = new RoomViewPollThread(this);
         m_pWorkThread = new SFServerWorkThread(this);
     }
 
-    public MainActivity getMainActivity()
-    {
+    MainActivity getMainActivity(){
         return m_pMainActivity;
     }
 
@@ -89,21 +86,20 @@ public class SFServer
     private boolean waitingRE = false;
     private boolean errorMessage = false;
     private int errorCounter = 0;
-    private int maxErrorCounter = 2;
-    
+
     private boolean pollingTime = false;
     private boolean pingTime = false;
 
     private boolean attach = false;
 
-    public static boolean IsConnected()
+    static boolean IsConnected()
     {
         return Config.DEMO || (Instance != null && Instance.client != null && Instance.attach);
     }
 
-    public int waitingCounter = 0;
+    private int waitingCounter = 0;
 
-    public void WorkStep()
+    void WorkStep()
     {                    
         if(Config.DEMO)
         {
@@ -131,6 +127,7 @@ public class SFServer
                 {
                     Log.e("SFServer", "No answer for 2000ms! errorCounter := " + errorCounter);
 
+                    int maxErrorCounter = 2;
                     if (errorCounter > maxErrorCounter)
                     {
                         errorMessage = true;
@@ -154,7 +151,7 @@ public class SFServer
                             Log.d("SFServer", "C: Last packet resent.");
                             waitingCounter = 0;
 
-                            if(m_sLastSendPacket == "<1|0>\r\n" && pingTime)
+                            if(m_sLastSendPacket.equals("<1|0>\r\n") && pingTime)
                             {
                                 pingTime = false;
                             }
@@ -194,7 +191,7 @@ public class SFServer
             }
             else if (pollingTime)
             {
-                Log.d("SFServer", "WorkStep pollingTime = " + pollingTime);
+                Log.d("SFServer", "WorkStep pollingTime = true");
                 pollingTime = !m_pRoomQuery.IsOver();
                 Log.d("SFServer", "WorkStep pollingTime = " + pollingTime);
                 if (pollingTime){
@@ -249,7 +246,7 @@ public class SFServer
         UpdateConnectionStatus();
     }
 
-    public void Poll(boolean bFast)
+    void Poll(boolean bFast)
     {
         //if(client != null)
         {
@@ -267,9 +264,9 @@ public class SFServer
         }
     }
 
-    public void Parse(String sPacket, int length)
+    void Parse(String sPacket, int length)
     {
-        Log.i("SFServer", "RCV(" + String.valueOf(length) + "): '" + sPacket + "'");
+        Log.i("SFServer", "RCV(" + length + "): '" + sPacket + "'");
 
         if(sPacket.length() < length)
         {
@@ -351,7 +348,7 @@ public class SFServer
 
                                 if (m_pRoomQuery.m_cAddresses.containsKey(sTokens[3 + i * 5]))
                                 {
-                                    for (Indicator pInd : m_pRoomQuery.m_cAddresses.get(sTokens[3 + i * 5]))
+                                    for (Indicator pInd : Objects.requireNonNull(m_pRoomQuery.m_cAddresses.get(sTokens[3 + i * 5])))
                                     {
                                         pInd.Process(sTokens[3 + i * 5], sTokens[7 + i * 5]);
                                         addressProcessed = true;
@@ -359,7 +356,7 @@ public class SFServer
                                 }
 
                                 if(m_pRoomQuery.m_cAlarms.containsKey(sTokens[3+i*5]))
-                                    for (Subsystem pSubsystem : m_pRoomQuery.m_cAlarms.get(sTokens[3 + i * 5]))
+                                    for (Subsystem pSubsystem : Objects.requireNonNull(m_pRoomQuery.m_cAlarms.get(sTokens[3 + i * 5])))
                                         pSubsystem.Process(sTokens[3 + i * 5], sTokens[7 + i * 5]);
 
                                 if(!addressProcessed)
@@ -389,10 +386,10 @@ public class SFServer
                             {
                                 m_pMainActivity.m_cLogLines.add(m_pMainActivity.getString(R.string.logDataReceived));
                                 attach = true;
-                                Log.d("SFServer", "Parse : attach := " + String.valueOf(attach));
+                                Log.d("SFServer", "Parse : attach := true");
                             }
                             waitingAnswer = false;
-                            Log.d("SFServer", "Parse : waitingAnswer := " + String.valueOf(waitingAnswer));
+                            Log.d("SFServer", "Parse : waitingAnswer := false");
 
                             int iCount = Integer.parseInt(sTokens[1]);
 
@@ -404,8 +401,7 @@ public class SFServer
                                 boolean addressProcessed = false;
                                 if(m_pRoomQuery.m_cAddresses.containsKey(sTokens[3+i*2]))
                                 {
-                                    for (Indicator pInd : m_pRoomQuery.m_cAddresses.get(
-                                            sTokens[3 + i * 2]))
+                                    for (Indicator pInd : Objects.requireNonNull(m_pRoomQuery.m_cAddresses.get(sTokens[3 + i * 2])))
                                     {
                                         pInd.Process(sTokens[3 + i * 2], sTokens[4 + i * 2]);
                                         addressProcessed = true;
@@ -413,7 +409,7 @@ public class SFServer
                                 }
 
                                 if(m_pRoomQuery.m_cAlarms.containsKey(sTokens[3+i*2]))
-                                    for (Subsystem pSubsystem : m_pRoomQuery.m_cAlarms.get(sTokens[3 + i * 2]))
+                                    for (Subsystem pSubsystem : Objects.requireNonNull(m_pRoomQuery.m_cAlarms.get(sTokens[3 + i * 2])))
                                         pSubsystem.Process(sTokens[3 + i * 2], sTokens[4 + i * 2]);
 
                                 if(!addressProcessed)
@@ -451,7 +447,7 @@ public class SFServer
     }
 
     private Socket client=null;
-
+/*
     public static int lookupHost(String hostname)
     {
         InetAddress inetAddress;
@@ -476,47 +472,31 @@ public class SFServer
 
     boolean isHostReachable(String address)
     {
-		/*
-	    ConnectivityManager conMgr = (ConnectivityManager) this.getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
-		NetworkInfo netInfo = conMgr.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
-
-		if(!netInfo.isAvailable() || !netInfo.isConnected())
-		{
-            Log.d("TCP", "WiFi not connected");
-			return false;
-		}
-
-		int iIp = lookupHost(address);
-		if(iIp == -1)
-		{
-            Log.d("TCP", address + " not recognized");
-			return false;
-		}
-		if(!conMgr.requestRouteToHost(ConnectivityManager.TYPE_WIFI, iIp))
-		{
-            Log.d("TCP", address + " not reachable");
-			return false;
-		}
-	    */
         return true;
     }
+ */
+
 
     public void Imitate() {
-        m_pMainActivity.runOnUiThread(new Runnable() {
-            public void run() {
-                //m_pRoomView.Poll();
-                m_pMainActivity.Imitate();
-            }
+        m_pMainActivity.runOnUiThread(() -> {
+            //m_pRoomView.Poll();
+            m_pMainActivity.Imitate();
         });
     }
 
-    class ConnectSocket extends AsyncTask<Void, Void, Socket>
+    static class ConnectSocket extends AsyncTask<Void, Void, Socket>
     {
+        private WeakReference<MainActivity> pMainActivity;
+
+        ConnectSocket(MainActivity pMainActivity) {
+            this.pMainActivity = new WeakReference<>(pMainActivity);
+        }
+
         @Nullable
         private Socket TryConnect(String ip, int port, int timeout, int trying)
         {
             Log.d("SFServer", "C: Connecting to " + ip + ":" + port);
-            m_pMainActivity.m_cLogLines.add(String.format(m_pMainActivity.getString(R.string.logConnectionTry), ip, port, trying));
+            pMainActivity.get().m_cLogLines.add(String.format(pMainActivity.get().getString(R.string.logConnectionTry), ip, port, trying));
 
             Socket sock = new Socket();
 
@@ -527,7 +507,7 @@ public class SFServer
                 //MainActivity.m_cLogLines.add("***");
                 sock.connect(addr, timeout);
                 //MainActivity.m_cLogLines.add("!!!");
-                m_pMainActivity.m_cLogLines.add(m_pMainActivity.getString(R.string.logConnectionOK));
+                pMainActivity.get().m_cLogLines.add(pMainActivity.get().getString(R.string.logConnectionOK));
                 Log.d("SFServer", "ConnectSocket.doInBackground success!");
                 return sock;
             }
@@ -573,41 +553,39 @@ public class SFServer
         protected Socket doInBackground(Void... arg0)
         {
             Log.d("SFServer", "ConnectSocket::doInBackground()...");
+            Socket client2;
             for (int i = 0; i < 2; i++)
             {
-                client = TryConnect(Config.Instance.m_sIP, Config.Instance.m_iPort, 1000, i+1);
-                if (client != null)
-                    return client;
+                client2 = TryConnect(Config.Instance.m_sIP, Config.Instance.m_iPort, 1000, i+1);
+                if (client2 != null)
+                    return client2;
             }
 
-            m_pMainActivity.m_cLogLines.add(String.format(m_pMainActivity.getString(R.string.logNoAccess), Config.Instance.m_sIP, Config.Instance.m_iPort));
+            pMainActivity.get().m_cLogLines.add(String.format(pMainActivity.get().getString(R.string.logNoAccess), Config.Instance.m_sIP, Config.Instance.m_iPort));
 
-            String sIP = Prefs.getExternalIP(m_pMainActivity);
+            String sIP = Prefs.getExternalIP(pMainActivity.get());
             if(!sIP.isEmpty())
             {
                 for (int i = 0; i < 2; i++)
                 {
-                    client = TryConnect(sIP, Config.Instance.m_iPort, 5000, i+1);
-                    if(client != null)
-                        return client;
+                    client2 = TryConnect(sIP, Config.Instance.m_iPort, 5000, i+1);
+                    if(client2 != null)
+                        return client2;
                 }
             }
 
-            m_pMainActivity.m_cLogLines.add(String.format(m_pMainActivity.getString(R.string.logNoAccess), sIP, Config.Instance.m_iPort));
+            pMainActivity.get().m_cLogLines.add(String.format(pMainActivity.get().getString(R.string.logNoAccess), sIP, Config.Instance.m_iPort));
             return null;
         }
 
         protected void onPostExecute(Socket sct)
         {
-            // TODO: check this.exception
-            // TODO: do something with the feed
         }
     }
 
     private GetPacket getPacketTask = null;
 
-    @NonNull
-    private Boolean Connect2()
+    private void Connect2()
     {
         try
         {
@@ -615,7 +593,7 @@ public class SFServer
 
             Log.d("SFServer", "calling ConnectSocket()...");
             //client = new Socket(serverAddr, iPort);
-            client = new ConnectSocket().execute().get();
+            client = new ConnectSocket(m_pMainActivity).execute().get();
 
             if(client != null)
             {
@@ -627,13 +605,11 @@ public class SFServer
                 getPacketTask.execute(data);
                 Log.d("SFServer", "Connect2 success!");
 //                MainActivity.m_cLogLines.add("Успешно!");
-                return true;
             }
             else
             {
                 Log.e("SFServer", "Connect2 failure! socket := NULL");
                 //MainActivity.m_cLogLines.add("Не успешно!");
-                return false;
             }
         }
         catch (InterruptedException e)
@@ -652,14 +628,13 @@ public class SFServer
             e.getCause().printStackTrace();
         }
 
-        return false;
     }
 
     private RoomViewPollThread m_pPollThread;
 
     private SFServerWorkThread m_pWorkThread;
 
-    public void Resume()
+    void Resume()
     {
         Log.d("SFServer", "C: Resume");
         try
@@ -700,7 +675,7 @@ public class SFServer
         }
     }
 
-    public void Stop()
+    void Stop()
     {
         Log.d("SFServer", "C: Stop");
         // simply copied from sample application LunarLander:
@@ -708,7 +683,6 @@ public class SFServer
         // it might touch the Surface after we return and explode
         boolean retry = true;
 
-        retry = true;
         m_pPollThread.setRunning(false);
         while (retry)
         {
@@ -719,6 +693,8 @@ public class SFServer
             }
             catch (InterruptedException e)
             {
+                Log.e("SFServer", "InterruptedException:", e);
+
                 // we will try it again and again...
             }
         }
@@ -741,7 +717,7 @@ public class SFServer
         Disconnect();
     }
 
-    public void Disconnect()
+    private void Disconnect()
     {
         Log.d("SFServer", "C: Disconnect");
         try
@@ -777,34 +753,16 @@ public class SFServer
         waitingRE = false;
         errorCounter = 0;
         attach = false;
-        Log.d("SFServer", "Disconnect : attach := " + String.valueOf(attach));
+        Log.d("SFServer", "Disconnect : attach := false");
     }
 
-    public void Connect()
+    void Connect()
     {
-        //try
-        //{
             if(client != null)
             {
                 if(client.isConnected())
                     return;
-                    //client.close();
             }
-        /*
-        }
-        catch (UnknownHostException e)
-        {
-            Log.d("TCP", "C: UnknownHostException", e);
-            //MainActivity.m_cLogLines.add("Ошибка UnknownHost: не удаётся закрыть соединение. Свяжитесь с разработчиками!");
-            e.printStackTrace();
-        }
-        catch (IOException e)
-        {
-            Log.d("TCP", "C: IOException", e);
-            //MainActivity.m_cLogLines.add("Ошибка IO: не удаётся закрыть соединение. Свяжитесь с разработчиками!");
-            e.printStackTrace();
-        }
-*/
         Log.d("SFServer", "C: Connect");
 
         m_pMainActivity.m_cLogLines.clear();
@@ -872,17 +830,8 @@ public class SFServer
 
     private void UpdateConnectionStatus()
     {
-        //if(IsConnected())
-        //    Log.d("TCP", "Connection status = " + IsConnected());
-        //else
-        //    Log.e("TCP", "Connection status = " + IsConnected());
 
-        m_pMainActivity.runOnUiThread(new Runnable() {
-            public void run() {
-                //m_pRoomView.Poll();
-                m_pMainActivity.UpdateConnectionStatus();
-            }
-        });
+        m_pMainActivity.runOnUiThread(() -> m_pMainActivity.UpdateConnectionStatus());
     }
 }
 
@@ -894,33 +843,23 @@ class SocketData
 
 class GetPacket extends AsyncTask<SocketData, Integer, Integer>
 {
-    SFServer pOwner;
-    char[] mData;
-    int read, read2;
-    String data;
+    private SFServer pOwner;
+    private String data ="";
 
     protected void onProgressUpdate(Integer... progress)
     {
-//        String hex = "";
-//        if(read>0)
-//            hex = String.valueOf((int)mData[0]);
-//        for(int i=1; i<read; i++)
-//            hex = hex + " ! " + String.valueOf((int)mData[i]);
-//
-//        Log.i("TCP", "DMP1(" + String.valueOf(read) + "): '" + hex + "'");
 
-        read2 = data.lastIndexOf('>') + 1;
+        int read2 = data.lastIndexOf('>') + 1;
 
         int read3 = data.lastIndexOf("RE") + 2;
         if(read3 > 1 && read3 > read2)
             read2 = read3;
 
-        //Log.i("TCP", "Got update: " + read2 + " (" + read + ")");
         if(read2 != 0)
         {
             pOwner.Parse(data, read2);//read);
 
-            data = data.substring(read2, data.length()).trim();
+            data = data.substring(read2).trim();
         }
     }
 
@@ -938,12 +877,12 @@ class GetPacket extends AsyncTask<SocketData, Integer, Integer>
 
         pOwner = param[0].owner;
 
-        mData = new char[4096];
+        char[] mData = new char[4096];
 
         try
         {
             BufferedReader reader = new BufferedReader(new InputStreamReader(mySock.getInputStream()));
-            read = 0;
+            int read;
 
             //while ((read = reader.read(mData)) >= 0 && !isCancelled())
             while (!isCancelled())
@@ -955,7 +894,9 @@ class GetPacket extends AsyncTask<SocketData, Integer, Integer>
                 // "Вызываем" onProgressUpdate
                 if(read > 0)
                 {
-                    data += String.valueOf(mData).substring(0, read).trim();
+                    final String trim = String.valueOf(mData).substring(0, read).trim();
+                    data = data.concat(trim);
+//                    data += String.valueOf(mData).substring(0, read).trim();
                     publishProgress(read);
                 }
                 else
@@ -987,12 +928,12 @@ class SFServerWorkThread extends Thread
     private SFServer m_pServer;
     private boolean m_bRun = false;
 
-    public SFServerWorkThread(SFServer pServer)
+    SFServerWorkThread(SFServer pServer)
     {
         m_pServer = pServer;
     }
 
-    public void setRunning(boolean run)
+    void setRunning(boolean run)
     {
         m_bRun = run;
 
@@ -1008,16 +949,13 @@ class SFServerWorkThread extends Thread
             try
             {
                 m_pServer.WorkStep();
-                super.sleep(50);
+                sleep(50);
             }
             catch (InterruptedException e)
             {
                 Log.e("Glindor","InterruptedException");
 //                Log.v("Glindor",e.getMessage());
                 //e.printStackTrace();
-            }
-            finally
-            {
             }
         }
     }

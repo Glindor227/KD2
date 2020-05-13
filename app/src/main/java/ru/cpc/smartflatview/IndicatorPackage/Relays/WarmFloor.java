@@ -17,7 +17,7 @@ public class WarmFloor extends BaseRelay
 				getIndDisC(R.drawable.pol_on_p,R.drawable.pol_on,R.drawable.id087,R.drawable.pol_on_c),
 				getIndDisC(R.drawable.pol_off_p,R.drawable.pol_off,R.drawable.id088,R.drawable.pol_off_c),
 				5, sName, bMetaInd, bProtected, bDoubleScale, bQuick, iReaction, iScale);
-		// TODO Auto-generated constructor stub
+
 	}
 
 	@Override

@@ -29,9 +29,7 @@ import java.net.Socket;
 import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
 
-/**
- * Created by Вик on 016. 16. 04. 18.
- */
+
 
 public class CheckAlarmService extends IntentService
 {
@@ -66,13 +64,14 @@ public class CheckAlarmService extends IntentService
             boolean isScreenOn = false;
             if (pm != null)
             {
-                isScreenOn = pm.isScreenOn();
+                isScreenOn = pm.isInteractive();
                 if (!isScreenOn)
                 {
-                    PowerManager.WakeLock wl = pm.newWakeLock(
-                            PowerManager.SCREEN_DIM_WAKE_LOCK | PowerManager.ACQUIRE_CAUSES_WAKEUP | PowerManager.ON_AFTER_RELEASE,
-                            "MyLock");
-                    wl.acquire(5000);
+                    int i1 = PowerManager.SCREEN_DIM_WAKE_LOCK;
+                    int i2 = PowerManager.ACQUIRE_CAUSES_WAKEUP;
+                    int i3 = PowerManager.ON_AFTER_RELEASE;
+                    PowerManager.WakeLock wl22 = pm.newWakeLock(i1 | i2 | i3,"AppName:MyLock");
+                    wl22.acquire(5000);
                 }
             }
         }

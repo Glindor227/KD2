@@ -21,7 +21,6 @@ public abstract class BaseMacro extends Indicator
 			int iScale) 
 	{
 		super(fX, fY, iResIDOff, iSubType, sName, bMetaInd, bProtected, bDoubleSize, bQuick, iReaction, iScale);
-		// TODO Auto-generated constructor stub
 		m_iResIDOn = iResIDOn;
 		m_iResIDOff = iResIDOff;
 		
@@ -73,7 +72,8 @@ public abstract class BaseMacro extends Indicator
 	@Override
 	public boolean SwitchOnOff(float iX, float iY) 
 	{
-		m_bActive = !m_bActive;
+		if(m_iReaction==0)
+			m_bActive = !m_bActive;
 
 		m_pServer.SendCommand(m_sVariableCommand, String.valueOf(m_fValueReset));
 		m_pServer.SendCommand(m_sVariableCommand, String.valueOf(m_fValueActive));
@@ -84,14 +84,14 @@ public abstract class BaseMacro extends Indicator
 	@Override
 	public boolean SetValue(float iX, float iY) 
 	{
-		// TODO Auto-generated method stub
+
 		return false;
 	}
 
 	@Override
 	public boolean SetValue(float iValue)
 	{
-		// TODO Auto-generated method stub
+
 		return false;
 	}
 

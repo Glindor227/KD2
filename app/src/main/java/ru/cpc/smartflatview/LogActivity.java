@@ -3,13 +3,13 @@ package ru.cpc.smartflatview;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class LogActivity extends DialogFragment// implements DialogInterface.OnClickListener
 {
@@ -37,7 +37,7 @@ public class LogActivity extends DialogFragment// implements DialogInterface.OnC
         {
             int width = ViewGroup.LayoutParams.MATCH_PARENT;
             int height = ViewGroup.LayoutParams.MATCH_PARENT;
-            dialog.getWindow().setLayout(width, height);
+            Objects.requireNonNull(dialog.getWindow()).setLayout(width, height);
         }
     }
 
@@ -45,24 +45,18 @@ public class LogActivity extends DialogFragment// implements DialogInterface.OnC
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        //setStyle(STYLE_NO_FRAME, android.R.style.Theme_Holo_Light);
-        //setHasOptionsMenu(true);
         cLog = getArguments().getStringArrayList("log");
         title = getArguments().getString("title");
     }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        //getDialog().setTitle(title);
-        View v = inflater.inflate(R.layout.activity_log, null);
-        //Toolbar toolbar = (Toolbar)v.findViewById(R.id.toolbar);
-        //v.setSupportActionBar(toolbar);
-        //toolbar.setTitle(title);
+        View v = inflater.inflate(R.layout.activity_log, null); //TODO разобраться, что делать с желтым  null. Если не null - падает.
 
-        TextView pHeader = (TextView) v.findViewById(R.id.logHeader);
+        TextView pHeader = v.findViewById(R.id.logHeader);
         pHeader.setText(title);
 
-        TextView pText = (TextView) v.findViewById(R.id.log_text);
+        TextView pText = v.findViewById(R.id.log_text);
         pText.setText("");
 
         if (cLog!= null)
@@ -72,30 +66,4 @@ public class LogActivity extends DialogFragment// implements DialogInterface.OnC
         }
         return v;
     }
-
-//    @Override
-//    public void onClick(DialogInterface dialog, int which)
-//    {
-//
-//    }
-//
-//    @Override
-//    public Dialog onCreateDialog(Bundle savedInstanceState) {
-//        return new Dialog(getActivity(), getTheme()){
-//            @Override
-//            public void onBackPressed() {
-//                dismiss();
-//            }
-//        };
-//    }
-
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        switch (item.getItemId()) {
-//            case android.R.id.home:
-//                onBackPressed();
-//                break;
-//        }
-//        return super.onOptionsItemSelected(item);
-//    }
 }

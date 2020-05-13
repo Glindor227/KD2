@@ -7,14 +7,14 @@ import android.graphics.drawable.BitmapDrawable;
 import android.support.v4.util.LruCache;
 import android.util.Log;
 
-import ru.IDIS.util.SysInfoManager;
-import ru.cpc.smartflatview.MainActivity;
-
 import java.lang.ref.SoftReference;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
+
+import ru.IDIS.util.SysInfoManager;
+import ru.cpc.smartflatview.MainActivity;
 
 @TargetApi(SysInfoManager.API.HONEYCOMB_MR1)
 public final class VideoBitmapLruCache {
@@ -43,7 +43,7 @@ public final class VideoBitmapLruCache {
             @Override
             protected void entryRemoved(boolean evicted, Integer key,
                     BitmapDrawable oldValue, BitmapDrawable newValue) {
-                // TODO Auto-generated method stub
+
                 
                 if (RecyclingBitmapDrawable.class.isInstance(oldValue)) {
                     // for Gingerbread

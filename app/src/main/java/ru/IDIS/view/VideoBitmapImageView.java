@@ -3,13 +3,12 @@ package ru.IDIS.view;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
-import android.widget.ImageView;
 
-public class VideoBitmapImageView extends ImageView {
+public class VideoBitmapImageView extends android.support.v7.widget.AppCompatImageView {
 
     public VideoBitmapImageView(Context context) {
         super(context);
-        // TODO Auto-generated constructor stub
+
     }
     
     /**

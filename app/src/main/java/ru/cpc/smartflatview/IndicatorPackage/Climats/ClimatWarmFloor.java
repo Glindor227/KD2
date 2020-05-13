@@ -11,9 +11,7 @@ import ru.cpc.smartflatview.IndicatorPackage.Base.BaseClimat;
 import ru.cpc.smartflatview.R;
 import ru.cpc.smartflatview.ScrollingDialog;
 
-/**
- * Created by Вик on 029. 29. 12. 16.
- */
+
 
 public class ClimatWarmFloor extends BaseClimat
 {
@@ -28,7 +26,7 @@ public class ClimatWarmFloor extends BaseClimat
     @Override
     public boolean SetValue(float iX, float iY)
     {
-        // TODO Auto-generated method stub
+
         return false;
     }
 

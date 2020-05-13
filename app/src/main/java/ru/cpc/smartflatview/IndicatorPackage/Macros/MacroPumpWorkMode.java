@@ -13,7 +13,7 @@ public class MacroPumpWorkMode extends BaseMacro
 				getIndDisC(R.drawable.st14_1_p,R.drawable.st14_1_2,R.drawable.st14_1,R.drawable.st14_1_c),
 				getIndDisC(R.drawable.st14_0_p,R.drawable.st14_0_2,R.drawable.st14_0,R.drawable.st14_0_c),
 				14, sName, sButtonName, bMetaInd, bProtected, bDoubleScale, bQuick, iReaction, iScale);
-		// TODO Auto-generated constructor stub
+
 		m_bText2 = false;
 	}
 

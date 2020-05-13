@@ -19,7 +19,7 @@ public abstract class BaseRelay extends Indicator
 			int iScale) 
 	{
 		super(fX, fY, iResIDOff, iSubType, sName, bMetaInd, bProtected, bDoubleSize, bQuick, iReaction, iScale);
-		// TODO Auto-generated constructor stub
+
 		m_iResIDOn = iResIDOn;
 		m_iResIDOff = iResIDOff;
 	}
@@ -77,14 +77,14 @@ public abstract class BaseRelay extends Indicator
 	@Override
 	public boolean SetValue(float iX, float iY) 
 	{
-		// TODO Auto-generated method stub
+
 		return false;
 	}
 
 	@Override
 	public boolean SetValue(float iValue)
 	{
-		// TODO Auto-generated method stub
+
 		return false;
 	}
 

@@ -1,4 +1,4 @@
-package ru.cpc.smartflatview.Import;
+package ru.cpc.smartflatview.Import.UI;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import ru.cpc.smartflatview.Import.FileRepository.ServerFile;
+import ru.cpc.smartflatview.Import.Model.NetIO.FileRepository.ServerFile;
 import ru.cpc.smartflatview.R;
 
 public class RVAdapter extends RecyclerView.Adapter<RVAdapter.RVViewHolder> {

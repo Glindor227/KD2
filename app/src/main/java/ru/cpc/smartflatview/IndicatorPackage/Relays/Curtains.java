@@ -18,7 +18,7 @@ public class Curtains extends BaseRelay
 				getIndDisC(R.drawable.curtains_close_p,R.drawable.curtains_close,R.drawable.id066,R.drawable.curtains_close_c),
 				getIndDisC(R.drawable.curtains_open_p,R.drawable.curtains_open,R.drawable.id067,R.drawable.curtains_open_c),
 				2, sName, bMetaInd, bProtected, bDoubleScale, bQuick, iReaction, iScale);
-		// TODO Auto-generated constructor stub
+
 	}
 
 	@Override

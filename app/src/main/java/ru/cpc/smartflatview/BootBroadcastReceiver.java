@@ -5,11 +5,9 @@ import android.content.Intent;
 import android.support.v4.content.WakefulBroadcastReceiver;
 import android.util.Log;
 
-/**
- * Created by Вик on 016. 16. 04. 18.
- */
 
-public class BootBroadcastReceiver extends WakefulBroadcastReceiver {
+
+public class BootBroadcastReceiver extends WakefulBroadcastReceiver { //TODO почитать про замену деприкации https://habr.com/ru/post/339012/
     @Override
     public void onReceive(Context context, Intent intent) {
         // Launch the specified service when this message is received

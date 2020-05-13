@@ -7,9 +7,7 @@ import org.xmlpull.v1.XmlSerializer;
 
 import java.io.IOException;
 
-/**
- * Created by Вик on 022. 22.03.16.
- */
+
 public class SourceSelector extends Indicator
 {
     private int m_iSource = 0;
@@ -21,7 +19,7 @@ public class SourceSelector extends Indicator
         super(fX, fY,
                 getIndDis(R.drawable.src_tv_p,R.drawable.src_tv_2,R.drawable.src_tv),
                 1, sName, bMetaInd, bProtected, bDoubleSize, bQuick, iReaction, iScale);
-        // TODO Auto-generated constructor stub
+
     }
 
     public String m_sVariable = "-1";
@@ -57,13 +55,11 @@ public class SourceSelector extends Indicator
 
     @Override
     public boolean SetValue(float iX, float iY) {
-        // TODO Auto-generated method stub
         return false;
     }
 
     @Override
     public boolean SetValue(float iValue) {
-        // TODO Auto-generated method stub
         return false;
     }
 
@@ -129,20 +125,12 @@ public class SourceSelector extends Indicator
     }
 
     @Override
-    public void GetAddresses(AddressString sAddr) {
-        // TODO Auto-generated method stub
-
-    }
+    public void GetAddresses(AddressString sAddr) {   }
 
     @Override
-    public boolean Process(String sAddr, String sVal) {
-        // TODO Auto-generated method stub
-        return false;
-    }
+    public boolean Process(String sAddr, String sVal) {return false;}
 
     @Override
-    public boolean ShowPopup(Context context) {
-        return false;
-    }
+    public boolean ShowPopup(Context context) {return false;}
 
 }

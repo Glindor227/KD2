@@ -8,31 +8,28 @@ import android.view.Gravity;
 import org.xmlpull.v1.XmlSerializer;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
-/**
- * Created by Вик on 023. 23.03.16.
- */
+
 public class MediaField extends Indicator implements PlaylistDialog.OnPlaylistDialogListener
 {
-    protected int m_iResIDOn;
-    protected int m_iResIDOff;
+    private int m_iResIDOn;
+    private int m_iResIDOff;
 
-    public String m_sButtonText = "";
+    private String m_sButtonText;
 
-    public MediaField(int iX, int iY, String sName, String sButtonName, boolean bMetaInd, boolean bProtected, boolean bDoubleScale, boolean bQuick, int iReaction, int iScale)
+    MediaField(int iX, int iY, String sName, String sButtonName, boolean bMetaInd, boolean bProtected, boolean bDoubleScale, boolean bQuick, int iReaction, int iScale)
     {
 //        this(iX, iY, R.drawable.id113, R.drawable.id114, 1, sName, sButtonName, bMetaInd, bProtected, bDoubleScale, bQuick, iReaction, iScale);
         this(iX, iY, -1, -1, 1, sName, sButtonName, bMetaInd, bProtected, bDoubleScale, bQuick, iReaction, iScale);
-        // TODO Auto-generated constructor stub
+
     }
 
-    protected MediaField(float fX, float fY, int iResIDOn, int iResIDOff, int iSubType, String sName, String sButtonName,
-                        boolean bMetaInd, boolean bProtected, boolean bDoubleSize, boolean bQuick, int iReaction,
-                        int iScale)
+    private MediaField(float fX, float fY, int iResIDOn, int iResIDOff, int iSubType, String sName, String sButtonName,
+                       boolean bMetaInd, boolean bProtected, boolean bDoubleSize, boolean bQuick, int iReaction,
+                       int iScale)
     {
         super(fX, fY, iResIDOff, iSubType, sName, bMetaInd, bProtected, bDoubleSize, bQuick, iReaction, iScale);
-        // TODO Auto-generated constructor stub
+
         m_iResIDOn = iResIDOn;
         m_iResIDOff = iResIDOff;
 
@@ -46,12 +43,12 @@ public class MediaField extends Indicator implements PlaylistDialog.OnPlaylistDi
         Log.d("CTOR", "button name: " + m_sButtonText);
     }
 
-    public boolean m_bActive = false;
+    private boolean m_bActive = false;
 
-    public String m_sVariableState = "-1";
-    public String m_sVariableCommand = "-1";
-    public float m_fValueActive = 1;
-    public float m_fValueReset = 0;
+    private String m_sVariableState = "-1";
+    private String m_sVariableCommand = "-1";
+    private float m_fValueActive = 1;
+    private float m_fValueReset = 0;
 
     public MediaField Bind(String sAddressCommand, String sAddressState, String sActiveVal, String sResetVal)
     {
@@ -160,21 +157,21 @@ public class MediaField extends Indicator implements PlaylistDialog.OnPlaylistDi
     @Override
     public boolean SetValue(float iX, float iY)
     {
-        // TODO Auto-generated method stub
+
         return false;
     }
 
     @Override
     public boolean SetValue(float iValue)
     {
-        // TODO Auto-generated method stub
+
         return false;
     }
 
     @Override
     protected boolean Update()
     {
-        int iResId = -1;
+        int iResId;
 
         if(m_bActive)
             iResId = m_iResIDOn;
@@ -292,17 +289,7 @@ public class MediaField extends Indicator implements PlaylistDialog.OnPlaylistDi
             serializer.attribute(null, "libraryenteraddress", m_sButtonText);
             serializer.endTag(null, "mediafield");
         }
-        catch (IllegalArgumentException e)
-        {
-            Log.v("Glindor",e.getMessage());
-            e.printStackTrace();
-        }
-        catch (IllegalStateException e)
-        {
-            Log.v("Glindor",e.getMessage());
-            e.printStackTrace();
-        }
-        catch (IOException e)
+        catch (IllegalArgumentException | IOException | IllegalStateException e)
         {
             Log.v("Glindor",e.getMessage());
             e.printStackTrace();

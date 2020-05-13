@@ -13,7 +13,7 @@ public class MacroFilterCleaning extends BaseMacro
 				getIndDisC(R.drawable.st15_1_p,R.drawable.st15_1_2,R.drawable.st15_1,R.drawable.st15_1_c),
 				getIndDisC(R.drawable.st15_0_p,R.drawable.st15_0_2,R.drawable.st15_0,R.drawable.st15_0_c),
 				15, sName, sButtonName, bMetaInd, bProtected, bDoubleScale, bQuick, iReaction, iScale);
-		// TODO Auto-generated constructor stub
+
 		m_bText2 = false;
 	}
 

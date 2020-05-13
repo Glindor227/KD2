@@ -1,15 +1,10 @@
-package ru.cpc.smartflatview.Import.Common;
+package ru.cpc.smartflatview.Import.Model.NetIO.Common;
 
 
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 
-import java.io.IOException;
-import java.io.RandomAccessFile;
-import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.Arrays;
 
 @RequiresApi(api = Build.VERSION_CODES.O)
 public class FileMessage extends AbstractMessage {
@@ -46,7 +41,7 @@ public class FileMessage extends AbstractMessage {
         numerPart =-1;
 //        data = Files.readAllBytes(path);
     }
-
+/*
 
     public Boolean next() throws IOException {
         System.out.println("файл next");
@@ -76,4 +71,6 @@ public class FileMessage extends AbstractMessage {
         data = Arrays.copyOf(dataTemp,countCopy);
         return true;
     }
+
+ */
 }

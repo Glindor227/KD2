@@ -70,7 +70,7 @@ extends
         ByteBuffer image_byte_buffer = ByteBuffer.wrap(byteArray);
         image_byte_buffer.position(0);
 
-        //VP: чтобы картинка с камеры всегда выводилась горизонтально
+        //чтобы картинка с камеры всегда выводилась горизонтально
         BitmapDrawable bd = VideoBitmapPool.getInstance().get(_cacheKey, height, width);
         //BitmapDrawable bd = VideoBitmapPool.getInstance().get(_cacheKey, width, height);
 

@@ -9,9 +9,7 @@ import java.io.IOException;
 import ru.cpc.smartflatview.AddressString;
 import ru.cpc.smartflatview.Indicator;
 
-/**
- * Created by Вик on 028. 28. 12. 16.
- */
+
 
 public abstract class BaseClimat extends Indicator
 {
@@ -23,7 +21,7 @@ public abstract class BaseClimat extends Indicator
     {
         super(fX, fY, iResID, iSubType, sName, bMetaInd, bProtected, bDoubleSize, bQuick, iReaction,
                 iScale);
-        // TODO Auto-generated constructor stub
+
     }
 
     public int m_iTemp = 0;

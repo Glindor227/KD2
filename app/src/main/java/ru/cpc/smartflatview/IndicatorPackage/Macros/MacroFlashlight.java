@@ -23,7 +23,7 @@ public class MacroFlashlight extends BaseMacro
 						R.drawable.lamp_off_p4,
 						R.drawable.lamp_off_c),
 				18, sName, sButtonName, bMetaInd, bProtected, bDoubleScale, bQuick, iReaction, iScale);
-		// TODO Auto-generated constructor stub
+
 		m_bText2 = false;
 	}
 

@@ -1,10 +1,7 @@
 package ru.cpc.smartflatview;
 
-import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
-import android.view.View;
-import android.widget.CompoundButton;
 
 import org.xmlpull.v1.XmlSerializer;
 
@@ -13,25 +10,25 @@ import java.util.Random;
 
 public class NodeAlarm extends Indicator
 {
-    protected int m_iResIDAlarmOff;
-    protected int m_iResIDAlarmOn;
+    private int m_iResIDAlarmOff;
+    private int m_iResIDAlarmOn;
 
-    protected NodeAlarm(float fX, float fY, int iResIDAlarmOn, int iResIDAlarmOff, int iSubType,
-                              String sName, boolean bMetaInd, boolean bProtected,
-                              boolean bDoubleSize, boolean bQuick, int iReaction, int iScale)
+    NodeAlarm(float fX, float fY, int iResIDAlarmOn, int iResIDAlarmOff, int iSubType,
+              String sName, boolean bMetaInd, boolean bProtected,
+              boolean bDoubleSize, boolean bQuick, int iReaction, int iScale)
     {
         super(fX, fY, iResIDAlarmOff, iSubType, sName, bMetaInd, bProtected, bDoubleSize, bQuick, iReaction,
               iScale);
-        // TODO Auto-generated constructor stub
+
         m_iResIDAlarmOn = iResIDAlarmOn;
         m_iResIDAlarmOff = iResIDAlarmOff;
     }
 
-    public boolean m_bAlarm = false;
+    private boolean m_bAlarm = false;
 
-    public String m_sVariableAlarm = "-1";
-    public float m_fValueAlarm = 1;
-    public String m_sSubsystemID = "";
+    private String m_sVariableAlarm = "-1";
+    private float m_fValueAlarm = 1;
+    private String m_sSubsystemID = "";
 
     public NodeAlarm Bind(String sAddressAlarm, String sValueAlarm, String sSubsystemID)
     {
@@ -69,11 +66,7 @@ public class NodeAlarm extends Indicator
 
         if(mainActivity != null)
         {
-            mainActivity.runOnUiThread(new Runnable() {
-                public void run() {
-                    mainActivity.SwitchToSubsystem(m_sSubsystemID);
-                }
-            });
+            mainActivity.runOnUiThread(() -> mainActivity.SwitchToSubsystem(m_sSubsystemID));
         }
 
         return Update();
@@ -96,8 +89,7 @@ public class NodeAlarm extends Indicator
     }
 
     @Override
-    public boolean IsAlarmed()
-    {
+    public boolean IsAlarmed(){
         return m_bAlarm;
     }
 
@@ -107,7 +99,7 @@ public class NodeAlarm extends Indicator
     @Override
     protected boolean Update()
     {
-        int iResId = -1;
+        int iResId;
 
         if(m_bAlarm && m_pUI!= null)
             iResId = m_iResIDAlarmOn;
@@ -128,25 +120,16 @@ public class NodeAlarm extends Indicator
     @Override
     public void Load(char code)
     {
-        m_bAlarm = false;
 
-        if(code == '1')
-        {
-            m_bAlarm = true;
-        }
+        m_bAlarm = code == '1';
         Update();
     }
 
     @Override
     public String Save()
     {
-        if(m_bAlarm)
-            return "1";
-        else
-            return "0";
+        return m_bAlarm?"1":"0";
     }
-
-    protected int m_iImitateAlarmChance = 15;
 
     @Override
     public void Imitate()
@@ -154,10 +137,10 @@ public class NodeAlarm extends Indicator
         if(!m_bMetaIndicator)
         {
             Random rnd = new Random();
+            int m_iImitateAlarmChance = 15;
             if(rnd.nextInt(m_iImitateAlarmChance) == 1)
             {
                 m_bAlarm = true;
-                //m_bAlarm = !m_bAlarm;
                 Update();
             }
         }
@@ -175,17 +158,7 @@ public class NodeAlarm extends Indicator
             serializer.attribute(null, "subsystem", m_sSubsystemID);
             serializer.endTag(null, "link");
         }
-        catch (IllegalArgumentException e)
-        {
-            Log.v("Glindor",e.getMessage());
-            e.printStackTrace();
-        }
-        catch (IllegalStateException e)
-        {
-            Log.v("Glindor",e.getMessage());
-            e.printStackTrace();
-        }
-        catch (IOException e)
+        catch (IllegalArgumentException | IllegalStateException | IOException e)
         {
             Log.v("Glindor",e.getMessage());
             e.printStackTrace();

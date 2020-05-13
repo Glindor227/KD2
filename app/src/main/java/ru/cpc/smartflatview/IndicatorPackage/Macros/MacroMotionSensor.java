@@ -5,9 +5,7 @@ import android.content.Context;
 import ru.cpc.smartflatview.IndicatorPackage.Base.BaseMacro;
 import ru.cpc.smartflatview.R;
 
-/**
- * Created by Вик on 010. 10. 05. 17.
- */
+
 
 public class MacroMotionSensor extends BaseMacro
 {
@@ -17,8 +15,6 @@ public class MacroMotionSensor extends BaseMacro
                 getIndDisC(R.drawable.guard_sensor_on_p, R.drawable.guard_sensor_on,R.drawable.id077,R.drawable.guard_sensor_on_c),
                 getIndDisC(R.drawable.guard_sensor_off_p,R.drawable.guard_sensor_off,R.drawable.id075,R.drawable.guard_sensor_off_c),
                 6, sName, sButtonName, bMetaInd, bProtected, bDoubleScale, bQuick, iReaction, iScale);
-        // TODO Auto-generated constructor stub
-
         m_bText2 = false;
     }
 

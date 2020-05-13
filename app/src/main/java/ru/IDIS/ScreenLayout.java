@@ -2,18 +2,13 @@ package ru.IDIS;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.graphics.Color;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 
-import ru.IDIS.util.MetricUtil;
 import ru.IDIS.view.ScreenView;
 import ru.cpc.smartflatview.R;
-import ru.cpc.smartflatview.VerticalTextView;
 
 @SuppressLint("DefaultLocale")
 public class ScreenLayout 
@@ -137,7 +132,7 @@ extends
         //int visible_image_height = (int)((float)display_width * aspect_ratio_value);
         int visible_image_height = display_height;
         int visible_image_width = (int)((float)display_height * aspect_ratio_value);
-        //VP: чтобы картинка с камеры всегда выводилась горизонтально
+        // чтобы картинка с камеры всегда выводилась горизонтально
         //setScreenViewSize(display_height, visible_image_width);
 
         if(visible_image_width > display_width)

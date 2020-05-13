@@ -1,46 +1,6 @@
 package ru.cpc.smartflatview;
 
-import android.app.Dialog;
-import android.app.DialogFragment;
-import android.os.Bundle;
-import android.support.constraint.ConstraintSet;
-import android.text.LoginFilter;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.FrameLayout;
-import android.widget.TextView;
-
-import com.idis.android.redx.RAudioFormat;
-import com.idis.android.redx.RDate;
-import com.idis.android.redx.RDateTime;
-import com.idis.android.redx.RDisconnectInfo;
-import com.idis.android.redx.REvent;
-import com.idis.android.redx.RPtzPreset;
-import com.idis.android.redx.RSize;
-import com.idis.android.redx.RStatus;
-import com.idis.android.redx.RString;
-import com.idis.android.redx.RTime;
-import com.idis.android.redx.RUpgradeDevice;
-import com.idis.android.redx.RUpgradeFile;
-import com.idis.android.redx.WhyDisconnected;
-import com.idis.android.redx.core.RCore;
-import com.idis.android.redx.searcher.RSearcher;
-import com.idis.android.redx.searcher.RSearcherListener;
-import com.idis.android.redx.util.PeerMemory;
-import com.idis.android.redx.watcher.RWatcher;
-import com.idis.android.redx.watcher.RWatcherListener;
-
-import java.util.Locale;
-
-import ru.IDIS.Ips;
-import ru.IDIS.ScreenLayout;
-import ru.IDIS.view.VideoBitmapPool;
-
-/**
- * Created by Вик on 017. 17. 05. 18.
- */
+/*
 
 public class IDISWatchDialogFS extends DialogFragment
         implements
@@ -190,26 +150,7 @@ public class IDISWatchDialogFS extends DialogFragment
                 mNoCarrierTextView.setVisibility(View.GONE);
             }
         });
-        /*
-        if(mMode==0)
-        {
-            mCountOfCamera = mRWatcher.cameraCount();
-            boolean camList[] = new boolean[mCountOfCamera];
-            Arrays.fill(camList, false);
-            camList[mCamVideo.m_iCamID] = true;
-            mRWatcher.setCameraList(camList, mCountOfCamera);
-            mWatchSelectedCamera = mCamVideo.m_iCamID;
-        }
-        else
-        {
-            mCountOfCamera = mSearcher.cameraCount();
-            boolean camList[] = new boolean[mCountOfCamera];
-            Arrays.fill(camList, false);
-            camList[mCamVideo.m_iCamID] = true;
-            mSearcher.setCameraList(camList);
-            mSearchSelectedCamera = mCamVideo.m_iCamID;
-        }
-        */
+
     }
 
     @Override
@@ -284,24 +225,7 @@ public class IDISWatchDialogFS extends DialogFragment
             Log.v(TAG, "onFrameLoaded " + cvtSize.toString() + "(" + ips + "ips)");
         }
 
-        /*
-        if(mMode==0){
-            if (mWatchSelectedCamera != camera) {
-                if (DEBUG_LOG) {
-                    Log.v(TAG, "invalid frame loaded");
-                }
-                return;
-            }
-        }
-        else {
-            if (mSearchSelectedCamera != camera) {
-                if (DEBUG_LOG) {
-                    Log.v(TAG, "invalid frame loaded");
-                }
-                return;
-            }
-        }
-        */
+
 
         if (title != null) {
             if (DEBUG_LOG) {
@@ -363,11 +287,7 @@ public class IDISWatchDialogFS extends DialogFragment
                             }
                             mNoCarrierTextView.setVisibility(View.GONE);
 
-/*                    if(mMode==0)
-                        tv1.setText("W FrameLoaded");
-                    if(mMode==1)
-                        tv1.setText("S FrameLoaded");
-*/
+
 
                             mScreenLayout.drawImage(image_to_draw, cvtSize.width(), cvtSize.height());
                             setDateTime(dateTime.date().year(), dateTime.date().month(),
@@ -444,66 +364,7 @@ public class IDISWatchDialogFS extends DialogFragment
 
             @Override
             public void run() {
-                // TODO Auto-generated method stub
 
-//                Toast.makeText(WatchScreenActivity.this, "Audio connected", Toast.LENGTH_SHORT).show();
-
-//                if (_audioDlg != null) {
-//                    _audioDlg.dismiss();
-//                    _audioDlg = null;
-//                }
-//
-//                AlertDialog dlg = AudioControlDialog.createDialog(WatchScreenActivity.this, new AudioControlDialog.OnAudioControlListener() {
-//
-//                    @Override
-//                    public void onSpeakerEnabled(boolean enable) {
-//                        // TODO Auto-generated method stub
-//                        if (mRWatcher == null) {
-//                            return;
-//                        }
-//                        if (_status.audioInStatus(AUDIO_CAMERA) == 0) {
-//                            Toast.makeText(WatchScreenActivity.this, "Audio-in is not available", Toast.LENGTH_SHORT).show();
-//                            return;
-//                        }
-//                        if (enable) {
-//                            mRWatcher.startReceivingAudio(AUDIO_CAMERA);
-//                        }
-//                        else {
-//                            mRWatcher.stopReceivingAudio(AUDIO_CAMERA);
-//                        }
-//                    }
-//
-//                    @Override
-//                    public void onMicEnabled(boolean enable) {
-//                        // TODO Auto-generated method stub
-//                        if (mRWatcher == null) {
-//                            return;
-//                        }
-//                        if (_status.audioOutStatus(AUDIO_CAMERA) == 0) {
-//                            Toast.makeText(WatchScreenActivity.this, "Audio-out is not available", Toast.LENGTH_SHORT).show();
-//                            return;
-//                        }
-//                        if (enable) {
-//                            mRWatcher.startSendingAudio(AUDIO_CAMERA);
-//                        }
-//                        else {
-//                            AudioRecorder.getInstance().stop();
-//                            mRWatcher.stopSendingAudio(AUDIO_CAMERA);
-//                        }
-//                    }
-//
-//                    @Override
-//                    public void onClose() {
-//                        // TODO Auto-generated method stub
-//                        if (mRWatcher == null) {
-//                            return;
-//                        }
-//                        mRWatcher.disconnectAudio();
-//                    }
-//                });
-//                dlg.show();
-//
-//                _audioDlg = dlg;
             }
 
         });
@@ -512,23 +373,6 @@ public class IDISWatchDialogFS extends DialogFragment
     @Override
     public void onAudioDisconnected(int reason) {
 
-//        AudioPlayer.getInstance().stop();
-//        AudioRecorder.getInstance().stop();
-//
-//        runOnUiThread(new Runnable() {
-//
-//            @Override
-//            public void run() {
-//                // TODO Auto-generated method stub
-//
-//                Toast.makeText(WatchScreenActivity.this, "Audio disconnected", Toast.LENGTH_SHORT).show();
-//
-//                if (_audioDlg != null) {
-//                    _audioDlg.dismiss();
-//                    _audioDlg = null;
-//                }
-//            }
-//        });
     }
 
     @Override
@@ -551,19 +395,7 @@ public class IDISWatchDialogFS extends DialogFragment
         }
         Log.v(TAG, "onReceiveSendingAudioFormat");
 
-//        AudioRecorder.getInstance().initialize(sendInfo, new AudioRecorder.OnAudioCapturedListener() {
-//
-//            @Override
-//            public boolean onAudioCaptured(byte[] data, int dataLen) {
-//                // TODO Auto-generated method stub
-//
-//                Log.v(TAG, "sendAudio " + dataLen);
-//
-//                mRWatcher.sendAudio(data, dataLen, WatchScreenActivity.AUDIO_CAMERA);
-//                return false;
-//            }
-//        });
-//        AudioRecorder.getInstance().start();
+
     }
 
     @Override
@@ -573,3 +405,4 @@ public class IDISWatchDialogFS extends DialogFragment
 //        AudioPlayer.getInstance().play(data);
     }
 }
+*/

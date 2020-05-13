@@ -13,7 +13,7 @@ public class Macro extends BaseMacro
 				getIndDisC(R.drawable.macro_on_p,R.drawable.macro_on,R.drawable.id112s,R.drawable.macro_on_c),
 			getIndDisC(R.drawable.macro_off_p,R.drawable.macro_off,R.drawable.id111s,R.drawable.macro_off_c),
 				1, sName, sButtonName, bMetaInd, bProtected, bDoubleScale, bQuick, iReaction, iScale);
-		// TODO Auto-generated constructor stub
+
 		m_bText2 = false;
 	}
 	public Macro setDemo(){

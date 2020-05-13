@@ -12,7 +12,7 @@ public class MotionSensor extends BaseAlarmSensor
 				getIndDisC(R.drawable.guard_sensor_on_p, R.drawable.guard_sensor_on,R.drawable.id077,R.drawable.guard_sensor_on_c),
 				getIndDisC(R.drawable.guard_sensor_off_p,R.drawable.guard_sensor_off,R.drawable.id075,R.drawable.guard_sensor_off_c),
 				2, sName, bMetaInd, bProtected, bDoubleScale, bQuick, iReaction, iScale);
-		// TODO Auto-generated constructor stub
+
 		m_iImitateAlarmChance = 6;
 	}
 }

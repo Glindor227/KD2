@@ -17,7 +17,6 @@ public class PowerControl extends BaseRelay
 				getIndDisC(R.drawable.power_on_p,R.drawable.power_on_2,R.drawable.power_on,R.drawable.power_on_c),
 				getIndDisC(R.drawable.power_off_p,R.drawable.power_off_2,R.drawable.power_off,R.drawable.power_off_c),
 				8, sName, bMetaInd, bProtected, bDoubleScale, bQuick, iReaction, iScale);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override

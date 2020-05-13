@@ -13,7 +13,7 @@ public class MacroAlarm extends BaseMacro
 				getIndDisC(R.drawable.error_alarm_p,R.drawable.error_alarm,R.drawable.alarmnode1,R.drawable.error_alarm_p),
 			getIndDisC(R.drawable.error_on_p,R.drawable.error_on,R.drawable.alarmnode0,R.drawable.error_on_c),
 				17, sName, sButtonName, bMetaInd, bProtected, bDoubleScale, bQuick, iReaction, iScale);
-		// TODO Auto-generated constructor stub
+
 		m_bText2 = false;
 	}
 

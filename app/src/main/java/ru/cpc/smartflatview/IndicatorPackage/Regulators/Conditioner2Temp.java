@@ -25,55 +25,67 @@ public class Conditioner2Temp extends BaseRegulator
 
     public Conditioner2Temp(int iX, int iY, String sName, boolean bMetaInd, boolean bProtected, boolean bDoubleScale, boolean bQuick, int iReaction, int iScale, int iType)
     {
-        super(iX, iY, condCoolOff, 9, sName, bMetaInd, bProtected, bDoubleScale, bQuick, iReaction, iScale);
+        super(iX, iY, condCoolOff, iType, sName, bMetaInd, bProtected, bDoubleScale, bQuick, iReaction, iScale);
         m_iValue = 20;
         m_iType = iType;
     }
     private int m_iType;
+/*
     public Conditioner2Temp setDemo(){
         Bind("1", "1", "1", "0", false, "16", "32", "23");
         return this;
     }
-
+*/
     @Override
     public boolean SetValue(float iX, float iY)
     {
-        // TODO Auto-generated method stub
+
         return false;
     }
 
     @Override
     protected boolean Update()
     {
+        boolean lBlack = m_bPower;
         int iResId = -1;
         if(m_pUI!=null) {
-            if(m_bText2)
-                m_pUI.m_pText2.setText(String.valueOf(m_iValue));
-            if(m_bText3)
-                m_pUI.m_pText3.setText(String.valueOf(m_iTemp));
+            if(m_bText2) {
+                m_sTemp2Text  = String.valueOf(m_iValue);
+                m_pUI.m_pText2.setText(m_sTemp2Text);
+            }
+            if(m_bText3){
+                m_sTemp3Text = String.valueOf(m_iTemp);
+                m_pUI.m_pText3.setText(m_sTemp3Text);
+            }
+            if(m_bText4){
+                m_sTemp4Text = m_iState?"ON":"OFF";
+                m_pUI.m_pText4.setText(m_sTemp4Text);
+            }
         }
-        if(m_iType==11) {
+        if((m_iType==11)||(m_iType==14)) {
+            lBlack = true;
             if(m_iValue > m_fValueMed)
                 iResId = radiatorHot;
             else
                 iResId = radiatorCool;
         }
         else {
-            if (m_bPower) {
-                if (m_iType == 9) {
+            if (m_bPower/* || m_bNoPower*/) {//или вклчен или не имеет управление включением
+                if ((m_iType == 9)||(m_iType == 12)) {
                     iResId = condCoolOn;
                     if (m_iValue > m_fValueMed)
                         iResId = condHotOn;
                 }
-                if (m_iType == 10) iResId = floorOn;
-
+                if ((m_iType == 10)||(m_iType == 13))
+                    iResId = floorOn;
             } else {
-                if (m_iType == 9){
+                if ((m_iType == 9)||(m_iType == 12)) {
                     iResId = condCoolOff;
                     if (m_iValue > m_fValueMed)
                         iResId = condHotOff;
                 }
-                if (m_iType == 10) iResId = floorOff;
+                    if ((m_iType == 10)||(m_iType == 13))
+                    iResId = floorOff;
             }
         }
 
@@ -84,7 +96,7 @@ public class Conditioner2Temp extends BaseRegulator
             return false;
         }
 
-        return m_pUI.StartAnimation(iResId);
+        return getTypeDez()==2?m_pUI.StartAnimation(iResId,lBlack):m_pUI.StartAnimation(iResId);
     }
 
     @Override
@@ -94,12 +106,7 @@ public class Conditioner2Temp extends BaseRegulator
 
         ScrollingDialog.Init(m_sName, m_pSubsystem.m_sName);
         final ScrollingDialog.SFSwitcher pSwitcher = m_bNoPower ? null : (ScrollingDialog.SFSwitcher) ScrollingDialog.AddSwitcher(m_sVariablePower, context.getString(R.string.sdPower), m_bPower, m_iReaction != 0
-                ? null : new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                SwitchOnOff(0, 0);
-            }
-        });
+                ? null : (CompoundButton.OnCheckedChangeListener) (buttonView, isChecked) -> SwitchOnOff(0, 0));
         Log.d("Regul", "Conditioner2Temp.ShowPopup m_iValue = "+m_iValue);
 
         final ScrollingDialog.SFSeeker pSeeker =

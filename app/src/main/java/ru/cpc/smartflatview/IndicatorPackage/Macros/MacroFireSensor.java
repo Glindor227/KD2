@@ -5,9 +5,7 @@ import android.content.Context;
 import ru.cpc.smartflatview.IndicatorPackage.Base.BaseMacro;
 import ru.cpc.smartflatview.R;
 
-/**
- * Created by Вик on 010. 10. 05. 17.
- */
+
 
 public class MacroFireSensor extends BaseMacro
 {
@@ -17,7 +15,7 @@ public class MacroFireSensor extends BaseMacro
                 getIndDisC(R.drawable.fire_sensor_on_p,R.drawable.fire_sensor_on,R.drawable.id073,R.drawable.fire_sensor_on_c),
                 getIndDisC(R.drawable.fire_sensor_off_p,R.drawable.fire_sensor_off,R.drawable.id071,R.drawable.fire_sensor_off_c),
                 7, sName, sButtonName, bMetaInd, bProtected, bDoubleScale, bQuick, iReaction, iScale);
-        // TODO Auto-generated constructor stub
+
 
         m_bText2 = false;
     }

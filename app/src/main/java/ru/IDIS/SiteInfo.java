@@ -49,14 +49,14 @@ public class SiteInfo
     @JNIimplement
     public int describeContents()
     {
-        // TODO Auto-generated method stub
+
         return 0;
     }
 
     @JNIimplement
     public void writeToParcel(Parcel dest, int flags)
     {
-        // TODO Auto-generated method stub
+
         dest.writeInt(mConnectionType);
         dest.writeString(mAddress);
         dest.writeInt(mWatchPort);
@@ -73,7 +73,7 @@ public class SiteInfo
         @JNIimplement
         public SiteInfo createFromParcel(Parcel source)
         {
-            // TODO Auto-generated method stub
+
             SiteInfo lhs = new SiteInfo();
             lhs.mConnectionType = source.readInt();
             lhs.mAddress = source.readString();
@@ -89,7 +89,7 @@ public class SiteInfo
         @JNIimplement
         public SiteInfo[] newArray(int size)
         {
-            // TODO Auto-generated method stub
+
             return new SiteInfo[size];
         }
     };

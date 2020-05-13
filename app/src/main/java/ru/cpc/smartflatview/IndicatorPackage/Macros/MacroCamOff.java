@@ -5,9 +5,7 @@ import android.content.Context;
 import ru.cpc.smartflatview.IndicatorPackage.Base.BaseMacro;
 import ru.cpc.smartflatview.R;
 
-/**
- * Created by Вик on 028. 28. 12. 16.
- */
+
 
 public class MacroCamOff extends BaseMacro
 {
@@ -17,7 +15,7 @@ public class MacroCamOff extends BaseMacro
                 getIndDisC(R.drawable.cam_off_p,R.drawable.cam_off,R.drawable.cam3,R.drawable.cam_off_c),
                 getIndDisC(R.drawable.cam_off_p,R.drawable.cam_off,R.drawable.cam3,R.drawable.cam_off_c),
                 5, sName, sButtonName, bMetaInd, bProtected, bDoubleScale, bQuick, iReaction, iScale);
-        // TODO Auto-generated constructor stub
+
 
         m_bText2 = false;
     }

@@ -14,9 +14,7 @@ import ru.cpc.smartflatview.IndicatorUI;
 import ru.cpc.smartflatview.R;
 import ru.cpc.smartflatview.SFServer;
 
-/**
- * Created by Вик on 026. 26.04.16.
- */
+
 public abstract class BaseSensor extends Indicator
 {
     public String m_sButtonText = "";
@@ -30,7 +28,7 @@ public abstract class BaseSensor extends Indicator
 
 //        super(fX, fY, newDez?(posDez?R.drawable.empty_p:R.drawable.empty_2):R.drawable.empty, iSubType, sName, bMetaInd, bProtected, bDoubleSize, bQuick, iReaction, iScale);
         super(fX, fY, getIndDis(R.drawable.empty_p,R.drawable.empty_2,R.drawable.empty), iSubType, sName, bMetaInd, bProtected, bDoubleSize, bQuick, iReaction, iScale);
-        // TODO Auto-generated constructor stub
+
 
         m_bText2 = true;
         m_sPostfix = sPostfix;
@@ -96,14 +94,14 @@ public abstract class BaseSensor extends Indicator
     @Override
     public boolean SetValue(float iX, float iY)
     {
-        // TODO Auto-generated method stub
+
         return false;
     }
 
     @Override
     public boolean SetValue(float iValue)
     {
-        // TODO Auto-generated method stub
+
         return false;
     }
 

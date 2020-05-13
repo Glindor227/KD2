@@ -15,9 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-/**
- * Created by Вик on 013. 13. 03. 18.
- */
+
 
 public class VerticalLabelView extends View
 {

@@ -7,9 +7,7 @@ import org.xmlpull.v1.XmlSerializer;
 
 import java.io.IOException;
 
-/**
- * Created by Вик on 021. 21.03.16.
- */
+
 public class ButtonMedia extends Indicator
 {
     static final int EJECT = 1;
@@ -32,7 +30,7 @@ public class ButtonMedia extends Indicator
                 boolean bDoubleSize, boolean bQuick, int iReaction, int iScale)
     {
         super(fX, fY, GetResId(iType, false), iType, sName, bMetaInd, bProtected, bDoubleSize, bQuick, iReaction, iScale);
-        // TODO Auto-generated constructor stub
+
 
         m_iType = iType;
     }
@@ -59,13 +57,13 @@ public class ButtonMedia extends Indicator
 
     @Override
     public boolean SetValue(float iX, float iY) {
-        // TODO Auto-generated method stub
+
         return false;
     }
 
     @Override
     public boolean SetValue(float iValue) {
-        // TODO Auto-generated method stub
+
         return false;
     }
 
@@ -227,13 +225,13 @@ public class ButtonMedia extends Indicator
 
     @Override
     public void GetAddresses(AddressString sAddr) {
-        // TODO Auto-generated method stub
+
 
     }
 
     @Override
     public boolean Process(String sAddr, String sVal) {
-        // TODO Auto-generated method stub
+
         return false;
     }
 

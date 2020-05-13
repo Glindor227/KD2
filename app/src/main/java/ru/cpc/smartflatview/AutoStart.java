@@ -10,9 +10,7 @@ import android.os.Build;
 import android.os.SystemClock;
 import android.util.Log;
 
-/**
- * Created by Вик on 019. 19. 04. 18.
- */
+
 
 public class AutoStart extends BroadcastReceiver
 {

@@ -13,7 +13,6 @@ import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -28,9 +27,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-/**
- * Created by Вик on 017. 17.02.16.
- */
+
 public class ScrollingDialog extends DialogFragment implements DialogInterface.OnClickListener
 {
     public final static int factorSet = 10;
