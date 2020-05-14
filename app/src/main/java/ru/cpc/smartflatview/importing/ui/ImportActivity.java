@@ -24,8 +24,7 @@ import java.util.Objects;
 import moxy.MvpAppCompatActivity;
 import moxy.presenter.InjectPresenter;
 import ru.cpc.smartflatview.Config;
-import ru.cpc.smartflatview.FileChooser;
-import ru.cpc.smartflatview.importing.model.netIO.fileRepository.ServerFile;
+import ru.cpc.smartflatview.importing.model.localfile.FileChooser;
 import ru.cpc.smartflatview.importing.presenter.ImportPresenter;
 import ru.cpc.smartflatview.MainActivity;
 import ru.cpc.smartflatview.R;
@@ -35,8 +34,7 @@ public class ImportActivity extends MvpAppCompatActivity implements ImportView {
     private static final String IMPORT_PREFERENCES = "srsimport";
     private static final String IMPORT_PREFERENCES_IP = "ip";
     private static final String IMPORT_PREFERENCES_PORT = "port";
-     public static final String TAG = "Import";
-    ServerFile serverFile;
+    public static final String TAG = "Import";
     EditText et_ip;
     EditText et_port;
     private SharedPreferences importPref;
@@ -44,7 +42,6 @@ public class ImportActivity extends MvpAppCompatActivity implements ImportView {
     @InjectPresenter
     ImportPresenter presenter;
 
-//    Boolean localImport;
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
@@ -59,14 +56,6 @@ public class ImportActivity extends MvpAppCompatActivity implements ImportView {
         InitSharedPref();
         et_ip = findViewById(R.id.et_ip);
         et_port = findViewById(R.id.et_port);
-
-        try{
-            Integer port = Integer.parseInt(et_port.getText().toString());
-            serverFile = new ServerFile(this,et_ip.getText().toString(),port);
-        }
-        catch (Exception e){
-            inputError("Ошибка в конструкторе активити");
-        }
     }
 
     @Override
@@ -108,14 +97,11 @@ public class ImportActivity extends MvpAppCompatActivity implements ImportView {
 
     public void inputError(String text){
         Toast.makeText(this,text,Toast.LENGTH_LONG).show();
-        Log.d(ImportActivity.TAG, "text");
+        Log.d(ImportActivity.TAG, text);
     }
 
     public void setInput_IS(InputStream input_IS) {
-        ImportConfig(false,input_IS);
-
-//        btn_import.setEnabled(true);
-
+        ImportConfig(input_IS);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -129,7 +115,7 @@ public class ImportActivity extends MvpAppCompatActivity implements ImportView {
         btn_local.setOnClickListener(v -> new FileChooser(
                 ImportActivity.this).setFileListener(file -> {
             try{
-                ImportConfig(true,new FileInputStream(file));
+                ImportConfig(new FileInputStream(file));
 //                localImport = true;
   //              Log.d("localImport", "true");
             }
@@ -149,8 +135,6 @@ public class ImportActivity extends MvpAppCompatActivity implements ImportView {
             }
             Log.d(ImportActivity.TAG, "ImportActivity getList");
 
-//            serverFile.initList();
-
         });
 
 
@@ -166,7 +150,8 @@ public class ImportActivity extends MvpAppCompatActivity implements ImportView {
 
     }
 
-    private void ImportConfig(Boolean local,InputStream input_IS) {
+    //TODO По хорошему этот метод должен быть частично во view(передача управления во main, а частично на уровне модели(старт конфига). Просто пока Config это легаси код)
+    private void ImportConfig(InputStream input_IS) {
         Config pConfig = new Config(input_IS);
         if(pConfig.m_cRooms.size() != 0)
         {
@@ -174,24 +159,17 @@ public class ImportActivity extends MvpAppCompatActivity implements ImportView {
             Config.Instance = pConfig;
             Config.SaveXml(pConfig, this);
             Toast.makeText(getApplicationContext(), R.string.importSuccess, Toast.LENGTH_LONG).show();
+            //TODO зачем этот sleep???????
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            if(!local) serverFile.stop();
+//            if(!local) serverFile.stop();
 
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
-
-//                    Intent mStartActivity = new Intent(getApplicationContext(), LaunchScreenActivity.class);
-//                    int mPendingIntentId = 123456;
-//                    PendingIntent mPendingIntent = PendingIntent.getActivity(getApplicationContext(), mPendingIntentId,    mStartActivity, PendingIntent.FLAG_CANCEL_CURRENT);
-//                    AlarmManager mgr = (AlarmManager)getApplicationContext().getSystemService(Context.ALARM_SERVICE);
-//                    mgr.set(AlarmManager.RTC, System.currentTimeMillis() + 100, mPendingIntent);
-
             finish();
-            //System.exit(0);
         }
     }
 
@@ -203,6 +181,6 @@ public class ImportActivity extends MvpAppCompatActivity implements ImportView {
 
     @Override
     public void callbackOneFile(InputStream file) {
-        ImportConfig(false,file);
+        ImportConfig(file);
     }
 }

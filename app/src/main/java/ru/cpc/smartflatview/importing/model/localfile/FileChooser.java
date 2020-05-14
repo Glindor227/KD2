@@ -1,4 +1,4 @@
-package ru.cpc.smartflatview;
+package ru.cpc.smartflatview.importing.model.localfile;
 
 import android.app.Activity;
 import android.app.Dialog;

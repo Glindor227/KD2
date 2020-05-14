@@ -11,13 +11,10 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import ru.cpc.smartflatview.importing.model.netIO.fileRepository.ServerFile;
 import ru.cpc.smartflatview.R;
 
 public class RVAdapter extends RecyclerView.Adapter<RVAdapter.RVViewHolder> {
-//    private TextView fileResult;
     private List<String> data;
-    private ServerFile serverFile;
     private final OnItemClickListener listener;
 
     RVAdapter(List<String> data, OnItemClickListener listener) {
@@ -25,7 +22,6 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.RVViewHolder> {
         Log.d(ImportActivity.TAG, "RVAdapter");
 
         this.data = data;
-        this.serverFile = serverFile;
     }
 
     @NonNull
@@ -41,7 +37,7 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.RVViewHolder> {
     public void onBindViewHolder(@NonNull RVViewHolder rvViewHolder, int i) {
         rvViewHolder.nameFile.setText(data.get(i));
         rvViewHolder.dateFile.setText("-");
-        rvViewHolder.nameFile.setOnClickListener( v -> {listener.onItemClick(data.get(i)); });
+        rvViewHolder.nameFile.setOnClickListener( v -> listener.onItemClick(data.get(i)));
     }
 
     @Override
