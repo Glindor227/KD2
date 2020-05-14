@@ -1,4 +1,4 @@
-package ru.cpc.smartflatview.Import.Model.NetIO.FileRepository;
+package ru.cpc.smartflatview.importing.model.netIO.fileRepository;
 
 import android.util.Log;
 
@@ -9,8 +9,8 @@ import java.net.Socket;
 
 import io.netty.handler.codec.serialization.ObjectDecoderInputStream;
 import io.netty.handler.codec.serialization.ObjectEncoderOutputStream;
-import ru.cpc.smartflatview.Import.Model.NetIO.Common.AbstractMessage;
-import ru.cpc.smartflatview.Import.UI.ImportActivity;
+import ru.cpc.smartflatview.importing.model.netIO.common.AbstractMessage;
+import ru.cpc.smartflatview.importing.ui.ImportActivity;
 
 class Network {
     private static Socket socket;

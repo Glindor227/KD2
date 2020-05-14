@@ -57,7 +57,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 
-import ru.cpc.smartflatview.Import.UI.ImportActivity;
+import ru.cpc.smartflatview.importing.ui.ImportActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -564,7 +564,7 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
-    public void ImportConfig()
+    public void mainImportConfig()
     {
         Intent intent = new Intent(this, ImportActivity.class);
         startActivity(intent);
@@ -646,14 +646,14 @@ public class MainActivity extends AppCompatActivity {
         {
             String prefsCode = Prefs.getPrefs(this);
             if(prefsCode.isEmpty())
-                ImportConfig();
+                mainImportConfig();
             else {
                 LoginActivity.s_sTrueCode = prefsCode;
                 LoginActivity.s_pUnlocker = new LoginActivity.SFUnlocker() {
                     @Override
                     public void Unlock(boolean bUnlock) {
                         if (bUnlock)
-                            ImportConfig();
+                            mainImportConfig();
                     }
                 };
                 Intent intent = new Intent(this, LoginActivity.class);

@@ -1,4 +1,4 @@
-package ru.cpc.smartflatview.Import.Model.NetIO.Common;
+package ru.cpc.smartflatview.importing.model.netIO.common;
 
 
 import android.os.Build;

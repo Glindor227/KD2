@@ -1,12 +1,11 @@
-package ru.cpc.smartflatview.Import.UI;
+package ru.cpc.smartflatview.importing.ui;
 
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
-import android.support.annotation.RequiresApi;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -22,25 +21,30 @@ import java.io.InputStream;
 import java.util.List;
 import java.util.Objects;
 
+import moxy.MvpAppCompatActivity;
+import moxy.presenter.InjectPresenter;
 import ru.cpc.smartflatview.Config;
 import ru.cpc.smartflatview.FileChooser;
-import ru.cpc.smartflatview.Import.Model.NetIO.FileRepository.ServerFile;
+import ru.cpc.smartflatview.importing.model.netIO.fileRepository.ServerFile;
+import ru.cpc.smartflatview.importing.presenter.ImportPresenter;
 import ru.cpc.smartflatview.MainActivity;
 import ru.cpc.smartflatview.R;
 
-public class ImportActivity extends AppCompatActivity {
+public class ImportActivity extends MvpAppCompatActivity implements ImportView {
 
     private static final String IMPORT_PREFERENCES = "srsimport";
     private static final String IMPORT_PREFERENCES_IP = "ip";
     private static final String IMPORT_PREFERENCES_PORT = "port";
-    public static final String TAG = "Import";
-    InputStream input_IS = null;
-    //File input_f;
+     public static final String TAG = "Import";
     ServerFile serverFile;
     EditText et_ip;
     EditText et_port;
     private SharedPreferences importPref;
-    Boolean localImport;
+
+    @InjectPresenter
+    ImportPresenter presenter;
+
+//    Boolean localImport;
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
@@ -73,7 +77,9 @@ public class ImportActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-
+    /**
+     * записываем параметры в SharedPreferences
+     */
     @Override
     protected void onPause() {
         super.onPause();
@@ -83,7 +89,9 @@ public class ImportActivity extends AppCompatActivity {
         editor.apply();
     }
 
-    @Override
+    /**
+     * считываем параметры из SharedPreferences
+     */    @Override
     protected void onResume() {
         super.onResume();
         if (importPref.contains(IMPORT_PREFERENCES_IP)) {
@@ -96,7 +104,6 @@ public class ImportActivity extends AppCompatActivity {
 
     private void InitSharedPref() {
         importPref = getSharedPreferences(IMPORT_PREFERENCES, Context.MODE_PRIVATE);
-
     }
 
     public void inputError(String text){
@@ -105,8 +112,7 @@ public class ImportActivity extends AppCompatActivity {
     }
 
     public void setInput_IS(InputStream input_IS) {
-        this.input_IS = input_IS;
-        ImportConfig(false);
+        ImportConfig(false,input_IS);
 
 //        btn_import.setEnabled(true);
 
@@ -123,10 +129,9 @@ public class ImportActivity extends AppCompatActivity {
         btn_local.setOnClickListener(v -> new FileChooser(
                 ImportActivity.this).setFileListener(file -> {
             try{
-                input_IS = new FileInputStream(file);
-                ImportConfig(true);
-                localImport = true;
-                Log.d("localImport", "true");
+                ImportConfig(true,new FileInputStream(file));
+//                localImport = true;
+  //              Log.d("localImport", "true");
             }
             catch(FileNotFoundException e){
                 Log.e("FileNotFoundException", "can't create FileInputStream");
@@ -136,18 +141,15 @@ public class ImportActivity extends AppCompatActivity {
         }).showDialog());
         btn_link.setOnClickListener(v -> {
             try {
-
-                serverFile.setNewLinkParams(et_ip.getText().toString(),Integer.parseInt(et_port.getText().toString()));
+                presenter.initParam(et_ip.getText().toString(),et_port.getText().toString());
+                presenter.getList();
             }
             catch (Exception e){
                 inputError("Ошибка в установке параметров соединения");
             }
             Log.d(ImportActivity.TAG, "ImportActivity getList");
-//            serverFile.startSever();
-            serverFile.initList();
-            localImport = false;
-            Log.d("localImport", "false");
 
+//            serverFile.initList();
 
         });
 
@@ -158,13 +160,13 @@ public class ImportActivity extends AppCompatActivity {
         RecyclerView recyclerView = findViewById(R.id.if_rv_notes);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext(),
                 LinearLayoutManager.VERTICAL, false);
-        RVAdapter adapter = new RVAdapter(serverFile,inFilesList);
+        RVAdapter adapter = new RVAdapter(inFilesList, item -> presenter.getOneFile(item));
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
 
     }
 
-    private void ImportConfig(Boolean local) {
+    private void ImportConfig(Boolean local,InputStream input_IS) {
         Config pConfig = new Config(input_IS);
         if(pConfig.m_cRooms.size() != 0)
         {
@@ -191,5 +193,16 @@ public class ImportActivity extends AppCompatActivity {
             finish();
             //System.exit(0);
         }
+    }
+
+    @Override
+    public void callbackListFiles(List<String> list) {
+        InitRV(list);
+
+    }
+
+    @Override
+    public void callbackOneFile(InputStream file) {
+        ImportConfig(false,file);
     }
 }

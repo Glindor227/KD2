@@ -1,4 +1,4 @@
-package ru.cpc.smartflatview.Import.UI;
+package ru.cpc.smartflatview.importing.ui;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -11,15 +11,17 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import ru.cpc.smartflatview.Import.Model.NetIO.FileRepository.ServerFile;
+import ru.cpc.smartflatview.importing.model.netIO.fileRepository.ServerFile;
 import ru.cpc.smartflatview.R;
 
 public class RVAdapter extends RecyclerView.Adapter<RVAdapter.RVViewHolder> {
 //    private TextView fileResult;
     private List<String> data;
     private ServerFile serverFile;
+    private final OnItemClickListener listener;
 
-    RVAdapter(ServerFile serverFile,List<String> data) {
+    RVAdapter(List<String> data, OnItemClickListener listener) {
+        this.listener=listener;
         Log.d(ImportActivity.TAG, "RVAdapter");
 
         this.data = data;
@@ -39,12 +41,7 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.RVViewHolder> {
     public void onBindViewHolder(@NonNull RVViewHolder rvViewHolder, int i) {
         rvViewHolder.nameFile.setText(data.get(i));
         rvViewHolder.dateFile.setText("-");
-        rvViewHolder.nameFile.setOnClickListener(v -> {
-            TextView clTV =(TextView) v;
-            String selectedFile =clTV.getText().toString();
-            serverFile.initFile(selectedFile);
-            Log.d("Import",clTV.getText().toString());
-        });
+        rvViewHolder.nameFile.setOnClickListener( v -> {listener.onItemClick(data.get(i)); });
     }
 
     @Override
@@ -65,5 +62,8 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.RVViewHolder> {
             nameFile = itemView.findViewById(R.id.if_name);
             dateFile = itemView.findViewById(R.id.if_date);
         }
+    }
+    public interface OnItemClickListener {
+        void onItemClick(String item);
     }
 }

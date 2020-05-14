@@ -1,6 +1,7 @@
-package ru.cpc.smartflatview.Import.Model.Retrofit.data;
+package ru.cpc.smartflatview.importing.model.retrofit.data;
 
 import android.os.Build;
+import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 
 import com.google.gson.annotations.Expose;
@@ -10,8 +11,8 @@ import java.util.List;
 
 public class GsonDate {
     @Expose
-    @SerializedName("id")
-    public Integer id;
+    @SerializedName("count")
+    public Integer count;
 
     @Expose
     @SerializedName("items")
@@ -21,13 +22,12 @@ public class GsonDate {
         return items;
     }
 
+    @NonNull
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public String toString() {
-        StringBuilder builder = new StringBuilder("Получили id =")
-                .append(id.toString())
-                .append(", кол-во = ")
-                .append(items.size())
+        StringBuilder builder = new StringBuilder("Получили кол-во = ")
+                .append(count)
                 .append("\n");
         items.forEach(s -> builder.append(s).append("\n"));
         return builder.toString();
