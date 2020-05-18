@@ -53,10 +53,12 @@ import android.widget.ImageView;
 //import com.idis.android.redx.core.RCore;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 
+import ru.cpc.smartflatview.app.App;
 import ru.cpc.smartflatview.importing.ui.ImportActivity;
 
 public class MainActivity extends AppCompatActivity {
@@ -181,6 +183,9 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onStart() {
+        App.addTime("4 MainActivity onStart", new Date());
+        Log.d("ImportTime",App.getTimeLabel().toString());
+
 
 //        Indicator.typeDez = Prefs.getDis(this);
         Indicator.delta = Prefs.getDelta(this);
@@ -197,6 +202,7 @@ public class MainActivity extends AppCompatActivity {
     @SuppressLint("SourceLockedOrientationActivity")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        App.addTime("5 onCreate", new Date());
 
 
         Log.d("Glindor3!3", "setRequestedOrientation");
@@ -280,6 +286,7 @@ public class MainActivity extends AppCompatActivity {
             tabLayout.setVisibility(View.GONE);
         }
 
+
         //Настраиваем боковое меню
         if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
             DrawerLayout drawer = findViewById(R.id.drawer_layout);
@@ -299,6 +306,7 @@ public class MainActivity extends AppCompatActivity {
             navigationView.setItemIconTintList(null);
         }
         Log.d("Glindor3","MainActivity onCreate 7");
+
 
         if(Config.Instance != null)
             prepareListData();
@@ -416,18 +424,21 @@ public class MainActivity extends AppCompatActivity {
         Log.d("Glindor3","MainActivity onCreate 8");
         Load(indicators);
         Log.d("Glindor3","MainActivity onCreate 8.1");
+        App.addTime("11 onCreate", new Date());
 
         if(Config.Instance != null && Config.Instance.m_cSubsystems != null && Config.Instance.m_cSubsystems.size() > 0)
         {
             Log.d("Glindor3","MainActivity onCreate 8.1");
             SFServer.Instance = new SFServer(this);
             Log.d("Glindor3","MainActivity onCreate 8.2");
+            App.addTime("12 onCreate", new Date());
 
             if(!Config.DEMO)
                 SFServer.Instance.Connect();
             Log.d("Glindor3","MainActivity onCreate 8.3");
         }
         Log.d("Glindor3","MainActivity onCreate 9");
+        App.addTime("13 onCreate exit", new Date());
 
     }
 

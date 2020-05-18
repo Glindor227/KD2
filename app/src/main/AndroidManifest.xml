@@ -16,6 +16,7 @@
 
     <application
         android:allowBackup="true"
+        android:name=".app.App"
         android:icon="@drawable/logo_kd_big"
         android:label="@string/app_name"
         android:supportsRtl="true"

@@ -100,7 +100,15 @@
             app:layout_constraintTop_toTopOf="@+id/et_port" />
 
     </android.support.constraint.ConstraintLayout>
-
+    <ProgressBar
+        android:id="@+id/prog_bar_test"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:visibility="invisible"
+        android:indeterminate="true"
+        />
     <android.support.v7.widget.RecyclerView
         android:id="@+id/if_rv_notes"
         android:layout_width="match_parent"

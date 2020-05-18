@@ -20,8 +20,11 @@ import java.net.Socket;
 import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Objects;
 import java.util.concurrent.ExecutionException;
+
+import ru.cpc.smartflatview.app.App;
 
 
 public class SFServer
@@ -592,8 +595,9 @@ public class SFServer
             //this.ed.setText("Connecting");
 
             Log.d("SFServer", "calling ConnectSocket()...");
-            //client = new Socket(serverAddr, iPort);
+            App.addTime("Connect2 0", new Date());
             client = new ConnectSocket(m_pMainActivity).execute().get();
+            App.addTime("Connect2 1", new Date());
 
             if(client != null)
             {
@@ -604,6 +608,8 @@ public class SFServer
                 getPacketTask = new GetPacket();
                 getPacketTask.execute(data);
                 Log.d("SFServer", "Connect2 success!");
+                App.addTime("Connect2 2", new Date());
+
 //                MainActivity.m_cLogLines.add("Успешно!");
             }
             else
@@ -758,7 +764,9 @@ public class SFServer
 
     void Connect()
     {
-            if(client != null)
+        App.addTime("C1", new Date());
+
+        if(client != null)
             {
                 if(client.isConnected())
                     return;
@@ -801,6 +809,7 @@ public class SFServer
         {
             Log.e("SFServer", "Checking connectivity exception: ", ex);
         }
+        App.addTime("C2", new Date());
 
         try
         {
@@ -815,6 +824,7 @@ public class SFServer
             UpdateConnectionStatus();
             return;
         }
+        App.addTime("C3", new Date());
 
         if(client != null)
             Log.d("SFServer", "Connect success!");
@@ -826,6 +836,8 @@ public class SFServer
 
         m_pMainActivity.m_cLogLines.add(m_pMainActivity.getString(R.string.error_ip_message));
         UpdateConnectionStatus();
+        App.addTime("C4", new Date());
+
     }
 
     private void UpdateConnectionStatus()

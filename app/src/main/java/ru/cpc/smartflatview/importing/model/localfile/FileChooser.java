@@ -23,15 +23,7 @@ public class FileChooser
     private Dialog dialog;
     private File currentPath;
 
-    // filter on file extension
     private String extension = null;
-    /*
-    public void setExtension(String extension) {
-        this.extension = (extension == null) ? null :
-                extension.toLowerCase();
-    }
-*/
-    // file selection event handling
     public interface FileSelectedListener {
         void fileSelected(File file);
     }
@@ -122,7 +114,6 @@ public class FileChooser
             list.setAdapter(adapter);
         }
     }
-
 
     /**
      * Convert a relative filename into an actual File object.

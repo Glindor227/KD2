@@ -20,7 +20,6 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.RVViewHolder> {
     RVAdapter(List<String> data, OnItemClickListener listener) {
         this.listener=listener;
         Log.d(ImportActivity.TAG, "RVAdapter");
-
         this.data = data;
     }
 

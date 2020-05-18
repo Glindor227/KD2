@@ -12,7 +12,7 @@ import java.util.List;
 public class GsonDate {
     @Expose
     @SerializedName("count")
-    public Integer count;
+    private Integer count;
 
     @Expose
     @SerializedName("items")

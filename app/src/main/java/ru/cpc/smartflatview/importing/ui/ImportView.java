@@ -11,5 +11,8 @@ public interface ImportView extends MvpView {
     void callbackListFiles(List<String> list);
     @AddToEndSingle
     void callbackOneFile(InputStream file);
+    @AddToEndSingle
+    void callbackError(String error);
+
 
 }
