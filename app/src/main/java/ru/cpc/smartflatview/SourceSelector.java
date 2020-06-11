@@ -13,12 +13,12 @@ public class SourceSelector extends Indicator
     private int m_iSource = 0;
 
     SourceSelector(float fX,
-                   float fY, String sName, boolean bMetaInd, boolean bProtected,
-                   boolean bDoubleSize, boolean bQuick, int iReaction, int iScale)
+                   float fY, String sName,
+                   boolean bDoubleSize, int iReaction, int iScale)
     {
         super(fX, fY,
                 getIndDis(R.drawable.src_tv_p,R.drawable.src_tv_2,R.drawable.src_tv),
-                1, sName, bMetaInd, bProtected, bDoubleSize, bQuick, iReaction, iScale);
+                1, sName, false, false, bDoubleSize, true, iReaction, iScale);
 
     }
 

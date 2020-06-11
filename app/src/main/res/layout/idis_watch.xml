@@ -74,14 +74,15 @@
                     style="@style/Widget.AppCompat.Button.Borderless"
                     android:layout_width="@android:dimen/app_icon_size"
                     android:layout_height="@android:dimen/app_icon_size"
-                    android:layout_marginBottom="8dp"
                     android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
                     android:background="@drawable/calendar"
                     android:rotation="90"
                     app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/button12"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.3"
-                    tools:layout_editor_absoluteX="202dp" />
+                    app:layout_constraintVertical_bias="0.3" />
 
                 <Button
                     android:id="@+id/button16"
@@ -119,15 +120,17 @@
                     style="@style/Widget.AppCompat.Button.Borderless"
                     android:layout_width="@android:dimen/app_icon_size"
                     android:layout_height="@android:dimen/app_icon_size"
-                    android:layout_marginBottom="8dp"
                     android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
                     android:background="@drawable/time"
                     android:enabled="true"
                     android:rotation="90"
                     app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.7"
-                    tools:layout_editor_absoluteX="202dp" />
+                    app:layout_constraintVertical_bias="0.698" />
 
                 <Button
                     android:id="@+id/button15"

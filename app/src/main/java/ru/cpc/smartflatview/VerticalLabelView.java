@@ -19,8 +19,6 @@ import android.widget.TextView;
 
 public class VerticalLabelView extends View
 {
-    private final String LOG_TAG           = "VerticalLabelView";
-    private final int    DEFAULT_TEXT_SIZE = 30;
     private int          _ascent           = 0;
     private int          _leftPadding      = 0;
     private int          _topPadding       = 0;
@@ -32,7 +30,6 @@ public class VerticalLabelView extends View
     private Rect _textBounds;
     private TextPaint _textPaint;
     private String       _text             = "";
-    private TextView _tempView;
     private Typeface _typeface         = null;
     private boolean      _topToDown = false;
 
@@ -67,6 +64,7 @@ public class VerticalLabelView extends View
         this._textPaint = new TextPaint();
         this._textPaint.setAntiAlias(true);
         this._textPaint.setTextAlign(Paint.Align.CENTER);
+        int DEFAULT_TEXT_SIZE = 30;
         this._textPaint.setTextSize(DEFAULT_TEXT_SIZE);
         this._textSize = DEFAULT_TEXT_SIZE;
     }
@@ -127,16 +125,16 @@ public class VerticalLabelView extends View
         {
             this._textPaint.getTextBounds(this._text, 0, this._text.length(), this._textBounds);
 
-            this._tempView = new TextView(getContext());
-            this._tempView.setPadding(this._leftPadding, this._topPadding, this._rightPadding, this._bottomPadding);
-            this._tempView.setText(this._text);
-            this._tempView.setTextSize(TypedValue.COMPLEX_UNIT_PX, this._textSize);
-            this._tempView.setTypeface(this._typeface);
+            TextView _tempView = new TextView(getContext());
+            _tempView.setPadding(this._leftPadding, this._topPadding, this._rightPadding, this._bottomPadding);
+            _tempView.setText(this._text);
+            _tempView.setTextSize(TypedValue.COMPLEX_UNIT_PX, this._textSize);
+            _tempView.setTypeface(this._typeface);
 
-            this._tempView.measure(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            _tempView.measure(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 
-            this._measuredWidth = this._tempView.getMeasuredHeight();
-            this._measuredHeight = this._tempView.getMeasuredWidth();
+            this._measuredWidth = _tempView.getMeasuredHeight();
+            this._measuredHeight = _tempView.getMeasuredWidth();
 
             this._ascent = this._textBounds.height() / 2 + this._measuredWidth / 2;
 
@@ -145,6 +143,7 @@ public class VerticalLabelView extends View
         catch (Exception e)
         {
             setMeasuredDimension(widthMeasureSpec, heightMeasureSpec);
+            String LOG_TAG = "VerticalLabelView";
             Log.e(LOG_TAG, Log.getStackTraceString(e));
         }
     }

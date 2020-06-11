@@ -14,7 +14,6 @@ import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.PowerManager;
-import android.support.annotation.Nullable;
 import android.util.Log;
 
 import java.io.BufferedReader;
@@ -29,6 +28,7 @@ import java.net.Socket;
 import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
 
+import io.reactivex.annotations.Nullable;
 
 
 public class CheckAlarmService extends IntentService
@@ -126,7 +126,7 @@ public class CheckAlarmService extends IntentService
     }
 
     @Nullable
-    private Socket TryConnect(String ip, int port, int timeout)
+    private Socket TryConnect(String ip, int port)
     {
         Log.d("SFV-Service", "C: Connecting to " + ip + ":" + port);
 
@@ -137,7 +137,7 @@ public class CheckAlarmService extends IntentService
             //MainActivity.m_cLogLines.add("+++");
             InetSocketAddress addr = new InetSocketAddress(InetAddress.getByName(ip), port);
             //MainActivity.m_cLogLines.add("***");
-            sock.connect(addr, timeout);
+            sock.connect(addr, 5000);
             //MainActivity.m_cLogLines.add("!!!");
             Log.d("SFV-Service", "TryConnect success!");
             return sock;
@@ -238,12 +238,12 @@ public class CheckAlarmService extends IntentService
             Socket client = null;
             for (int i = 0; i < 2 && client == null; i++)
             {
-                client = TryConnect(tryIP2first ? ip2 : ip1, port, 5000);
+                client = TryConnect(tryIP2first ? ip2 : ip1, port);
             }
 
             for (int i = 0; i < 2 && client == null; i++)
             {
-                client = TryConnect(tryIP2first ? ip1 : ip2, port, 5000);
+                client = TryConnect(tryIP2first ? ip1 : ip2, port);
                 if(client != null)
                     tryIP2first = !tryIP2first;
             }

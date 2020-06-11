@@ -35,7 +35,6 @@ import ru.cpc.smartflatview.importing.model.localfile.FileChooser;
 import ru.cpc.smartflatview.importing.presenter.ImportPresenter;
 
 public class ImportActivity extends MvpAppCompatActivity implements ImportView {
-
     private static final String IMPORT_PREFERENCES = "srsimport";
     private static final String IMPORT_PREFERENCES_IP = "ip";
     private static final String IMPORT_PREFERENCES_PORT = "port";
@@ -48,7 +47,6 @@ public class ImportActivity extends MvpAppCompatActivity implements ImportView {
 
     @InjectPresenter
     ImportPresenter presenter;
-
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
@@ -97,7 +95,6 @@ public class ImportActivity extends MvpAppCompatActivity implements ImportView {
             et_port.setText(importPref.getString(IMPORT_PREFERENCES_PORT, "8189"));
         }
         presenterStart();
-
     }
 
     private void InitSharedPref() {
@@ -115,8 +112,6 @@ public class ImportActivity extends MvpAppCompatActivity implements ImportView {
         et_ip = findViewById(R.id.et_ip);
         et_port = findViewById(R.id.et_port);
         progressBar= findViewById(R.id.prog_bar_test);
-
-
         Button btn_local = findViewById(R.id.btn_local);
         Button btn_link = findViewById(R.id.btn_link);
 
@@ -137,7 +132,6 @@ public class ImportActivity extends MvpAppCompatActivity implements ImportView {
                 inputError(e.getMessage());
             }
             Log.d(ImportActivity.TAG, "ImportActivity getList");
-
         });
     }
 
@@ -162,11 +156,9 @@ public class ImportActivity extends MvpAppCompatActivity implements ImportView {
         Config pConfig = new Config(input_IS);
         if(pConfig.m_cRooms.size() != 0)
         {
-//            SafeExit();
             Config.Instance = pConfig;
             Config.SaveXml(pConfig, this);
             Toast.makeText(getApplicationContext(), R.string.importSuccess, Toast.LENGTH_LONG).show();
-
             Intent intent = new Intent(this, MainActivity.class);
             App.addTime("3 go to MainActivity", new Date());
             startActivity(intent);
@@ -177,13 +169,11 @@ public class ImportActivity extends MvpAppCompatActivity implements ImportView {
     @Override
     public void callbackListFiles(List<String> list) {
         InitRV(list);
-
     }
 
     @Override
     public void callbackOneFile(InputStream file) {
         App.addTime("2 Получили из сети ", new Date());
-
         ImportConfig(file);
     }
 

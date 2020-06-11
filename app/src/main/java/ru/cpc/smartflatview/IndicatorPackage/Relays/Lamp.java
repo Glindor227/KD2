@@ -14,29 +14,27 @@ public class Lamp extends BaseRelay
 {
 	private static int getLampIndDis(boolean on, int type){
 		if(on){
-			switch (type)
-			{
-				case 1: return getIndDisPC(
-					R.drawable.lamp03,
-					R.drawable.lamp_on,
-					R.drawable.lamp_on_p,
-					R.drawable.lamp_on_p,
-					R.drawable.lamp_on_p,
-					R.drawable.lamp_on_p,
-					R.drawable.lamp_on_c);
+			if (type == 1) {
+				return getIndDisPC(
+						R.drawable.lamp03,
+						R.drawable.lamp_on,
+						R.drawable.lamp_on_p,
+						R.drawable.lamp_on_p,
+						R.drawable.lamp_on_p,
+						R.drawable.lamp_on_p,
+						R.drawable.lamp_on_c);
 			}
 		}
 		else{
-			switch (type) {
-				case 1:
-					return getIndDisPC(
-							R.drawable.lamp04,
-							R.drawable.lamp_off,
-							R.drawable.lamp_off_p,
-							R.drawable.lamp_off_p2,
-							R.drawable.lamp_off_p3,
-							R.drawable.lamp_off_p4,
-							R.drawable.lamp_off_c);
+			if (type == 1) {
+				return getIndDisPC(
+						R.drawable.lamp04,
+						R.drawable.lamp_off,
+						R.drawable.lamp_off_p,
+						R.drawable.lamp_off_p2,
+						R.drawable.lamp_off_p3,
+						R.drawable.lamp_off_p4,
+						R.drawable.lamp_off_c);
 			}
 		}
 		return 0;

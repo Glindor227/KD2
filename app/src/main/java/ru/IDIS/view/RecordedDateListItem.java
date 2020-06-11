@@ -5,10 +5,10 @@ import android.util.Log;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import ru.IDIS.util.MetricUtil;
-
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import ru.IDIS.util.MetricUtil;
 
 public class RecordedDateListItem 
 extends 
@@ -98,7 +98,7 @@ extends
         }
 
         if (date != null) {
-            if (date.equals(mDate) == true) {
+            if (date.equals(mDate)) {
                 // same date, no op.
                 return;
             }

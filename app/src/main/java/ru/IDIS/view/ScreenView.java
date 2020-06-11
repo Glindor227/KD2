@@ -102,7 +102,7 @@ extends
             Log.v(TAG, "reset()");
         }
 
-        if (mCanUseGL == true) {
+        if (mCanUseGL) {
             mGLScreenView.reset();
         }
         else {

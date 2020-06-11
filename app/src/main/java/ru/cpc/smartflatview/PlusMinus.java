@@ -22,10 +22,10 @@ public class PlusMinus extends Indicator
     private static int plus_minus_ch_m = getIndDis(R.drawable.plus_minus_ch_m_p,R.drawable.plus_minus_ch_m_2,R.drawable.plus_minus2_minus);
 
     PlusMinus(float fX,
-              float fY, int iType, String sName, boolean bMetaInd, boolean bProtected,
-              boolean bDoubleSize, boolean bQuick, int iReaction, int iScale)
+              float fY, int iType, String sName,
+              boolean bDoubleSize, int iReaction, int iScale)
     {
-        super(fX, fY, iType == 0 ?plus_minus_v : plus_minus_ch, 1, sName, bMetaInd, bProtected, bDoubleSize, bQuick, iReaction, iScale);
+        super(fX, fY, iType == 0 ?plus_minus_v : plus_minus_ch, 1, sName, false, false, bDoubleSize, true, iReaction, iScale);
         m_iType = iType;
 
     }

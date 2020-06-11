@@ -17,21 +17,14 @@ public class MediaField extends Indicator implements PlaylistDialog.OnPlaylistDi
 
     private String m_sButtonText;
 
-    MediaField(int iX, int iY, String sName, String sButtonName, boolean bMetaInd, boolean bProtected, boolean bDoubleScale, boolean bQuick, int iReaction, int iScale)
+    MediaField(int iX, int iY, String sName, String sButtonName, boolean bDoubleScale, int iReaction, int iScale)
     {
 //        this(iX, iY, R.drawable.id113, R.drawable.id114, 1, sName, sButtonName, bMetaInd, bProtected, bDoubleScale, bQuick, iReaction, iScale);
-        this(iX, iY, -1, -1, 1, sName, sButtonName, bMetaInd, bProtected, bDoubleScale, bQuick, iReaction, iScale);
+//        this(iX, iY, -1, -1, 1, sName, sButtonName, bMetaInd, bProtected, bDoubleScale, bQuick, iReaction, iScale);
+        super(iX, iY, -1, 1, sName, false, false, bDoubleScale, true, iReaction, iScale);
 
-    }
-
-    private MediaField(float fX, float fY, int iResIDOn, int iResIDOff, int iSubType, String sName, String sButtonName,
-                       boolean bMetaInd, boolean bProtected, boolean bDoubleSize, boolean bQuick, int iReaction,
-                       int iScale)
-    {
-        super(fX, fY, iResIDOff, iSubType, sName, bMetaInd, bProtected, bDoubleSize, bQuick, iReaction, iScale);
-
-        m_iResIDOn = iResIDOn;
-        m_iResIDOff = iResIDOff;
+        m_iResIDOn = -1;
+        m_iResIDOff = -1;
 
         m_bText2 = true;
         m_sButtonText = sButtonName;

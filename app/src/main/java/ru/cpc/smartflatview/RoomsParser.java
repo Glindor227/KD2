@@ -23,8 +23,7 @@ import ru.cpc.smartflatview.IndicatorPackage.Doors.Door2;
 import ru.cpc.smartflatview.IndicatorPackage.Doors.DoorLock;
 import ru.cpc.smartflatview.IndicatorPackage.Macros.Macro;
 import ru.cpc.smartflatview.IndicatorPackage.Macros.MacroAlarm;
-import ru.cpc.smartflatview.IndicatorPackage.Macros.MacroCamOff;
-import ru.cpc.smartflatview.IndicatorPackage.Macros.MacroCamOn;
+import ru.cpc.smartflatview.IndicatorPackage.Macros.MacroCamOnOff;
 import ru.cpc.smartflatview.IndicatorPackage.Macros.MacroDezinfection;
 import ru.cpc.smartflatview.IndicatorPackage.Macros.MacroFilterCleaning;
 import ru.cpc.smartflatview.IndicatorPackage.Macros.MacroFilterFail;
@@ -262,55 +261,7 @@ public class RoomsParser extends DefaultHandler
 
 					}
 					break;
-					/*
-				case "cursor":
-					if (m_pRoom != null) {
-						String attrPosX = atts.getValue("x");
-						int iPosX = Integer.parseInt(attrPosX);
 
-						String attrPosY = atts.getValue("y");
-						int iPosY = Integer.parseInt(attrPosY);
-
-						String attrDoubleScale = atts.getValue("double");
-						boolean bDoubleScale = attrDoubleScale != null && Integer.parseInt(attrDoubleScale) != 0;
-
-						String attrQuick = atts.getValue("quick");
-						boolean bQuick = attrQuick != null && Integer.parseInt(attrQuick) != 0;
-
-						String attrReaction = atts.getValue("reaction");
-						int iReaction = attrReaction == null ? 0 : Integer.parseInt(attrReaction);
-
-						String attrSubType = atts.getValue("subtype");
-						int iSubType = Integer.parseInt(attrSubType);
-
-						String attrAddress1 = atts.getValue("poweraddress");
-
-						String attrAddress2 = atts.getValue("leftaddress");
-
-						String attrAddress3 = atts.getValue("rightaddress");
-
-						String attrAddress4 = atts.getValue("upaddress");
-
-						String attrAddress5 = atts.getValue("downaddress");
-
-						String attrName = atts.getValue("name");
-						Log.d("XML", "cursor: " + attrName);
-
-						String attrProtected = atts.getValue("secure");
-						boolean bProtected = attrProtected != null && Integer.parseInt(attrProtected) != 0;
-
-//	                switch (iSubType)
-//	                {
-//						case 1:
-//							m_pSubsystem.AddIndicator(new Cursor(iPosX/10, iPosY/10, attrName, false, bProtected, bDoubleScale, bQuick, iReaction, m_pSubsystem.m_iGridWidth).Bind(attrAddress1, attrAddress2, attrAddress3, attrAddress4, attrAddress5));
-//							break;
-//						case -1:
-//							m_pSubsystem.AddIndicator(new Cursor(iPosX/10, iPosY/10, attrName, true, bProtected, bDoubleScale, bQuick, iReaction, m_pSubsystem.m_iGridWidth).Bind(attrAddress1, attrAddress2, attrAddress3, attrAddress4, attrAddress5));
-//							break;
-//					}
-					}
-					break;
-					*/
 				case "IDIS":
 					if (m_pSubsystem != null) {
 						parseTagIDIS(atts);
@@ -368,7 +319,7 @@ public class RoomsParser extends DefaultHandler
 		boolean bProtected = attrProtected != null && Integer.parseInt(attrProtected) != 0;
 
 		if (iSubType == 1) {
-			m_pSubsystem.AddIndicator(new NodeAlarm(iPosX / 10f, iPosY / 10f, R.drawable.alarmnode1, R.drawable.alarmnode0, 1, attrName, false, bProtected, bDoubleScale, bQuick, iReaction, m_pSubsystem.m_iGridWidth).Bind(attrAddress1, attrValueA, attrAddress2));
+			m_pSubsystem.AddIndicator(new NodeAlarm(iPosX / 10f, iPosY / 10f, attrName, bProtected, bDoubleScale, bQuick, iReaction, m_pSubsystem.m_iGridWidth).Bind(attrAddress1, attrValueA, attrAddress2));
 		}
 	}
 
@@ -428,7 +379,7 @@ public class RoomsParser extends DefaultHandler
 		String attrName = atts.getValue("name");
 		Log.d("XML", "mediafield: " + attrName);
 
-		m_pSubsystem.AddIndicator(new MediaField(iPosX / 10, iPosY / 10, attrName, "Track 1", false, false, bDoubleScale, true, 0, m_pSubsystem.m_iGridWidth));
+		m_pSubsystem.AddIndicator(new MediaField(iPosX / 10, iPosY / 10, attrName, "Track 1", bDoubleScale, 0, m_pSubsystem.m_iGridWidth));
 	}
 
 	private void parseTagSelector(Attributes atts) {
@@ -448,7 +399,7 @@ public class RoomsParser extends DefaultHandler
 		Log.d("XML", "selector: " + attrName);
 
 
-		m_pSubsystem.AddIndicator(new SourceSelector(iPosX / 10f, iPosY / 10f, attrName, false, false, bDoubleScale, true, 0, m_pSubsystem.m_iGridWidth).Bind(attrAddress1));
+		m_pSubsystem.AddIndicator(new SourceSelector(iPosX / 10f, iPosY / 10f, attrName, bDoubleScale, 0, m_pSubsystem.m_iGridWidth).Bind(attrAddress1));
 	}
 
 	private void parseTagSwing(Attributes atts) {
@@ -472,7 +423,7 @@ public class RoomsParser extends DefaultHandler
 		Log.d("XML", "swing: " + attrName);
 
 
-		m_pSubsystem.AddIndicator(new PlusMinus(iPosX / 10f, iPosY / 10f, iSubType, attrName, false, false, bDoubleScale, true, 0, m_pSubsystem.m_iGridWidth).Bind(attrAddress1, attrAddress2));
+		m_pSubsystem.AddIndicator(new PlusMinus(iPosX / 10f, iPosY / 10f, iSubType, attrName, bDoubleScale, 0, m_pSubsystem.m_iGridWidth).Bind(attrAddress1, attrAddress2));
 	}
 
 	private void parseTagMediabutton(Attributes atts) {
@@ -501,7 +452,7 @@ public class RoomsParser extends DefaultHandler
 		Log.d("XML", "mediabutton: " + attrSubType);
 
 
-		m_pSubsystem.AddIndicator(new ButtonMedia(iPosX / 10f, iPosY / 10f, iSubType, "", false, false, bDoubleScale, true, 0, m_pSubsystem.m_iGridWidth).Bind(attrAddress1, attrAddress2));
+		m_pSubsystem.AddIndicator(new ButtonMedia(iPosX / 10f, iPosY / 10f, iSubType, "", bDoubleScale, 0, m_pSubsystem.m_iGridWidth).Bind(attrAddress1, attrAddress2));
 
 
 	}
@@ -749,18 +700,18 @@ public class RoomsParser extends DefaultHandler
 //							break;
 //						case -3:
 //							m_pSubsystem.AddIndicator(new ButtonSmall(iPosX/10, iPosY/10, attrName, true, bProtected, bDoubleScale, bQuick, iReaction, m_pSubsystem.m_iGridWidth).Bind(attrAddress2, attrAddress1, attrValue1, attrValue0));
-//							break;
+//			 				break;
 			case 4:
-				m_pSubsystem.AddIndicator(new MacroCamOn(iPosX / 10, iPosY / 10, attrName, attrName2, false, bProtected, bDoubleScale, bQuick, iReaction, m_pSubsystem.m_iGridWidth).Bind(attrAddress2, attrAddress1, attrValue1, attrValue0));
+				m_pSubsystem.AddIndicator(new MacroCamOnOff(iPosX / 10, iPosY / 10, attrName, attrName2, false, bProtected, bDoubleScale, bQuick, iReaction, m_pSubsystem.m_iGridWidth,true).Bind(attrAddress2, attrAddress1, attrValue1, attrValue0));
 				break;
 			case -4:
-				m_pSubsystem.AddIndicator(new MacroCamOn(iPosX / 10, iPosY / 10, attrName, attrName2, true, bProtected, bDoubleScale, bQuick, iReaction, m_pSubsystem.m_iGridWidth).Bind(attrAddress2, attrAddress1, attrValue1, attrValue0));
+				m_pSubsystem.AddIndicator(new MacroCamOnOff(iPosX / 10, iPosY / 10, attrName, attrName2, true, bProtected, bDoubleScale, bQuick, iReaction, m_pSubsystem.m_iGridWidth,true).Bind(attrAddress2, attrAddress1, attrValue1, attrValue0));
 				break;
 			case 5:
-				m_pSubsystem.AddIndicator(new MacroCamOff(iPosX / 10, iPosY / 10, attrName, attrName2, false, bProtected, bDoubleScale, bQuick, iReaction, m_pSubsystem.m_iGridWidth).Bind(attrAddress2, attrAddress1, attrValue1, attrValue0));
+				m_pSubsystem.AddIndicator(new MacroCamOnOff(iPosX / 10, iPosY / 10, attrName, attrName2, false, bProtected, bDoubleScale, bQuick, iReaction, m_pSubsystem.m_iGridWidth,false).Bind(attrAddress2, attrAddress1, attrValue1, attrValue0));
 				break;
 			case -5:
-				m_pSubsystem.AddIndicator(new MacroCamOff(iPosX / 10, iPosY / 10, attrName, attrName2, true, bProtected, bDoubleScale, bQuick, iReaction, m_pSubsystem.m_iGridWidth).Bind(attrAddress2, attrAddress1, attrValue1, attrValue0));
+				m_pSubsystem.AddIndicator(new MacroCamOnOff(iPosX / 10, iPosY / 10, attrName, attrName2, true, bProtected, bDoubleScale, bQuick, iReaction, m_pSubsystem.m_iGridWidth,false).Bind(attrAddress2, attrAddress1, attrValue1, attrValue0));
 				break;
 			case 6:
 				m_pSubsystem.AddIndicator(new MacroMotionSensor(iPosX / 10, iPosY / 10, attrName, attrName2, false, bProtected, bDoubleScale, bQuick, iReaction, m_pSubsystem.m_iGridWidth).Bind(attrAddress2, attrAddress1, attrValue1, attrValue0));

@@ -14,20 +14,20 @@ public class AddressString
 
 	}
 
-	public class QueryLine
+	class QueryLine
 	{
 		private int mCount;
 		private String mLine;
 
-		public QueryLine(int count, String line)
+		QueryLine(int count, String line)
 		{
 			mCount = count;
 			mLine = line;
 		}
 
-		public String BuildLine(Context pContext)
+		String BuildLine(Context pContext)
 		{
-			String temp = "<5|" + String.valueOf(mCount) + "|" + Prefs.getSecurityCode(pContext) + mLine + ">\r\n";
+			String temp = "<5|" + mCount + "|" + Prefs.getSecurityCode(pContext) + mLine + ">\r\n";
 			Log.d(TAG,temp);
 			return temp;
 		}
@@ -40,7 +40,7 @@ public class AddressString
 	private ArrayList<QueryLine> m_aQuery = new ArrayList<QueryLine>();
 
   private int m_aQueryPointer = 0;
-  public static Integer roomId = -1;
+  private static Integer roomId = -1;
 
   public boolean IsOver()
   {

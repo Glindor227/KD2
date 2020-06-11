@@ -34,11 +34,11 @@ public class ScrollingDialog extends DialogFragment implements DialogInterface.O
 
     protected static final String TAG = "SMARTFLAT" ;
 
-    private static String _device, _room;
+    private static String _device;
+
     public static void Init(String device, String room)
     {
         _device = device;
-        _room = room;
         s_aSFControls.clear();
     }
 
@@ -46,7 +46,7 @@ public class ScrollingDialog extends DialogFragment implements DialogInterface.O
 
     private interface ISFControl
     {
-        public void AddView(LinearLayout pContentHolder);
+        void AddView(LinearLayout pContentHolder);
     }
 
     public boolean m_bAccepted = false;

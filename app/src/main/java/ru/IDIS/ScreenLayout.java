@@ -92,14 +92,14 @@ extends
             resFactor = 2;
         }
     
-        boolean didWidthChange = (mImageWidth == (int)imageWidth) ? false : true;
-        boolean didHeightChange = (mImageHeight == (int)imageHeight*resFactor) ? false : true;
+        boolean didWidthChange = mImageWidth != (int) imageWidth;
+        boolean didHeightChange = mImageHeight != (int) imageHeight * resFactor;
 
-        if (didWidthChange == true) {
+        if (didWidthChange) {
             mImageWidth = (int)imageWidth;
         }
 
-        if (didHeightChange == true) {
+        if (didHeightChange) {
             mImageHeight = (int)imageHeight * resFactor;
         }
 

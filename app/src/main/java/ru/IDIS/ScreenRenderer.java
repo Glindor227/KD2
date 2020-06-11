@@ -25,9 +25,6 @@ implements
     private int mSourceHeight = 0;
     */
 
-    private int mTextureHeight = 256;
-    private int mTextureWidth = 512;
-
     private float[] mVertices = {
         -1.0f,
          1.0f,
@@ -197,11 +194,13 @@ implements
         
         mGL10.glPixelStorei(GL10.GL_PACK_ALIGNMENT, 1);        
         mGL10.glPixelStorei(GL10.GL_UNPACK_ALIGNMENT, 1);
-        
+
+        int mTextureWidth = 512;
+        int mTextureHeight = 256;
         mGL10.glTexImage2D(GL10.GL_TEXTURE_2D,  // int target,
                         0,                      // int level,
                         GL10.GL_RGB,            // int internalformat,
-                        mTextureWidth, mTextureHeight,  // int width, int height,
+                mTextureWidth, mTextureHeight,  // int width, int height,
                         0,                      // int border,
                         GL10.GL_RGB,            // int format
                         GL10.GL_UNSIGNED_BYTE,  // int type

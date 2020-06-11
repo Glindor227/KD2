@@ -16,10 +16,8 @@ public class SysInfoManager {
     // Debug Log    
     private static final boolean DEBUG_LOG = false;
 
-    private static Context mContext = null;
-
     static {
-        mContext = MainActivity.getAppContext();
+        Context mContext = MainActivity.getAppContext();
     }
 
     public static boolean isModernArch()
@@ -254,7 +252,7 @@ public class SysInfoManager {
                     } 
 
                     // Processor
-                    if (cpuinfo_string.contains("Processor") == true) {
+                    if (cpuinfo_string.contains("Processor")) {
                         // first, remove preceding "Processor :" characters
                         int start_idx = 0;
                         int end_idx = 0;
@@ -307,30 +305,30 @@ public class SysInfoManager {
             else {  
                 // cautious : specific ARM Core strings SHOULD be used,
                 // since some "ARM9" cpus are kind of ARMv4T
-                if (processor.contains("ARMv5") == true ||
-                     processor.contains("ARM926") == true ||
-                     processor.contains("ARM946") == true ||
-                     processor.contains("ARM966") == true ||
-                     processor.contains("ARM968") == true ||
-                     processor.contains("ARM996") == true ||
-                     processor.contains("ARM1020") == true ||
-                     processor.contains("ARM1022") == true ||
-                     processor.contains("ARM1026") == true) {
+                if (processor.contains("ARMv5") ||
+                        processor.contains("ARM926") ||
+                        processor.contains("ARM946") ||
+                        processor.contains("ARM966") ||
+                        processor.contains("ARM968") ||
+                        processor.contains("ARM996") ||
+                        processor.contains("ARM1020") ||
+                        processor.contains("ARM1022") ||
+                        processor.contains("ARM1026")) {
                     if (DEBUG_LOG) {
                         Log.v(TAG, "Architecture : ARMv5");
                     }
 
                     return ARMv5;
                 }
-                else if (processor.contains("ARMv6") == true ||
-                            processor.contains("ARM11") == true) {
+                else if (processor.contains("ARMv6") ||
+                        processor.contains("ARM11")) {
                     if (DEBUG_LOG) {
                         Log.v(TAG, "Architecture : ARMv6");
                     }
                     
                     return ARMv6;
                 }
-                else if (processor.contains("ARMv7") == true) {
+                else if (processor.contains("ARMv7")) {
                     if (DEBUG_LOG) {
                         Log.v(TAG, "Architecture : ARMv7");
                     }

@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.res.AssetFileDescriptor;
 import android.net.Uri;
 import android.os.Environment;
-import android.support.annotation.Nullable;
 import android.util.Log;
 import android.util.Xml;
 
@@ -29,6 +28,7 @@ import java.util.Locale;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
+import io.reactivex.annotations.Nullable;
 import ru.cpc.smartflatview.IndicatorPackage.AlarmSensor.FireSensor;
 import ru.cpc.smartflatview.IndicatorPackage.AlarmSensor.LeakageSensor;
 import ru.cpc.smartflatview.IndicatorPackage.AlarmSensor.MotionSensor;
@@ -41,8 +41,7 @@ import ru.cpc.smartflatview.IndicatorPackage.Doors.Door2;
 import ru.cpc.smartflatview.IndicatorPackage.Doors.DoorLock;
 import ru.cpc.smartflatview.IndicatorPackage.Macros.Macro;
 import ru.cpc.smartflatview.IndicatorPackage.Macros.MacroAlarm;
-import ru.cpc.smartflatview.IndicatorPackage.Macros.MacroCamOff;
-import ru.cpc.smartflatview.IndicatorPackage.Macros.MacroCamOn;
+import ru.cpc.smartflatview.IndicatorPackage.Macros.MacroCamOnOff;
 import ru.cpc.smartflatview.IndicatorPackage.Macros.MacroDezinfection;
 import ru.cpc.smartflatview.IndicatorPackage.Macros.MacroFilterCleaning;
 import ru.cpc.smartflatview.IndicatorPackage.Macros.MacroFilterFail;
@@ -80,7 +79,6 @@ public class Config
 	public static Config Instance = null;
 
 	public static boolean DEMO = false;
-//	public static boolean DEMO = true;
 
 	ArrayList<Subsystem> m_cSubsystems = new ArrayList<Subsystem>();
 	public ArrayList<Room> m_cRooms = new ArrayList<Room>();
@@ -295,40 +293,40 @@ public class Config
 
 		if(port) {
 			subsystem2media = new Subsystem("2-1", subsystemIndex++, 6, 6, "Мультирум");
-			subsystem2media.AddIndicator(new ButtonMedia(15, 12, ButtonMedia.EJECT, "", false, false, false, true, 1, 4));
-			subsystem2media.AddIndicator(new ButtonMedia(85, 12, ButtonMedia.POWER, "", false, false, false, true, 1, 4).Bind("11", "11"));
+			subsystem2media.AddIndicator(new ButtonMedia(15, 12, ButtonMedia.EJECT, "", false, 1, 4));
+			subsystem2media.AddIndicator(new ButtonMedia(85, 12, ButtonMedia.POWER, "", false, 1, 4).Bind("11", "11"));
 
-			subsystem2media.AddIndicator(new PlusMinus(15, 35, 0, "Гр.", false, false, true, true, 1, 4));
-			subsystem2media.AddIndicator(new PlusMinus(85, 35, 1, "Кан.", false, false, true, true, 1, 4));
-			subsystem2media.AddIndicator(new SourceSelector(50, 35, "Источник", false, false, true, true, 1, 4));
+			subsystem2media.AddIndicator(new PlusMinus(15, 35, 0, "Гр.", true, 1, 4));
+			subsystem2media.AddIndicator(new PlusMinus(85, 35, 1, "Кан.", true, 1, 4));
+			subsystem2media.AddIndicator(new SourceSelector(50, 35, "Источник", true, 1, 4));
 
-			subsystem2media.AddIndicator(new ButtonMedia(15, 58, ButtonMedia.MUTE, "", false, false, false, true, 1, 4).Bind("12", "12"));
-			subsystem2media.AddIndicator(new ButtonMedia(85, 58, ButtonMedia.STOP, "", false, false, false, true, 1, 4));
+			subsystem2media.AddIndicator(new ButtonMedia(15, 58, ButtonMedia.MUTE, "", false, 1, 4).Bind("12", "12"));
+			subsystem2media.AddIndicator(new ButtonMedia(85, 58, ButtonMedia.STOP, "", false, 1, 4));
 
-			subsystem2media.AddIndicator(new ButtonMedia(10, 85, ButtonMedia.SKIP_B, "", false, false, false, true, 1, 4));
-			subsystem2media.AddIndicator(new ButtonMedia(28, 85, ButtonMedia.REW, "", false, false, false, true, 1, 4));
-			subsystem2media.AddIndicator(new ButtonMedia(50, 85, ButtonMedia.PAUSE, "", false, false, true, true, 1, 4).Bind("13", "13"));
-			subsystem2media.AddIndicator(new ButtonMedia(72, 85, ButtonMedia.FF, "", false, false, false, true, 1, 4));
-			subsystem2media.AddIndicator(new ButtonMedia(90, 85, ButtonMedia.SKIP_F, "", false, false, false, true, 1, 4));
+			subsystem2media.AddIndicator(new ButtonMedia(10, 85, ButtonMedia.SKIP_B, "", false, 1, 4));
+			subsystem2media.AddIndicator(new ButtonMedia(28, 85, ButtonMedia.REW, "", false, 1, 4));
+			subsystem2media.AddIndicator(new ButtonMedia(50, 85, ButtonMedia.PAUSE, "", true, 1, 4).Bind("13", "13"));
+			subsystem2media.AddIndicator(new ButtonMedia(72, 85, ButtonMedia.FF, "", false, 1, 4));
+			subsystem2media.AddIndicator(new ButtonMedia(90, 85, ButtonMedia.SKIP_F, "", false, 1, 4));
 
-			subsystem2media.AddIndicator(new MediaField(55, 73, "", "Seven Nation Army", false, false, true, true, 1, 4));
+			subsystem2media.AddIndicator(new MediaField(55, 73, "", "Seven Nation Army", true, 1, 4));
 		}else {
 			subsystem2media = new Subsystem("2-1", subsystemIndex++, 8, 4, "Мультирум");
-			subsystem2media.AddIndicator(new ButtonMedia(25, 12, ButtonMedia.EJECT, "", false, false, false, true, 1, 4));
-			subsystem2media.AddIndicator(new ButtonMedia(75, 12, ButtonMedia.POWER, "", false, false, false, true, 1, 4).Bind("11", "11"));
+			subsystem2media.AddIndicator(new ButtonMedia(25, 12, ButtonMedia.EJECT, "", false, 1, 4));
+			subsystem2media.AddIndicator(new ButtonMedia(75, 12, ButtonMedia.POWER, "", false, 1, 4).Bind("11", "11"));
 
-			subsystem2media.AddIndicator(new PlusMinus(25, 40, 0, "Гр.", false, false, true, true, 1, 4));
-			subsystem2media.AddIndicator(new PlusMinus(75, 40, 1, "Кан.", false, false, true, true, 1, 4));
-			subsystem2media.AddIndicator(new SourceSelector(50, 40, "Источник", false, false, true, true, 1, 4));
+			subsystem2media.AddIndicator(new PlusMinus(25, 40, 0, "Гр.", true, 1, 4));
+			subsystem2media.AddIndicator(new PlusMinus(75, 40, 1, "Кан.", true, 1, 4));
+			subsystem2media.AddIndicator(new SourceSelector(50, 40, "Источник", true, 1, 4));
 
-			subsystem2media.AddIndicator(new ButtonMedia(25, 68, ButtonMedia.MUTE, "", false, false, false, true, 1, 4).Bind("12", "12"));
-			subsystem2media.AddIndicator(new ButtonMedia(75, 68, ButtonMedia.STOP, "", false, false, false, true, 1, 4));
+			subsystem2media.AddIndicator(new ButtonMedia(25, 68, ButtonMedia.MUTE, "", false, 1, 4).Bind("12", "12"));
+			subsystem2media.AddIndicator(new ButtonMedia(75, 68, ButtonMedia.STOP, "", false, 1, 4));
 
-			subsystem2media.AddIndicator(new ButtonMedia(10, 85, ButtonMedia.SKIP_B, "", false, false, false, true, 1, 4));
-			subsystem2media.AddIndicator(new ButtonMedia(30, 85, ButtonMedia.REW, "", false, false, false, true, 1, 4));
-			subsystem2media.AddIndicator(new ButtonMedia(50, 85, ButtonMedia.PLAY, "", false, false, true, true, 1, 4));
-			subsystem2media.AddIndicator(new ButtonMedia(70, 85, ButtonMedia.FF, "", false, false, false, true, 1, 4));
-			subsystem2media.AddIndicator(new ButtonMedia(90, 85, ButtonMedia.SKIP_F, "", false, false, false, true, 1, 4));
+			subsystem2media.AddIndicator(new ButtonMedia(10, 85, ButtonMedia.SKIP_B, "", false, 1, 4));
+			subsystem2media.AddIndicator(new ButtonMedia(30, 85, ButtonMedia.REW, "", false, 1, 4));
+			subsystem2media.AddIndicator(new ButtonMedia(50, 85, ButtonMedia.PLAY, "", true, 1, 4));
+			subsystem2media.AddIndicator(new ButtonMedia(70, 85, ButtonMedia.FF, "", false, 1, 4));
+			subsystem2media.AddIndicator(new ButtonMedia(90, 85, ButtonMedia.SKIP_F, "", false, 1, 4));
 
 
 		}
@@ -744,8 +742,7 @@ public class Config
 							sensors++;
 
 						if (pIndicator instanceof Macro ||
-								pIndicator instanceof MacroCamOn ||
-								pIndicator instanceof MacroCamOff ||
+								pIndicator instanceof MacroCamOnOff ||
 								pIndicator instanceof MacroFireSensor ||
 								pIndicator instanceof MacroMotionSensor ||
 								pIndicator instanceof MacroFreePass ||
@@ -869,8 +866,7 @@ public class Config
 
 					for (Indicator pIndicator : pSubsystem.m_cIndicators) {
 						if (pIndicator instanceof Macro ||
-							pIndicator instanceof MacroCamOn ||
-								pIndicator instanceof MacroCamOff ||
+							pIndicator instanceof MacroCamOnOff ||
 								pIndicator instanceof MacroMotionSensor ||
 								pIndicator instanceof MacroFireSensor ||
 								pIndicator instanceof MacroFreePass ||

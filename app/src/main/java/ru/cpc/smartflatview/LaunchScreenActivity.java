@@ -65,7 +65,7 @@ public class LaunchScreenActivity extends AppCompatActivity
 //                else
 //                {
                     pConfig = Config.LoadXml( getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT,importData, LaunchScreenActivity.this);
-                    pConfig.portOrientation = getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT;
+                    Config.portOrientation = getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT;
                     if(pConfig == null || pConfig.m_cRooms.size() == 0)
                     {
                         pConfig = new Config(getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT);

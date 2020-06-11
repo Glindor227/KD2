@@ -1,8 +1,8 @@
 package ru.cpc.smartflatview;
 
-import android.support.annotation.NonNull;
-
 import java.util.ArrayList;
+
+import io.reactivex.annotations.NonNull;
 
 public class Subsystem
 {

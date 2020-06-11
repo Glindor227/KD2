@@ -20,7 +20,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.os.SystemClock;
-import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.ActivityCompat;
@@ -49,17 +48,18 @@ import android.view.animation.AnimationUtils;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
 
-//import com.idis.android.redx.RSize;
-//import com.idis.android.redx.core.RCore;
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 
+import io.reactivex.annotations.NonNull;
 import ru.cpc.smartflatview.app.App;
 import ru.cpc.smartflatview.importing.ui.ImportActivity;
+
+//import com.idis.android.redx.RSize;
+//import com.idis.android.redx.core.RCore;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -269,7 +269,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
-        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager(), 0);
+        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
         // Set up the ViewPager with the sections adapter.
         mViewPager = findViewById(R.id.container);
@@ -1165,10 +1165,10 @@ public class MainActivity extends AppCompatActivity {
     {
         int m_iRoom;
 
-        SectionsPagerAdapter(FragmentManager fm, int room)
+        SectionsPagerAdapter(FragmentManager fm)
         {
             super(fm);
-            m_iRoom = room;
+            m_iRoom = 0;
         }
 
 

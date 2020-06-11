@@ -69,7 +69,7 @@ public final class VideoBitmapLruCache {
             protected int sizeOf(Integer key, BitmapDrawable value) {
                 final int bitmapSize = getBitmapSize(value);
                 return bitmapSize == 0 ? 1 : bitmapSize;
-            };
+            }
         };
     }
     
@@ -115,7 +115,6 @@ public final class VideoBitmapLruCache {
     }
     
     /**
-     * @param options - BitmapFactory.Options with out* options populated
      * @return Bitmap that case be used for inBitmap
      */
     protected Bitmap getBitmapFromReusableSet(int width, int height) {

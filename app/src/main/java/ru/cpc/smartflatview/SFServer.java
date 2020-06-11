@@ -4,7 +4,6 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
-import android.support.annotation.Nullable;
 import android.util.Log;
 
 import java.io.BufferedReader;
@@ -24,6 +23,7 @@ import java.util.Date;
 import java.util.Objects;
 import java.util.concurrent.ExecutionException;
 
+import io.reactivex.annotations.Nullable;
 import ru.cpc.smartflatview.app.App;
 
 

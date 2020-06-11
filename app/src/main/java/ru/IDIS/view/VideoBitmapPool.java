@@ -39,13 +39,13 @@ public final class VideoBitmapPool {
     private static final int EXTRA_ELEMENT_COUNT    = MAX_EXTRA_BITMAP_PER_SCREEN * 2;
     public  static final int EXTRA_CACHE_SIZE  = EXTRA_ELEMENT_SIZE * EXTRA_ELEMENT_COUNT;
     
-    private static interface CacheProxyApiDelegate {
-        public void     clearDefault(int key);
-        public void     clearExtra(int key);
-        public BitmapDrawable   getDefault(int key, int width, int height);
-        public BitmapDrawable   getExtra(int key, int width, int height);
-        public BitmapDrawable   findDefault(int key);
-        public BitmapDrawable   findExtra(int key);
+    private interface CacheProxyApiDelegate {
+        void     clearDefault(int key);
+        void     clearExtra(int key);
+        BitmapDrawable   getDefault(int key, int width, int height);
+        BitmapDrawable   getExtra(int key, int width, int height);
+        BitmapDrawable   findDefault(int key);
+        BitmapDrawable   findExtra(int key);
     }
     
     //***********************************************************************************

@@ -26,10 +26,10 @@ public class ButtonMedia extends Indicator
     private boolean m_bPressed = false;
 
     ButtonMedia(float fX,
-                float fY, int iType, String sName, boolean bMetaInd, boolean bProtected,
-                boolean bDoubleSize, boolean bQuick, int iReaction, int iScale)
+                float fY, int iType, String sName,
+                boolean bDoubleSize, int iReaction, int iScale)
     {
-        super(fX, fY, GetResId(iType, false), iType, sName, bMetaInd, bProtected, bDoubleSize, bQuick, iReaction, iScale);
+        super(fX, fY, GetResId(iType, false), iType, "", false, false, bDoubleSize, true, iReaction, iScale);
 
 
         m_iType = iType;

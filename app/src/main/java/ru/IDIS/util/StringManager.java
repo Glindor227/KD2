@@ -48,7 +48,7 @@ public class StringManager
     public static String getString(byte[] rawCharData, boolean fromUtf8)
     {
         String localized_string = null;
-        String charset = fromUtf8 == false ? LocaleManager.getCurrentCharacterSet().toWindowsDefaultCharSetString() : CharacterSet.UTF8_CHARSET;
+        String charset = !fromUtf8 ? LocaleManager.getCurrentCharacterSet().toWindowsDefaultCharSetString() : CharacterSet.UTF8_CHARSET;
         
         try {
             if (fromUtf8) {

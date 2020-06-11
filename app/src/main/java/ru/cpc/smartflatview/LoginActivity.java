@@ -23,7 +23,6 @@ public class LoginActivity extends AppCompatActivity
 
     // UI references.
     private EditText mCodeView;
-    private View mLoginFormView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,7 +66,7 @@ public class LoginActivity extends AppCompatActivity
             });
         }
 
-        mLoginFormView = findViewById(R.id.login_form);
+        View mLoginFormView = findViewById(R.id.login_form);
 
         mCodeView.requestFocus();
     }

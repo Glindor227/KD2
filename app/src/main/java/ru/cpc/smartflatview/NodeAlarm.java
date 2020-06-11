@@ -13,15 +13,15 @@ public class NodeAlarm extends Indicator
     private int m_iResIDAlarmOff;
     private int m_iResIDAlarmOn;
 
-    NodeAlarm(float fX, float fY, int iResIDAlarmOn, int iResIDAlarmOff, int iSubType,
-              String sName, boolean bMetaInd, boolean bProtected,
+    NodeAlarm(float fX, float fY,
+              String sName, boolean bProtected,
               boolean bDoubleSize, boolean bQuick, int iReaction, int iScale)
     {
-        super(fX, fY, iResIDAlarmOff, iSubType, sName, bMetaInd, bProtected, bDoubleSize, bQuick, iReaction,
+        super(fX, fY, R.drawable.alarmnode0, 1, sName, false, bProtected, bDoubleSize, bQuick, iReaction,
               iScale);
 
-        m_iResIDAlarmOn = iResIDAlarmOn;
-        m_iResIDAlarmOff = iResIDAlarmOff;
+        m_iResIDAlarmOn = R.drawable.alarmnode1;
+        m_iResIDAlarmOff = R.drawable.alarmnode0;
     }
 
     private boolean m_bAlarm = false;
