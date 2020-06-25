@@ -23,10 +23,10 @@ import android.widget.TextView;
 import java.util.HashMap;
 import java.util.Timer;
 
-import ru.cpc.smartflatview.IndicatorPackage.AlarmSensor.FireSensor;
-import ru.cpc.smartflatview.IndicatorPackage.AlarmSensor.LeakageSensor;
-import ru.cpc.smartflatview.IndicatorPackage.AlarmSensor.MotionSensor;
-import ru.cpc.smartflatview.IndicatorPackage.Macros.Macro;
+import ru.cpc.smartflatview.indicatorPackage.alarmSensors.FireSensor;
+import ru.cpc.smartflatview.indicatorPackage.alarmSensors.LeakageSensor;
+import ru.cpc.smartflatview.indicatorPackage.alarmSensors.MotionSensor;
+import ru.cpc.smartflatview.indicatorPackage.macros.Macro;
 
 
 public class IndicatorUI extends ViewGroup 

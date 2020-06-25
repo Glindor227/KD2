@@ -5,7 +5,7 @@ import android.util.TypedValue;
 import android.view.View;
 import android.widget.SeekBar;
 
-import ru.cpc.smartflatview.IndicatorPackage.Base.BaseRegulator;
+import ru.cpc.smartflatview.indicatorPackage.base.BaseRegulator;
 
 public class NodeSeekBar extends BaseRegulator
 {
