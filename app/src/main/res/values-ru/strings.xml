@@ -7,5 +7,8 @@
     <string name="file_not">файл не выбран</string>
     <string name="ip">192.168.1.68</string>
     <string name="port">8189</string>
+    <string name="set_id_title">Введите два раза идентификатор</string>
+    <string name="id_set">Принять</string>
+
 
 </resources>

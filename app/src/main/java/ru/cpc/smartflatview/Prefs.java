@@ -92,12 +92,24 @@ public class Prefs extends AppCompatPreferenceActivity
     private static final String OPT_IP = "ip" ;
     private static final String OPT_IP_DEF = "192.168.1.1";
 
+    private static final String PROP_ID = "id" ;
+
+    public static String getId(Context context){
+        return PreferenceManager.getDefaultSharedPreferences(context)
+                .getString(PROP_ID, "");
+    }
+
+    public static void setId(String id,Context context){
+        PreferenceManager.getDefaultSharedPreferences(context).edit().putString(PROP_ID,id).apply();
+    }
+
     /** Get the current value of the hints option */
     public static String getLogin(Context context)
     {
         return PreferenceManager.getDefaultSharedPreferences(context)
                 .getString(OPT_LOGIN, OPT_LOGIN_DEF);
     }
+
 
     /** Get the current value of the hints option */
     public static String getPrefs(Context context)

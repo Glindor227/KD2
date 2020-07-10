@@ -3,6 +3,8 @@ package ru.cpc.smartflatview.importing.model.retrofit;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import java.util.Map;
+
 import io.reactivex.Single;
 import io.reactivex.schedulers.Schedulers;
 import okhttp3.ResponseBody;
@@ -32,11 +34,11 @@ public class RetrofitApi {
                 .create(RetrofitApiService.class);
     }
 
-    public Single<GsonDate> requestFilesList(){
-        return apiServiceJson.getFileList().subscribeOn(Schedulers.io());
+    public Single<GsonDate> requestFilesList(Map<String,String> mapKey){
+        return apiServiceJson.getFileList(mapKey).subscribeOn(Schedulers.io());
     }
-    public Single<ResponseBody> requestFileByName2(String name){
-        return apiService.getFile2(name).subscribeOn(Schedulers.io());
+    public Single<ResponseBody> requestFileByName2(Map<String,String> mapKey){
+        return apiService.getFile2(mapKey).subscribeOn(Schedulers.io());
     }
 
 

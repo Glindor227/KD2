@@ -117,15 +117,15 @@ public class IndicatorUI extends ViewGroup
 				ControlPopup();
 			else
 			{
-                LoginActivity.s_sTrueCode = firewall;
-                LoginActivity.s_pUnlocker = new LoginActivity.SFUnlocker() {
+                AuthorizationActivity.s_sTrueCode = firewall;
+                AuthorizationActivity.s_pUnlocker = new AuthorizationActivity.SFUnlocker() {
                     @Override
                     public void Unlock(boolean bUnlock) {
                         if(bUnlock)
                             ControlPopup();
                     }
                 };
-                Intent intent = new Intent(getContext(), LoginActivity.class);
+                Intent intent = new Intent(getContext(), AuthorizationActivity.class);
                 getContext().startActivity(intent);
 //				Dialog vv = new Keypad(getContext(), this, firewall);
 //				vv.show();
@@ -154,8 +154,8 @@ public class IndicatorUI extends ViewGroup
             }
 			else
 			{
-                LoginActivity.s_sTrueCode = firewall;
-                LoginActivity.s_pUnlocker = new LoginActivity.SFUnlocker() {
+                AuthorizationActivity.s_sTrueCode = firewall;
+                AuthorizationActivity.s_pUnlocker = new AuthorizationActivity.SFUnlocker() {
                     @Override
                     public void Unlock(boolean bUnlock) {
                         if(bUnlock) {
@@ -166,7 +166,7 @@ public class IndicatorUI extends ViewGroup
                         }
                     }
                 };
-                Intent intent = new Intent(getContext(), LoginActivity.class);
+                Intent intent = new Intent(getContext(), AuthorizationActivity.class);
                 getContext().startActivity(intent);
 //				Dialog vv = new Keypad(getContext(), this, firewall);
 //				vv.show();

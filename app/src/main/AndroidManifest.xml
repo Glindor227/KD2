@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="ru.cpc.smartflatview">
-
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" /> <!-- To auto-complete the email text field in the login form with the user's emails -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> <!-- To auto-complete the email text field in the login form with the user's emails -->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.READ_PROFILE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
@@ -15,31 +14,33 @@
     <uses-permission android:name="android.permission.WAKE_LOCK" />
 
     <application
-        android:allowBackup="true"
         android:name=".app.App"
+        android:allowBackup="true"
         android:icon="@drawable/logo_kd_big"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".SplashActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:label="@string/title_activity_main"
+            android:theme="@style/AppTheme.NoActionBar" />
+
         <activity
-            android:name="ru.cpc.smartflatview.importing.ui.ImportActivity"
+            android:name=".importing.ui.ImportActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".LaunchScreenActivity"
+            android:name=".LoginActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="@string/title_activity_launch_screen"
             android:screenOrientation="fullSensor"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
-
                 <category android:name="android.intent.category.DEFAULT" />
-
                 <data android:scheme="file" />
                 <data android:host="*" />
                 <data android:pathPattern=".*\\.cfg" />
@@ -51,20 +52,16 @@
             </intent-filter>
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
-
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
-
                 <data
                     android:mimeType="application/octet-stream"
                     android:scheme="content" />
             </intent-filter>
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
-
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
-
                 <data
                     android:host="*"
                     android:mimeType="application/xml"
@@ -81,15 +78,16 @@
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="@string/title_activity_settings" />
         <activity
-            android:name=".LoginActivity"
+            android:name=".AuthorizationActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="@string/title_activity_login" />
 
-        <service
-            android:name=".CheckAlarmService"
+        <receiver
+            android:name=".AlarmReceiver"
             android:enabled="true"
-            android:exported="false"
-            android:process=":check_alarm_service" />
+            android:exported="true"
+            android:permission=""
+            android:process=":remote" />
         <!--
         <receiver android:name=".BootBroadcastReceiver">
             <intent-filter>
@@ -98,25 +96,24 @@
         </receiver>
         -->
         <receiver
-            android:name=".AlarmReceiver"
-            android:enabled="true"
-            android:exported="true"
-            android:permission=""
-            android:process=":remote" />
-        <receiver
             android:name=".AutoStart"
             android:enabled="true"
             android:exported="true">
             <intent-filter>
-                <category android:name="android.intent.category.DEFAULT" />
-
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
+
                 <action android:name="android.intent.action.QUICKBOOT_POWERON" />
-                <!-- For HTC devices -->
                 <action android:name="com.htc.intent.action.QUICKBOOT_POWERON" />
+                <!-- For HTC devices -->
                 <action android:name="android.intent.action.USER_PRESENT" />
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </receiver>
+        <service
+            android:name=".CheckAlarmService"
+            android:enabled="true"
+            android:exported="false"
+            android:process=":check_alarm_service" />
     </application>
 
 </manifest>

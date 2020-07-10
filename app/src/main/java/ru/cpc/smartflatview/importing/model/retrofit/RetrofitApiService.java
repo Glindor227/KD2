@@ -1,15 +1,20 @@
 package ru.cpc.smartflatview.importing.model.retrofit;
 
+import java.util.Map;
+
 import io.reactivex.Single;
 import okhttp3.ResponseBody;
 import retrofit2.http.GET;
-import retrofit2.http.Path;
+import retrofit2.http.QueryMap;
 import ru.cpc.smartflatview.importing.model.retrofit.data.GsonDate;
 
 public interface RetrofitApiService {
-    @GET("/api")
-    Single<GsonDate> getFileList();
+/*    @GET("/api/idUser/{idUser}")
+    Single<GsonDate> getFileList(@Path("idUser") String idUser);
+*/
+    @GET("/api/list")
+    Single<GsonDate> getFileList(@QueryMap Map<String, String> parameter);
 
-    @GET("/api/files/{fileName}")
-    Single<ResponseBody> getFile2(@Path("fileName") String fileName);
+    @GET("/api/file")
+    Single<ResponseBody> getFile2(@QueryMap Map<String, String> parameter);
 }

@@ -15,12 +15,14 @@ import android.view.View;
 import android.widget.TextView;
 
 import java.util.Locale;
+import java.util.Objects;
 
-public class LaunchScreenActivity extends AppCompatActivity
+public class SplashActivity extends AppCompatActivity
 {
     private static final int SPLASH_TIME = 500;
 
     private Uri importData = Uri.EMPTY;
+    private String idUser = "";
 
     private class BackgroundTask extends AsyncTask<Uri, Integer, Config> {
         Intent intent;
@@ -30,7 +32,7 @@ public class LaunchScreenActivity extends AppCompatActivity
             Log.d("LaunchScreen", "onPreExecute()");
             Log.d("Glindor3","BackgroundTask onPreExecute");
 
-            intent = new Intent(LaunchScreenActivity.this, MainActivity.class);
+            intent = new Intent(SplashActivity.this, MainActivity.class);
         }
         @Override
         protected Config doInBackground(Uri... params) {
@@ -38,7 +40,7 @@ public class LaunchScreenActivity extends AppCompatActivity
                 * data that your app needs. */
             Log.d("Glindor3","BackgroundTask doInBackground 1");
 
-            Config pConfig = null;
+            Config pConfig;
             Log.i("LaunchScreen", "Starting task with url: "+params[0]);
             //if(importData != Uri.EMPTY)
             //    throw new InvalidParameterException();
@@ -46,7 +48,7 @@ public class LaunchScreenActivity extends AppCompatActivity
 
             Log.d("Glindor3!3","BackgroundTask orientation = "+getResources().getConfiguration().orientation);
 
-            if(Config.DEMO){
+            if(Config.DEMO || idUser.equals("")){
                 pConfig = new Config(getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT);
             }
             else
@@ -64,7 +66,7 @@ public class LaunchScreenActivity extends AppCompatActivity
 //                }
 //                else
 //                {
-                    pConfig = Config.LoadXml( getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT,importData, LaunchScreenActivity.this);
+                    pConfig = Config.LoadXml( getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT,importData, SplashActivity.this);
                     Config.portOrientation = getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT;
                     if(pConfig == null || pConfig.m_cRooms.size() == 0)
                     {
@@ -78,7 +80,7 @@ public class LaunchScreenActivity extends AppCompatActivity
 //                      });
                     }
 //                  else
-                    Config.SaveXml(pConfig, LaunchScreenActivity.this);
+                    Config.SaveXml(pConfig, SplashActivity.this);
 //                }
             }
             Log.d("Glindor3","BackgroundTask doInBackground 3");
@@ -101,8 +103,8 @@ public class LaunchScreenActivity extends AppCompatActivity
             Log.d("LaunchScreen", "onPostExecute()");
 
             Config.Instance = config;
-            TextView pTextName = (TextView) findViewById(R.id.summary_name);
-            TextView pTextDesc = (TextView) findViewById(R.id.summary_description);
+            TextView pTextName = findViewById(R.id.summary_name);
+            TextView pTextDesc = findViewById(R.id.summary_description);
             Log.d("Glindor3","BackgroundTask onPostExecute 2");
 
             if (pTextName != null)
@@ -128,19 +130,19 @@ public class LaunchScreenActivity extends AppCompatActivity
 
             //            Pass your loaded data here using Intent
             //            intent.putExtra("data_key", "");
-            String loginCode = Prefs.getLogin(LaunchScreenActivity.this);
+            String loginCode = Prefs.getLogin(SplashActivity.this);
             if(loginCode.isEmpty())
                 startActivity(intent);
             else {
-                LoginActivity.s_sTrueCode = loginCode;
-                LoginActivity.s_pUnlocker = new LoginActivity.SFUnlocker() {
+                AuthorizationActivity.s_sTrueCode = loginCode;
+                AuthorizationActivity.s_pUnlocker = new AuthorizationActivity.SFUnlocker() {
                     @Override
                     public void Unlock(boolean bUnlock) {
                         if (bUnlock)
                             startActivity(intent);
                     }
                 };
-                Intent intentLogin = new Intent(LaunchScreenActivity.this, LoginActivity.class);
+                Intent intentLogin = new Intent(SplashActivity.this, AuthorizationActivity.class);
                 startActivity(intentLogin);
             }
             Log.d("Glindor3","BackgroundTask onPostExecute 5");
@@ -152,8 +154,11 @@ public class LaunchScreenActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-//        Transparent Status Bar
-        Log.d("Glindor3","LaunchScreenActivity onCreate start");
+        idUser = Objects.requireNonNull(Objects.requireNonNull(getIntent().getExtras()).getCharSequence("id")).toString();
+        Log.d(LoginActivity.TAG,"LaunchScreenActivity onCreate start id("+ idUser+")");
+
+
+        //        Transparent Status Bar
         if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
             Log.d("Glindor55", "LaunchScreenActivity onCreate ORIENTATION_LANDSCAPE");
         }
@@ -168,10 +173,10 @@ public class LaunchScreenActivity extends AppCompatActivity
             getWindow().setStatusBarColor(Color.TRANSPARENT);
         }
 
-        setContentView(R.layout.activity_launch_screen);
+        setContentView(R.layout.activity_splash);
 
-        TextView pTextName = (TextView) findViewById(R.id.summary_name);
-        TextView pTextDesc = (TextView) findViewById(R.id.summary_description);
+        TextView pTextName = findViewById(R.id.summary_name);
+        TextView pTextDesc = findViewById(R.id.summary_description);
         Log.d("Glindor3","LaunchScreenActivity onCreate 1");
 
         if (pTextName != null)

@@ -19,6 +19,11 @@
         android:visible="false"
         app:showAsAction="never" />
     <item
+        android:id="@+id/action_reset_exit"
+        android:title="@string/menuResetExit"
+        android:orderInCategory="150"
+        app:showAsAction="never" />
+    <item
         android:id="@+id/action_exit"
         android:title="@string/menuExit"
         android:orderInCategory="150"

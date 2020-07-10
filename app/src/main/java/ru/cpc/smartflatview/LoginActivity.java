@@ -1,119 +1,54 @@
 package ru.cpc.smartflatview;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
-import android.view.View.OnClickListener;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 
-/**
- * A login screen that offers login via email/password.
- */
-public class LoginActivity extends AppCompatActivity
-{
-    public static abstract class SFUnlocker
-    {
-        public abstract void Unlock(boolean bUnlock);
-    }
+public class LoginActivity extends AppCompatActivity {
 
-    public static SFUnlocker s_pUnlocker;
-
-    public static String s_sTrueCode;
-
-    // UI references.
-    private EditText mCodeView;
+    public static final String TAG = "LoginActivityDebug";
+    EditText editText1;
+    EditText editText2;
+    Button button;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        // Set up the login form.
-
-        mCodeView = (EditText) findViewById(R.id.code);
-        mCodeView.setText("");
-//        mCodeView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-//            @Override
-//            public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
-//                if (id == R.id.login || id == EditorInfo.IME_NULL) {
-//                    attemptLogin();
-//                    return true;
-//                }
-//                return false;
-//            }
-//        });
-
-        Button mEmailSignInButton = (Button) findViewById(R.id.enter_button);
-        if (mEmailSignInButton != null)
-        {
-            mEmailSignInButton.setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    attemptLogin();
-                }
-            });
+        String strId = Prefs.getId(this);
+        Log.d(LoginActivity.TAG, "old id = "+strId);
+        if(!strId.isEmpty()) {
+            startSplashActivity(strId);
         }
-
-        Button mCancelButton = (Button) findViewById(R.id.cancel_button);
-        if (mCancelButton != null)
-        {
-            mCancelButton.setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    s_pUnlocker.Unlock(false);
-                    finish();
-                }
-            });
-        }
-
-        View mLoginFormView = findViewById(R.id.login_form);
-
-        mCodeView.requestFocus();
+        initView();
     }
 
-    @Override
-    public void onBackPressed()
-    {
-        super.onBackPressed();
-        //Toast.makeText(getApplicationContext(), "Back Pressed", Toast.LENGTH_SHORT).show();
+    private void startSplashActivity(String strId) {
+        startActivity(new Intent(this, SplashActivity.class).putExtra("id", strId));
     }
 
-    /**
-     * Attempts to sign in or register the account specified by the login form.
-     * If there are form errors (invalid email, missing fields, etc.), the
-     * errors are presented and no actual login attempt is made.
-     */
-    private void attemptLogin() {
+    private void initView() {
+        editText1 = findViewById(R.id.id_set);
+        editText2 = findViewById(R.id.id_repid);
+        button= findViewById(R.id.btn_set_id);
+        button.setOnClickListener(v -> {
+            String id1 =editText1.getText().toString();
+            String id2 =editText2.getText().toString();
+            if(id1.isEmpty()||id2.isEmpty()||!id1.equals(id2)){
+                Snackbar snackbar = Snackbar.make(v, "Идентификатор пользователя не корректен", Snackbar.LENGTH_INDEFINITE);
+                snackbar.setAction("Demo", v2 -> startSplashActivity("")).show();
+                Log.d(LoginActivity.TAG, "id fail");
 
-        // Reset errors.
-        mCodeView.setError(null);
+            }else{
+                Log.d(LoginActivity.TAG, "id ok");
+                Prefs.setId(id1,this);
+                startSplashActivity(id1);
+            }
 
-        // Store values at the time of the login attempt.
-        String code = mCodeView.getText().toString();
-
-        boolean cancel = false;
-        View focusView = null;
-
-        // Check for a valid password, if the user entered one.
-        if (!isPasswordValid(code)) {
-            mCodeView.setError(getString(R.string.error_incorrect_password));
-            focusView = mCodeView;
-            cancel = true;
-        }
-
-        if (cancel) {
-            // There was an error; don't attempt login and focus the first
-            // form field with an error.
-            focusView.requestFocus();
-        } else {
-            s_pUnlocker.Unlock(true);
-            finish();
-        }
-    }
-
-    private boolean isPasswordValid(String password) {
-
-        return password.equals(s_sTrueCode);
+        });
     }
 }
-

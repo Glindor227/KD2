@@ -15,6 +15,7 @@ import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.FileInputStream;
@@ -29,6 +30,7 @@ import moxy.MvpAppCompatActivity;
 import moxy.presenter.InjectPresenter;
 import ru.cpc.smartflatview.Config;
 import ru.cpc.smartflatview.MainActivity;
+import ru.cpc.smartflatview.Prefs;
 import ru.cpc.smartflatview.R;
 import ru.cpc.smartflatview.app.App;
 import ru.cpc.smartflatview.importing.model.localfile.FileChooser;
@@ -43,6 +45,7 @@ public class ImportActivity extends MvpAppCompatActivity implements ImportView {
     EditText et_port;
     Toolbar toolbar;
     ProgressBar progressBar;
+    private String idUser;
     private SharedPreferences importPref;
 
     @InjectPresenter
@@ -114,6 +117,9 @@ public class ImportActivity extends MvpAppCompatActivity implements ImportView {
         progressBar= findViewById(R.id.prog_bar_test);
         Button btn_local = findViewById(R.id.btn_local);
         Button btn_link = findViewById(R.id.btn_link);
+        TextView textView = findViewById(R.id.textView5);
+        idUser = Prefs.getId(this);
+        textView.setText(textView.getText().toString()+" id:"+ idUser);
 
         btn_local.setOnClickListener(v -> new FileChooser(
                 ImportActivity.this).setFileListener(file -> {
@@ -137,7 +143,7 @@ public class ImportActivity extends MvpAppCompatActivity implements ImportView {
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     private void presenterStart() {
-        presenter.initParam(et_ip.getText().toString(),et_port.getText().toString());
+        presenter.initParam(et_ip.getText().toString(),et_port.getText().toString(),idUser);
         presenter.getList();
     }
 

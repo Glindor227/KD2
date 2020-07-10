@@ -639,15 +639,15 @@ public class MainActivity extends AppCompatActivity {
             if(prefsCode.isEmpty())
                 startActivity(new Intent(MainActivity.this, Prefs.class));
             else {
-                LoginActivity.s_sTrueCode = prefsCode;
-                LoginActivity.s_pUnlocker = new LoginActivity.SFUnlocker() {
+                AuthorizationActivity.s_sTrueCode = prefsCode;
+                AuthorizationActivity.s_pUnlocker = new AuthorizationActivity.SFUnlocker() {
                     @Override
                     public void Unlock(boolean bUnlock) {
                         if (bUnlock)
                             startActivity(new Intent(MainActivity.this, Prefs.class));
                     }
                 };
-                Intent intent = new Intent(this, LoginActivity.class);
+                Intent intent = new Intent(this, AuthorizationActivity.class);
                 startActivity(intent);
             }
             return true;
@@ -658,15 +658,15 @@ public class MainActivity extends AppCompatActivity {
             if(prefsCode.isEmpty())
                 mainImportConfig();
             else {
-                LoginActivity.s_sTrueCode = prefsCode;
-                LoginActivity.s_pUnlocker = new LoginActivity.SFUnlocker() {
+                AuthorizationActivity.s_sTrueCode = prefsCode;
+                AuthorizationActivity.s_pUnlocker = new AuthorizationActivity.SFUnlocker() {
                     @Override
                     public void Unlock(boolean bUnlock) {
                         if (bUnlock)
                             mainImportConfig();
                     }
                 };
-                Intent intent = new Intent(this, LoginActivity.class);
+                Intent intent = new Intent(this, AuthorizationActivity.class);
                 startActivity(intent);
             }
             return true;
@@ -745,6 +745,14 @@ public class MainActivity extends AppCompatActivity {
             //startActivity(intent);
             LogActivity newFragment = LogActivity.newInstance(m_cLogLines, "Состояние связи с оборудованием:");
             newFragment.show(getFragmentManager(), "logDialog");
+        }
+        if (id == R.id.action_reset_exit)
+        {
+            Prefs.setId("",this);
+            SafeExit();
+            finish();
+            System.exit(0);
+            return true;
         }
         if (id == R.id.action_exit)
         {
@@ -929,7 +937,7 @@ public class MainActivity extends AppCompatActivity {
         // Create intent that will bring our app to the front, as if it was tapped in the app
         // launcher
         //Log.d("MainActivity", "showForegroundNotification");
-        Intent showTaskIntent = new Intent(getApplicationContext(), LaunchScreenActivity.class);
+        Intent showTaskIntent = new Intent(getApplicationContext(), SplashActivity.class);
         showTaskIntent.setAction(Intent.ACTION_MAIN);
         showTaskIntent.addCategory(Intent.CATEGORY_LAUNCHER);
         showTaskIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

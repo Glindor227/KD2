@@ -76,7 +76,7 @@ public class CheckAlarmService extends IntentService
             }
         }
 
-        Intent showTaskIntent = new Intent(getApplicationContext(), LaunchScreenActivity.class);
+        Intent showTaskIntent = new Intent(getApplicationContext(), SplashActivity.class);
         showTaskIntent.setAction(Intent.ACTION_MAIN);
         showTaskIntent.addCategory(Intent.CATEGORY_LAUNCHER);
         showTaskIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
