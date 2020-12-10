@@ -11,7 +11,7 @@ public class Subsystem
 
 	public String m_sName;
 
-	ArrayList<Indicator> m_cIndicators = new ArrayList<>();
+	public ArrayList<Indicator> m_cIndicators = new ArrayList<>();
 	int m_iGridWidth;
 	int m_iGridHeight;
 

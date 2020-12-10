@@ -7,11 +7,11 @@ public class Room
 {
     public int m_iIndex;
 
-    String m_sName;
+    public String m_sName;
 
     String m_sID;
 
-    ArrayList<Subsystem> m_cSubsystems = new ArrayList<Subsystem>();
+    public ArrayList<Subsystem> m_cSubsystems = new ArrayList<Subsystem>();
 
     public Room(int index, String sName, String sID)
     {

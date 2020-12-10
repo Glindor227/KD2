@@ -255,7 +255,7 @@ public abstract class BaseRegulator extends Indicator
 	{
 		if(m_bNoPower)
 			return false;
-		Log.d("Glin512", "Base Regulator SwitchOnOff m_bPower = " + !m_bPower );
+		Log.d("DimmerLamp227", "Base Regulator SwitchOnOff m_bPower = " + !m_bPower );
 		Log.d("2click", "SwitchOnOff("+m_sName+")");
 
 		m_bPower = !m_bPower;
@@ -294,7 +294,7 @@ public abstract class BaseRegulator extends Indicator
 		{
 			//29.08.2019
 //			m_pServer.SendCommand(m_sVariablePower, String.valueOf(m_bPower ? m_fValueOn : m_fValueOff));
-            Log.d("Regul", "SetValue "+m_iValue);
+            Log.d("DimmerLamp227", "SetValue "+m_iValue);
 
             m_pServer.SendCommand(m_sVariableValue, String.valueOf(m_iValue));
 		}

@@ -8,6 +8,7 @@ import android.widget.CompoundButton;
 import ru.cpc.smartflatview.indicatorPackage.base.BaseRelay;
 import ru.cpc.smartflatview.R;
 import ru.cpc.smartflatview.ScrollingDialog;
+import ru.cpc.smartflatview.indicatorPackage.base.VoiceDate;
 
 public class PowerControl extends BaseRelay
 {
@@ -17,6 +18,10 @@ public class PowerControl extends BaseRelay
 				getIndDisC(R.drawable.power_on_p,R.drawable.power_on_2,R.drawable.power_on,R.drawable.power_on_c),
 				getIndDisC(R.drawable.power_off_p,R.drawable.power_off_2,R.drawable.power_off,R.drawable.power_off_c),
 				8, sName, bMetaInd, bProtected, bDoubleScale, bQuick, iReaction, iScale);
+		voice = new VoiceDate("розетка");
+		voice.addCommand("включить",0);
+		voice.addCommand("выключить",0);
+
 	}
 
 	@Override

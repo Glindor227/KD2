@@ -21,7 +21,6 @@ public abstract class BaseClimat extends Indicator
     {
         super(fX, fY, iResID, iSubType, sName, bMetaInd, bProtected, bDoubleSize, bQuick, iReaction,
                 iScale);
-
     }
 
     public int m_iTemp = 0;

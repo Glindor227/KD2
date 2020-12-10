@@ -10,6 +10,7 @@ import android.widget.SeekBar;
 import ru.cpc.smartflatview.indicatorPackage.base.BaseRegulator;
 import ru.cpc.smartflatview.R;
 import ru.cpc.smartflatview.ScrollingDialog;
+import ru.cpc.smartflatview.indicatorPackage.base.VoiceDate;
 
 public class Conditioner extends BaseRegulator
 {
@@ -21,7 +22,12 @@ public class Conditioner extends BaseRegulator
 	public Conditioner(int iX, int iY, String sName, boolean bMetaInd, boolean bProtected, boolean bDoubleScale, boolean bQuick, int iReaction, int iScale)
 	{
 		super(iX, iY, imageCoolOff, 3, sName, bMetaInd, bProtected, bDoubleScale, bQuick, iReaction, iScale);
-		
+		voice = new VoiceDate("Кондинционер");
+		voice.addCommand("включить",0);
+		voice.addCommand("выключить",0);
+		voice.addCommand("установить температуру",1);
+		voice.addCommand("задать температуру",1);
+
 		m_iValue = 20;
 	}
 

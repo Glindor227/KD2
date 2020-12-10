@@ -33,5 +33,4 @@ public class GsonDate {
         return builder.toString();
     }
 
-
 }

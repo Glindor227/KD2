@@ -43,4 +43,12 @@
         android:icon="@drawable/ic_disconnect"
         app:showAsAction="always">
     </item>
+    <item
+        android:id="@+id/action_voice"
+        android:orderInCategory="100"
+        android:title=""
+        android:icon="@drawable/ic_voice_off"
+        app:showAsAction="always">
+    </item>
+
 </menu>

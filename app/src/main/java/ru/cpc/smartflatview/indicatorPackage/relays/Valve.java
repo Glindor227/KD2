@@ -8,6 +8,7 @@ import android.widget.CompoundButton;
 import ru.cpc.smartflatview.indicatorPackage.base.BaseRelay;
 import ru.cpc.smartflatview.R;
 import ru.cpc.smartflatview.ScrollingDialog;
+import ru.cpc.smartflatview.indicatorPackage.base.VoiceDate;
 
 public class Valve extends BaseRelay
 {
@@ -17,6 +18,11 @@ public class Valve extends BaseRelay
 				getIndDisC(R.drawable.valve_on_p,R.drawable.valve_on,R.drawable.id083_cold,R.drawable.valve_on_c),
 			getIndDisC(R.drawable.valve_off_p,R.drawable.valve_off,R.drawable.id085_cold,R.drawable.valve_off_c),
 				3, sName, bMetaInd, bProtected, bDoubleScale, bQuick, iReaction, iScale);
+		voice = new VoiceDate("клапан");
+		voice.addCommand("включить",0);
+		voice.addCommand("выключить",0);
+		voice.addCommand("открыть",0);
+		voice.addCommand("закрыть",0);
 
 	}
 

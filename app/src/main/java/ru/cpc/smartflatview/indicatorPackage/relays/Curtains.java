@@ -9,6 +9,7 @@ import android.widget.CompoundButton;
 import ru.cpc.smartflatview.indicatorPackage.base.BaseRelay;
 import ru.cpc.smartflatview.R;
 import ru.cpc.smartflatview.ScrollingDialog;
+import ru.cpc.smartflatview.indicatorPackage.base.VoiceDate;
 
 public class Curtains extends BaseRelay
 {
@@ -18,6 +19,11 @@ public class Curtains extends BaseRelay
 				getIndDisC(R.drawable.curtains_close_p,R.drawable.curtains_close,R.drawable.id066,R.drawable.curtains_close_c),
 				getIndDisC(R.drawable.curtains_open_p,R.drawable.curtains_open,R.drawable.id067,R.drawable.curtains_open_c),
 				2, sName, bMetaInd, bProtected, bDoubleScale, bQuick, iReaction, iScale);
+		voice = new VoiceDate("шторы");
+		voice.addCommand("открыть",0);
+		voice.addCommand("закрыть",0);
+		voice.addCommand("поднять",0);
+		voice.addCommand("опустить",0);
 
 	}
 

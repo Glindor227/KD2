@@ -27,6 +27,11 @@ public abstract class BaseMacro extends Indicator
 		m_bText2 = true;
 		m_sButtonText = sButtonName;
 
+		voice = new VoiceDate("макрос");
+		voice.addCommand("включить",0);
+		voice.addCommand("выключить",0);
+
+
 		Log.d("CTOR", "macro name: " + m_sName);
 		Log.d("CTOR", "button name: " + m_sButtonText);
 	}
@@ -68,7 +73,8 @@ public abstract class BaseMacro extends Indicator
 		    return Update();
 
 		return  false;
-	}	
+	}
+
 	@Override
 	public boolean SwitchOnOff(float iX, float iY) 
 	{

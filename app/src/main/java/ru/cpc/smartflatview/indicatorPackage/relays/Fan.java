@@ -8,6 +8,7 @@ import android.widget.CompoundButton;
 import ru.cpc.smartflatview.indicatorPackage.base.BaseRelay;
 import ru.cpc.smartflatview.R;
 import ru.cpc.smartflatview.ScrollingDialog;
+import ru.cpc.smartflatview.indicatorPackage.base.VoiceDate;
 
 public class Fan extends BaseRelay
 {
@@ -17,6 +18,9 @@ public class Fan extends BaseRelay
 				getIndDisC(R.drawable.fan_b_p,R.drawable.fan_b,R.drawable.id091,R.drawable.fan_b_c),
 			getIndDisC(R.drawable.fan_off_p,R.drawable.fan_off,R.drawable.id089,R.drawable.fan_off_c),
 				4, sName, bMetaInd, bProtected, bDoubleScale, bQuick, iReaction, iScale);
+		voice = new VoiceDate("вентилятор");
+		voice.addCommand("включить",0);
+		voice.addCommand("выключить",0);
 
 	}
 

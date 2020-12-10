@@ -10,12 +10,15 @@ import java.io.IOException;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import ru.cpc.smartflatview.indicatorPackage.base.VoiceDate;
+
 public abstract class Indicator
 {
 	protected static final String TAG = "SMARTFLAT" ;
 	protected static int typeDez;
 	public static float delta;
 	protected final int m_iScale;
+	public VoiceDate voice = new VoiceDate("неизвестно");
 
 	protected static int getTypeDez() {
 		return typeDez;
@@ -74,6 +77,8 @@ public abstract class Indicator
 	float m_fXPercent;
 	float m_fYPercent;
 	protected String m_sName;
+	public String getName(){ return m_sName; }
+
 	protected Subsystem m_pSubsystem;
 
 	protected IndicatorUI m_pUI = null;

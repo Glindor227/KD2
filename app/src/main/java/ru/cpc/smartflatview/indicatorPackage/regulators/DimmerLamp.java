@@ -10,6 +10,7 @@ import android.widget.SeekBar;
 import ru.cpc.smartflatview.indicatorPackage.base.BaseRegulator;
 import ru.cpc.smartflatview.R;
 import ru.cpc.smartflatview.ScrollingDialog;
+import ru.cpc.smartflatview.indicatorPackage.base.VoiceDate;
 
 public class DimmerLamp extends BaseRegulator
 {
@@ -39,6 +40,11 @@ public class DimmerLamp extends BaseRegulator
 	public DimmerLamp(int iX, int iY, String sName, boolean bMetaInd, boolean bProtected, boolean bDoubleScale, boolean bQuick, int iReaction, int iScale)
 	{
 		super(iX, iY, off, 1, sName, bMetaInd, bProtected, bDoubleScale, bQuick, iReaction, iScale);
+		voice = new VoiceDate("лампа");
+		voice.addCommand("включить",0);
+		voice.addCommand("выключить",0);
+		voice.addCommand("установить яркость на",1);
+		voice.addCommand("задать яркость на",1);
 
 		m_fValueMin = 0;
 		m_fValueMax = 100;
@@ -77,12 +83,18 @@ public class DimmerLamp extends BaseRegulator
 	@Override
 	public boolean ShowPopup(Context context)
 	{
+		Log.d("DimmerLamp227-", "m_iReaction ="+m_iReaction);
 
 		ScrollingDialog.Init(m_sName, m_pSubsystem.m_sName);
-		final ScrollingDialog.SFSwitcher pSwitcher = m_bNoPower ? null : (ScrollingDialog.SFSwitcher)ScrollingDialog.AddSwitcher(m_sVariablePower, context.getString(R.string.sdPower), m_bPower, m_iReaction != 0
-                                                                                                                                                                                                  ? null : new CompoundButton.OnCheckedChangeListener() {
+		final ScrollingDialog.SFSwitcher pSwitcher = m_bNoPower ? null :
+				(ScrollingDialog.SFSwitcher)ScrollingDialog.AddSwitcher(
+						m_sVariablePower,
+						context.getString(R.string.sdPower),
+						m_bPower,
+						m_iReaction != 0 ? null : new CompoundButton.OnCheckedChangeListener() {
 			@Override
 			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+				Log.d("DimmerLamp227", "onCheckedChanged");
 				SwitchOnOff(0, 0);
 			}
 		});
@@ -103,14 +115,17 @@ public class DimmerLamp extends BaseRegulator
 
 			@Override
 			public void onStopTrackingTouch(SeekBar seekBar) {
+				Log.d("DimmerLamp227", "onStopTrackingTouch");
 				SetValue((seekBar.getProgress() + (int) m_fValueMin) * m_iMaxValue / 100);
 			}
 		});
+		Log.d("DimmerLamp227+", "m_iReaction ="+m_iReaction);
 
 		if(m_iReaction == 1)
 			ScrollingDialog.AddAcceptBtn(new View.OnClickListener() {
 				@Override
 				public void onClick(View v) {
+					Log.d("DimmerLamp227", "onClick");
 					if(m_iValue * 100 / m_iMaxValue != pSeeker.m_iValue)
 						SetValue(pSeeker.m_iValue * m_iMaxValue / 100);
 

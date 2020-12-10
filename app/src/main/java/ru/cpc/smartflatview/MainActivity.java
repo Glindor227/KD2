@@ -57,11 +57,15 @@ import java.util.Objects;
 import io.reactivex.annotations.NonNull;
 import ru.cpc.smartflatview.app.App;
 import ru.cpc.smartflatview.importing.ui.ImportActivity;
+import ru.cpc.smartflatview.utils.LogUtils;
+import ru.cpc.smartflatview.voice.IVoiceResult;
+import ru.cpc.smartflatview.voice.VoiceToText;
+import ru.cpc.smartflatview.voice.VoiceUtils;
 
 //import com.idis.android.redx.RSize;
 //import com.idis.android.redx.core.RCore;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements IVoiceResult {
 
     private static Context mAppContext = null;
 
@@ -324,31 +328,7 @@ public class MainActivity extends AppCompatActivity {
                 if(iRoom == -1)
                     return  true;
 
-                Objects.requireNonNull(getSupportActionBar()).setTitle(Config.Instance.m_cRooms.get(iRoom).m_sName);
-
-                mSectionsPagerAdapter.m_iRoom = iRoom;
-                Objects.requireNonNull(mViewPager.getAdapter()).notifyDataSetChanged();
-
-                tabLayout.removeAllTabs();
-                for (Subsystem pSubsystem : Config.Instance.m_cRooms.get(iRoom).m_cSubsystems) {
-                    TabLayout.Tab newTab = tabLayout.newTab();
-                    if(pSubsystem.m_sName.equalsIgnoreCase("0"))
-                        newTab.setIcon(R.drawable.tab_light_indicator);
-                    else
-                        newTab.setIcon(R.drawable.tab_media_indicator);
-                    newTab.setText(pSubsystem.m_sName);
-                    Log.d("Glindor4","Новая закладка "+pSubsystem.m_sName);
-                    tabLayout.addTab(newTab);
-                }
-                Objects.requireNonNull(tabLayout.getTabAt(0)).select();
-
-                if(Config.Instance.m_cRooms.get(iRoom).m_cSubsystems.size() > 1)
-                    tabLayout.setVisibility(View.VISIBLE);
-                else
-                    tabLayout.setVisibility(View.GONE);
-
-                //mSectionsPagerAdapter = (SectionsPagerAdapter)mViewPager.getAdapter();
-                mViewPager.getAdapter().notifyDataSetChanged();
+                showRoom(iRoom);
 
                 DrawerLayout drawer = findViewById(R.id.drawer_layout);
                 if (drawer != null)
@@ -368,32 +348,7 @@ public class MainActivity extends AppCompatActivity {
                     if(iGroup == -1)
                         return true;
 
-                    Objects.requireNonNull(getSupportActionBar()).setTitle(Config.Instance.m_cRooms.get(iGroup).m_sName);
-
-                    Log.d("111111111111111", "Switching to group #" + id);
-
-                    mSectionsPagerAdapter.m_iRoom = iGroup;
-                    Objects.requireNonNull(mViewPager.getAdapter()).notifyDataSetChanged();
-
-                    tabLayout.removeAllTabs();
-                    for (Subsystem pSubsystem : Config.Instance.m_cRooms.get(iGroup).m_cSubsystems) {
-                        TabLayout.Tab newTab = tabLayout.newTab();
-                        if(pSubsystem.m_sName.equalsIgnoreCase("0"))
-                            newTab.setIcon(R.drawable.tab_light_indicator);
-                        else
-                            newTab.setIcon(R.drawable.tab_media_indicator);
-                        newTab.setText(pSubsystem.m_sName);
-                        tabLayout.addTab(newTab);
-                    }
-                    Objects.requireNonNull(tabLayout.getTabAt(0)).select();
-
-                    if(Config.Instance.m_cRooms.get(iGroup).m_cSubsystems.size() > 1)
-                        tabLayout.setVisibility(View.VISIBLE);
-                    else
-                        tabLayout.setVisibility(View.GONE);
-
-                    //mSectionsPagerAdapter = (SectionsPagerAdapter)mViewPager.getAdapter();
-                    mViewPager.getAdapter().notifyDataSetChanged();
+                    showRoom(iGroup);
 
                     DrawerLayout drawer = findViewById(R.id.drawer_layout);
                     if (drawer != null)
@@ -440,6 +395,35 @@ public class MainActivity extends AppCompatActivity {
         Log.d("Glindor3","MainActivity onCreate 9");
         App.addTime("13 onCreate exit", new Date());
 
+    }
+
+
+    private void showRoom(int iRoom) {
+        Objects.requireNonNull(getSupportActionBar()).setTitle(Config.Instance.m_cRooms.get(iRoom).m_sName);
+
+        mSectionsPagerAdapter.m_iRoom = iRoom;
+        Objects.requireNonNull(mViewPager.getAdapter()).notifyDataSetChanged();
+
+        tabLayout.removeAllTabs();
+        for (Subsystem pSubsystem : Config.Instance.m_cRooms.get(iRoom).m_cSubsystems) {
+            TabLayout.Tab newTab = tabLayout.newTab();
+            if(pSubsystem.m_sName.equalsIgnoreCase("0"))
+                newTab.setIcon(R.drawable.tab_light_indicator);
+            else
+                newTab.setIcon(R.drawable.tab_media_indicator);
+            newTab.setText(pSubsystem.m_sName);
+            Log.d("","Новая закладка "+pSubsystem.m_sName);
+            tabLayout.addTab(newTab);
+        }
+        Objects.requireNonNull(tabLayout.getTabAt(0)).select();
+
+        if(Config.Instance.m_cRooms.get(iRoom).m_cSubsystems.size() > 1)
+            tabLayout.setVisibility(View.VISIBLE);
+        else
+            tabLayout.setVisibility(View.GONE);
+
+        //mSectionsPagerAdapter = (SectionsPagerAdapter)mViewPager.getAdapter();
+        mViewPager.getAdapter().notifyDataSetChanged();
     }
 
     List<ExpandedMenuModel> m_cListData;
@@ -746,6 +730,13 @@ public class MainActivity extends AppCompatActivity {
             LogActivity newFragment = LogActivity.newInstance(m_cLogLines, "Состояние связи с оборудованием:");
             newFragment.show(getFragmentManager(), "logDialog");
         }
+        if(id == R.id.action_voice)
+        {
+            LogUtils.goInfo("voice227", "Voice start");
+            setVoiceIcon(true);
+            VoiceToText voiceToText = new VoiceToText(this);
+            voiceToText.start(this);
+        }
         if (id == R.id.action_reset_exit)
         {
             Prefs.setId("",this);
@@ -763,6 +754,38 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void voiceText(String text) {
+        VoiceUtils.debugOutput(getAppContext(),"Расшифровка звука: " + text);
+        Integer goTo = VoiceUtils.getGoToLabel(text);
+        if(goTo >= -1) {
+            VoiceUtils.debugOutput(getAppContext(), "Это переход на: " + goTo);
+            if(goTo >= 0)
+                showRoom(goTo);
+        }
+        else {
+
+            Indicator indicator = VoiceUtils.getIndicator(getAppContext(),text);
+            String indName = "не найден";
+            if(indicator != null) {
+                indName = indicator.getName();
+            }
+            VoiceUtils.debugOutput(getAppContext(), "Это команда индикатору:(" + indName+")");
+        }
+        setVoiceIcon(false);
+    }
+
+
+    void setVoiceIcon(Boolean onOff) {
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        MenuItem item = null;
+        if (toolbar != null) {
+            item = toolbar.getMenu().findItem(R.id.action_voice);
+        }
+        if (item != null)
+            item.setIcon(onOff ? R.drawable.ic_voice_on : R.drawable.ic_voice_off);
     }
 
     public void SwitchToSubsystem(String subsystemId)
@@ -1163,6 +1186,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
+
 
     /**
      * A {@link FragmentPagerAdapter} that returns a fragment corresponding to

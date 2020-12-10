@@ -8,6 +8,7 @@ import android.widget.CompoundButton;
 import ru.cpc.smartflatview.indicatorPackage.base.BaseRelay;
 import ru.cpc.smartflatview.R;
 import ru.cpc.smartflatview.ScrollingDialog;
+import ru.cpc.smartflatview.indicatorPackage.base.VoiceDate;
 
 public class WarmFloor extends BaseRelay
 {
@@ -17,7 +18,9 @@ public class WarmFloor extends BaseRelay
 				getIndDisC(R.drawable.pol_on_p,R.drawable.pol_on,R.drawable.id087,R.drawable.pol_on_c),
 				getIndDisC(R.drawable.pol_off_p,R.drawable.pol_off,R.drawable.id088,R.drawable.pol_off_c),
 				5, sName, bMetaInd, bProtected, bDoubleScale, bQuick, iReaction, iScale);
-
+		voice = new VoiceDate("теплый пол");
+		voice.addCommand("включить",0);
+		voice.addCommand("выключить",0);
 	}
 
 	@Override

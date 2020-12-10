@@ -9,7 +9,7 @@ import android.widget.SeekBar;
 import ru.cpc.smartflatview.indicatorPackage.base.BaseClimat;
 import ru.cpc.smartflatview.R;
 import ru.cpc.smartflatview.ScrollingDialog;
-
+import ru.cpc.smartflatview.indicatorPackage.base.VoiceDate;
 
 
 public class ClimatFan extends BaseClimat
@@ -23,6 +23,11 @@ public class ClimatFan extends BaseClimat
     {
         super(iX, iY, cfan1, 2, sName, bMetaInd, bProtected, bDoubleScale, bQuick, iReaction, iScale);
         Log.d("Glindor13","ClimatFan()" );
+        voice = new VoiceDate("вентиляция");
+        voice.addCommand("включить",0);
+        voice.addCommand("выключить",0);
+        voice.addCommand("установить скорость",1);
+        voice.addCommand("задать скорость",1);
 
         m_iTemp = 20;
         m_iSpeed = 50;

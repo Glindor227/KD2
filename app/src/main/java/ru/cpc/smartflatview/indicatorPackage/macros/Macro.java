@@ -2,8 +2,8 @@ package ru.cpc.smartflatview.indicatorPackage.macros;
 
 import android.content.Context;
 
-import ru.cpc.smartflatview.indicatorPackage.base.BaseMacro;
 import ru.cpc.smartflatview.R;
+import ru.cpc.smartflatview.indicatorPackage.base.BaseMacro;
 
 public class Macro extends BaseMacro
 {

@@ -9,6 +9,7 @@ import android.widget.CompoundButton;
 import ru.cpc.smartflatview.indicatorPackage.base.BaseRelay;
 import ru.cpc.smartflatview.R;
 import ru.cpc.smartflatview.ScrollingDialog;
+import ru.cpc.smartflatview.indicatorPackage.base.VoiceDate;
 
 public class Lamp extends BaseRelay
 {
@@ -45,6 +46,10 @@ public class Lamp extends BaseRelay
 					getLampIndDis(true,type),
 					getLampIndDis(false,type),
 					type, sName, bMetaInd, bProtected, bDoubleScale, bQuick, iReaction, iScale);
+		voice = new VoiceDate("лампа");
+		voice.addCommand("включить",0);
+		voice.addCommand("выключить",0);
+
 
 	}
 	public Lamp(int iX, int iY, String sName, boolean bMetaInd, boolean bProtected, boolean bDoubleScale, boolean bQuick, int iReaction, int iScale)
