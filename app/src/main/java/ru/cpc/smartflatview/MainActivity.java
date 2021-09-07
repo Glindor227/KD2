@@ -766,17 +766,12 @@ public class MainActivity extends AppCompatActivity implements IVoiceResult {
                 showRoom(goTo);
         }
         else {
-
-            Indicator indicator = VoiceUtils.getIndicator(getAppContext(),text);
-            String indName = "не найден";
-            if(indicator != null) {
-                indName = indicator.getName();
+            if(!VoiceUtils.execIndicator(getAppContext(), text)) {
+                VoiceUtils.debugOutput(getAppContext(),"Общая неудача");
             }
-            VoiceUtils.debugOutput(getAppContext(), "Это команда индикатору:(" + indName+")");
         }
         setVoiceIcon(false);
     }
-
 
     void setVoiceIcon(Boolean onOff) {
         Toolbar toolbar = findViewById(R.id.toolbar);

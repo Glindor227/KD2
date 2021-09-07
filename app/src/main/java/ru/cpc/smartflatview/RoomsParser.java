@@ -35,6 +35,8 @@ import ru.cpc.smartflatview.indicatorPackage.macros.MacroPumpAddWater;
 import ru.cpc.smartflatview.indicatorPackage.macros.MacroPumpFail;
 import ru.cpc.smartflatview.indicatorPackage.macros.MacroPumpFilter;
 import ru.cpc.smartflatview.indicatorPackage.macros.MacroPumpWorkMode;
+import ru.cpc.smartflatview.indicatorPackage.macros.MacroScreenUpDown;
+import ru.cpc.smartflatview.indicatorPackage.macros.MacroValve;
 import ru.cpc.smartflatview.indicatorPackage.regulators.Battery;
 import ru.cpc.smartflatview.indicatorPackage.regulators.Battery2;
 import ru.cpc.smartflatview.indicatorPackage.regulators.Conditioner;
@@ -785,6 +787,14 @@ public class RoomsParser extends DefaultHandler
 			case -17:
 				m_pSubsystem.AddIndicator(new MacroAlarm(iPosX / 10, iPosY / 10, attrName, attrName2, true, bProtected, bDoubleScale, bQuick, iReaction, m_pSubsystem.m_iGridWidth).Bind(attrAddress2, attrAddress1, attrValue1, attrValue0));
 				break;
+			case 31:
+				m_pSubsystem.AddIndicator(new MacroScreenUpDown(iPosX / 10, iPosY / 10, attrName, attrName2, false, bProtected, bDoubleScale, bQuick, iReaction, m_pSubsystem.m_iGridWidth).Bind(attrAddress2, attrAddress1, attrValue1, attrValue0));
+				break;
+			case 32:
+				m_pSubsystem.AddIndicator(new MacroValve(iPosX / 10, iPosY / 10, attrName, attrName2, false, bProtected, bDoubleScale, bQuick, iReaction, m_pSubsystem.m_iGridWidth).Bind(attrAddress2, attrAddress1, attrValue1, attrValue0));
+				break;
+
+
 /*
 case 18:
 m_pSubsystem.AddIndicator(new MacroFlashlight(iPosX/10, iPosY/10, attrName, attrName2, false, bProtected, bDoubleScale, bQuick, iReaction, m_pSubsystem.m_iGridWidth).Bind(attrAddress2, attrAddress1, attrValue1, attrValue0));
@@ -878,10 +888,15 @@ break;
 		String attrValue1 = "1";
 		String attrValue0 = "0";
 		String attrValueA = "1";
+		String attrValueC = "0";
+
 		if (atts.getIndex("onvalue") != -1) {
 			attrValue1 = atts.getValue("onvalue");
 			attrValue0 = atts.getValue("offvalue");
 			attrValueA = atts.getValue("alarmvalue");
+		}
+		if (atts.getIndex("autoclearalarm") != -1) {
+			attrValueC = atts.getValue("autoclearalarm");
 		}
 
 		String attrName = atts.getValue("name");
@@ -892,22 +907,22 @@ break;
 
 		switch (iSubType) {
 			case 1:
-				m_pSubsystem.AddIndicator(new FireSensor(iPosX / 10, iPosY / 10, attrName, false, bProtected, bDoubleScale, bQuick, iReaction, m_pSubsystem.m_iGridWidth).Bind(attrAddress2, attrAddress1, attrValue1, attrValue0, attrValueA));
+				m_pSubsystem.AddIndicator(new FireSensor(iPosX / 10, iPosY / 10, attrName, false, bProtected, bDoubleScale, bQuick, iReaction, m_pSubsystem.m_iGridWidth).Bind(attrAddress2, attrAddress1, attrValue1, attrValue0, attrValueA, attrValueC));
 				break;
 			case -1:
-				m_pSubsystem.AddIndicator(new FireSensor(iPosX / 10, iPosY / 10, attrName, true, bProtected, bDoubleScale, bQuick, iReaction, m_pSubsystem.m_iGridWidth).Bind(attrAddress2, attrAddress1, attrValue1, attrValue0, attrValueA));
+				m_pSubsystem.AddIndicator(new FireSensor(iPosX / 10, iPosY / 10, attrName, true, bProtected, bDoubleScale, bQuick, iReaction, m_pSubsystem.m_iGridWidth).Bind(attrAddress2, attrAddress1, attrValue1, attrValue0, attrValueA, attrValueC));
 				break;
 			case 2:
-				m_pSubsystem.AddIndicator(new MotionSensor(iPosX / 10, iPosY / 10, attrName, false, bProtected, bDoubleScale, bQuick, iReaction, m_pSubsystem.m_iGridWidth).Bind(attrAddress2, attrAddress1, attrValue1, attrValue0, attrValueA));
+				m_pSubsystem.AddIndicator(new MotionSensor(iPosX / 10, iPosY / 10, attrName, false, bProtected, bDoubleScale, bQuick, iReaction, m_pSubsystem.m_iGridWidth).Bind(attrAddress2, attrAddress1, attrValue1, attrValue0, attrValueA, attrValueC));
 				break;
 			case -2:
-				m_pSubsystem.AddIndicator(new MotionSensor(iPosX / 10, iPosY / 10, attrName, true, bProtected, bDoubleScale, bQuick, iReaction, m_pSubsystem.m_iGridWidth).Bind(attrAddress2, attrAddress1, attrValue1, attrValue0, attrValueA));
+				m_pSubsystem.AddIndicator(new MotionSensor(iPosX / 10, iPosY / 10, attrName, true, bProtected, bDoubleScale, bQuick, iReaction, m_pSubsystem.m_iGridWidth).Bind(attrAddress2, attrAddress1, attrValue1, attrValue0, attrValueA, attrValueC));
 				break;
 			case 3:
-				m_pSubsystem.AddIndicator(new LeakageSensor(iPosX / 10, iPosY / 10, attrName, false, bProtected, bDoubleScale, bQuick, iReaction, m_pSubsystem.m_iGridWidth).Bind(attrAddress2, attrAddress1, attrValue1, attrValue0, attrValueA));
+				m_pSubsystem.AddIndicator(new LeakageSensor(iPosX / 10, iPosY / 10, attrName, false, bProtected, bDoubleScale, bQuick, iReaction, m_pSubsystem.m_iGridWidth).Bind(attrAddress2, attrAddress1, attrValue1, attrValue0, attrValueA, attrValueC));
 				break;
 			case -3:
-				m_pSubsystem.AddIndicator(new LeakageSensor(iPosX / 10, iPosY / 10, attrName, true, bProtected, bDoubleScale, bQuick, iReaction, m_pSubsystem.m_iGridWidth).Bind(attrAddress2, attrAddress1, attrValue1, attrValue0, attrValueA));
+				m_pSubsystem.AddIndicator(new LeakageSensor(iPosX / 10, iPosY / 10, attrName, true, bProtected, bDoubleScale, bQuick, iReaction, m_pSubsystem.m_iGridWidth).Bind(attrAddress2, attrAddress1, attrValue1, attrValue0, attrValueA, attrValueC));
 				break;
 		}
 	}

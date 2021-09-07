@@ -255,6 +255,7 @@ public class SFServer
         {
             if(bFast)
             {
+                Log.d("SFServer", "pingTime = true");
                 pingTime = true;
             }
             else

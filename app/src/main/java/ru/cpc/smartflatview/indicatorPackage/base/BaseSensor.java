@@ -13,6 +13,7 @@ import ru.cpc.smartflatview.Indicator;
 import ru.cpc.smartflatview.IndicatorUI;
 import ru.cpc.smartflatview.R;
 import ru.cpc.smartflatview.SFServer;
+import ru.cpc.smartflatview.utils.LogUtils;
 
 
 public abstract class BaseSensor extends Indicator
@@ -33,6 +34,7 @@ public abstract class BaseSensor extends Indicator
         m_bText2 = true;
         m_sPostfix = sPostfix;
         m_sButtonText = String.format("%.1f %s", m_fValue, m_sPostfix);
+        LogUtils.goInfo("BaseSensor init","name("+sName+") = value("+m_fValue+")");
 
         Log.d("CTOR", "sensor name: " + m_sName);
     }
@@ -64,6 +66,7 @@ public abstract class BaseSensor extends Indicator
     @Override
     public boolean Process(String sAddr, String sVal)
     {
+        LogUtils.goInfo("BaseSensor.Process","address("+sAddr+") = value("+sVal+")");
         String sButtonTextOld = m_sButtonText;
 
         if(m_sVariableValue.equalsIgnoreCase(sAddr))
@@ -175,20 +178,10 @@ public abstract class BaseSensor extends Indicator
             serializer.attribute(null, "valueaddress", m_sVariableValue);
             serializer.endTag(null, "sensor");
         }
-        catch (IllegalArgumentException e)
+        catch (IllegalArgumentException | IllegalStateException | IOException e)
         {
             Log.v("Glindor"," "+e.getMessage());
 
-            e.printStackTrace();
-        }
-        catch (IllegalStateException e)
-        {
-            Log.v("Glindor"," "+e.getMessage());
-            e.printStackTrace();
-        }
-        catch (IOException e)
-        {
-            Log.v("Glindor"," "+e.getMessage());
             e.printStackTrace();
         }
     }

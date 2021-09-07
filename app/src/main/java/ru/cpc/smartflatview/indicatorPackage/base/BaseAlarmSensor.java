@@ -42,14 +42,15 @@ public abstract class BaseAlarmSensor extends Indicator
 	public float m_fValueGuardOn = 1;
 	public float m_fValueGuardOff = 0;
 	public float m_fValueAlarm = 1;
+	public float m_fAutoClearAlarm = 0;
 
 	public BaseAlarmSensor setDemo(){
-		Bind("1", "1", "1", "0","1");
+		Bind("1", "1", "1", "0","1","0");
 		return this;
 	}
 
 
-	public BaseAlarmSensor Bind(String sAddressAlarm, String sAddressGuard, String sValueGuardOn, String sValueGuardOff, String sValueAlarm)
+	public BaseAlarmSensor Bind(String sAddressAlarm, String sAddressGuard, String sValueGuardOn, String sValueGuardOff, String sValueAlarm,String sAutoClearAlarm)
 	{
 		m_sVariableAlarm = sAddressAlarm;
 		m_sVariableGuard = sAddressGuard;
@@ -57,6 +58,7 @@ public abstract class BaseAlarmSensor extends Indicator
 		m_fValueGuardOn = Float.parseFloat(sValueGuardOn);
 		m_fValueGuardOff = Float.parseFloat(sValueGuardOff);
 		m_fValueAlarm = Float.parseFloat(sValueAlarm);
+		m_fAutoClearAlarm = Float.parseFloat(sAutoClearAlarm);
 		
 		return this;
 	}
@@ -71,6 +73,8 @@ public abstract class BaseAlarmSensor extends Indicator
 	@Override
 	public boolean Process(String sAddr, String sVal)
 	{
+		Log.d("SFServer", "BaseAlarmSensor("+m_sName+").Process("+sAddr+","+sVal+")");
+
 		boolean bAlarmOld = m_bAlarm;
 		boolean bGuardOld = m_bGuard;
 
@@ -238,7 +242,8 @@ public abstract class BaseAlarmSensor extends Indicator
             serializer.attribute(null, "onvalue", String.valueOf(m_fValueGuardOn));
             serializer.attribute(null, "offvalue", String.valueOf(m_fValueGuardOff));
             serializer.attribute(null, "alarmvalue", String.valueOf(m_fValueAlarm));
-            serializer.endTag(null, "alarmsensor");	
+			serializer.attribute(null, "autoclearalarm", String.valueOf(m_fAutoClearAlarm));
+            serializer.endTag(null, "alarmsensor");
 		} 
         catch (IllegalArgumentException e) 
         {

@@ -15,7 +15,7 @@ public class RoomViewPollThread extends Thread
  
     public void setRunning(boolean run) 
     {
-        //Log.d("SFServer", "C: RoomViewPollThread setRunning = " + run);
+        Log.d("SFServer", "RoomViewPollThread setRunning = " + run);
         if(run)
         {
             m_pServer.Poll(false);
@@ -32,12 +32,16 @@ public class RoomViewPollThread extends Thread
     @Override
     public void run() 
     {
-        while (m_bRun) 
+        Log.d("SFServer", "RoomViewPollThread::run ");
+        while (m_bRun)
         {
             try 
             {
+                Log.d("SFServer", "RoomViewPollThread::run pollCounter = " + pollCounter);
             	m_pServer.Poll(pollCounter > 0);
+                Log.d("SFServer", "RoomViewPollThread::run 1");
             	m_pServer.Imitate();
+                Log.d("SFServer", "RoomViewPollThread::run 2");
 //            	if(m_pServer.post(new Runnable()
 //					            	{
 //										public void run()
@@ -46,9 +50,12 @@ public class RoomViewPollThread extends Thread
 //							            	m_pServer.Imitate();
 //										}
 //									}))
-            	sleep(Config.Instance.m_iPollPeriod);
+                Log.d("SFServer", "RoomViewPollThread::run 3 " + Config.Instance.m_iPollPeriod);
 
-                if(pollCounter >= 60)
+                sleep(Config.Instance.m_iPollPeriod/120);
+                Log.d("SFServer", "RoomViewPollThread::run 4");
+
+                if(pollCounter >= 120)
                 {
                     pollCounter = 0;
                 }
@@ -56,15 +63,18 @@ public class RoomViewPollThread extends Thread
                 {
                     pollCounter++;
                 }
+                Log.d("SFServer", "RoomViewPollThread::run 5");
+
                 //Log.d("SFServer", "C: RoomViewPollThread pollCounter = " + pollCounter);
             }
             catch (InterruptedException e) 
             {
-				Log.v("Glindor","Фигня:"+ e.getMessage());
+				Log.d("SFServer","Фигня:"+ e.getMessage());
 				//e.printStackTrace();
 			} 
             finally 
             {
+                Log.d("SFServer","RoomViewPollThread::run вышли");
             }
         }
     }    
