@@ -2,6 +2,7 @@ package ru.cpc.smartflatview.indicatorPackage.climats;
 
 import android.app.Activity;
 import android.content.Context;
+import android.util.Log;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.SeekBar;
@@ -12,11 +13,11 @@ import ru.cpc.smartflatview.ScrollingDialog;
 
 
 
-public class ClimatRadiator extends BaseClimat
+public class ClimateWarmFloor extends BaseClimat
 {
-    public ClimatRadiator(int iX, int iY, String sName, boolean bMetaInd, boolean bProtected, boolean bDoubleScale, boolean bQuick, int iReaction, int iScale)
+    public ClimateWarmFloor(int iX, int iY, String sName, boolean bMetaInd, boolean bProtected, boolean bDoubleScale, boolean bQuick, int iReaction, int iScale)
     {
-        super(iX, iY, R.drawable.cradiator2off, 4, sName, bMetaInd, bProtected, bDoubleScale, bQuick, iReaction, iScale);
+        super(iX, iY, R.drawable.cwarmfloor2off, 3, sName, bMetaInd, bProtected, bDoubleScale, bQuick, iReaction, iScale);
 
         m_iTemp = 20;
         m_iSpeed = 50;
@@ -39,10 +40,10 @@ public class ClimatRadiator extends BaseClimat
             switch(m_iMode)
             {
                 case 0:
-                    iResId = R.drawable.cradiator1on;
+                    iResId = R.drawable.cwarmfloor1on;
                     break;
                 case 1:
-                    iResId = R.drawable.cradiator2on;
+                    iResId = R.drawable.cwarmfloor2on;
                     break;
             }
         }
@@ -51,10 +52,10 @@ public class ClimatRadiator extends BaseClimat
             switch(m_iMode)
             {
                 case 0:
-                    iResId = R.drawable.cradiator1off;
+                    iResId = R.drawable.cwarmfloor1off;
                     break;
                 case 1:
-                    iResId = R.drawable.cradiator2off;
+                    iResId = R.drawable.cwarmfloor2off;
                     break;
             }
         }
@@ -75,6 +76,11 @@ public class ClimatRadiator extends BaseClimat
     @Override
     public boolean ShowPopup(Context context)
     {
+        Log.d(TAG, "power = '" + m_sVariablePower + "'");
+        Log.d(TAG, "temp = '" + m_sVariableTemp  + "'");
+        Log.d(TAG, "speed = '" + m_sVariableSpeed  + "'");
+        Log.d(TAG, "mode = '" + m_sVariableMode  + "'");
+
         ScrollingDialog.Init(m_sName, m_pSubsystem.m_sName);
         final ScrollingDialog.SFSwitcher pSwitcher = m_bNoPower ? null : (ScrollingDialog.SFSwitcher) ScrollingDialog.AddSwitcher(m_sVariablePower, context.getString(R.string.sdPower), m_bPower, m_iReaction != 0
                                                                                                                                                                                                    ? null : new CompoundButton.OnCheckedChangeListener() {
@@ -121,6 +127,8 @@ public class ClimatRadiator extends BaseClimat
                 SetSpeed(seekBar.getProgress() + (int) m_fSpeedMin);
             }
         });
+        Log.d(TAG, "speed == '-1' = " + (m_sVariableSpeed.equals("-1")));
+        Log.d(TAG, "pSeeker2 == 'null' = " + (pSeeker2 == null));
         final ScrollingDialog.SFModeSelector pSelector = (ScrollingDialog.SFModeSelector)ScrollingDialog.AddModeSelector(m_sVariableMode, R.drawable.cradiator_mode1, R.drawable.ccond_mode1, m_iMode, R.color.playlistBackground, R.color.colorAccent,
                 new View.OnClickListener() {
             @Override

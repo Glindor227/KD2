@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import ru.cpc.smartflatview.indicatorPackage.base.VoiceDate;
+import ru.cpc.smartflatview.voice.VoiceDate;
 
 public abstract class Indicator
 {

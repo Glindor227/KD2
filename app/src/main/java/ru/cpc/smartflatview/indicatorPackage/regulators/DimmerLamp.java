@@ -10,7 +10,7 @@ import android.widget.SeekBar;
 import ru.cpc.smartflatview.indicatorPackage.base.BaseRegulator;
 import ru.cpc.smartflatview.R;
 import ru.cpc.smartflatview.ScrollingDialog;
-import ru.cpc.smartflatview.indicatorPackage.base.VoiceDate;
+import ru.cpc.smartflatview.voice.VoiceDate;
 
 public class DimmerLamp extends BaseRegulator
 {
@@ -18,9 +18,9 @@ public class DimmerLamp extends BaseRegulator
 //	private static int off = newDez?getOffLamp(R.drawable.lamp_d_off):R.drawable.lamp04;
 	private static int on = getIndDisC(R.drawable.lamp_d100_p,
 		R.drawable.lamp_d100,
-		R.drawable.lamp03,
+		R.drawable.lamp01,
 		R.drawable.lamp_d100_c);
-	private static int off = getIndDisPC(R.drawable.lamp04,
+	private static int off = getIndDisPC(R.drawable.lamp02,
 		R.drawable.lamp_d_off,
 		R.drawable.lamp_d_off_p,
 		R.drawable.lamp_d_off_p2,

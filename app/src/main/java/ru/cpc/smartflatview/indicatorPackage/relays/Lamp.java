@@ -3,13 +3,11 @@ package ru.cpc.smartflatview.indicatorPackage.relays;
 import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
-import android.view.View;
 import android.widget.CompoundButton;
-
-import ru.cpc.smartflatview.indicatorPackage.base.BaseRelay;
 import ru.cpc.smartflatview.R;
 import ru.cpc.smartflatview.ScrollingDialog;
-import ru.cpc.smartflatview.indicatorPackage.base.VoiceDate;
+import ru.cpc.smartflatview.indicatorPackage.base.BaseRelay;
+import ru.cpc.smartflatview.voice.VoiceDate;
 
 public class Lamp extends BaseRelay
 {
@@ -79,12 +77,9 @@ public class Lamp extends BaseRelay
 		//context.startActivity(myIntent);
 
 		if(m_iReaction == 1)
-			ScrollingDialog.AddAcceptBtn(new View.OnClickListener() {
-				@Override
-				public void onClick(View v) {
-					if(m_bValue != pSwitcher.m_bChecked)
-						SwitchOnOff(0,0);
-				}
+			ScrollingDialog.AddAcceptBtn(v -> {
+				if(m_bValue != pSwitcher.m_bChecked)
+					SwitchOnOff(0,0);
 			});
 
 		ScrollingDialog dlg = new ScrollingDialog();

@@ -15,7 +15,7 @@ public class WarmFloorDevi2 extends BaseRegulator
     public WarmFloorDevi2(int iX, int iY, String sName, boolean bMetaInd, boolean bProtected, boolean bDoubleScale, boolean bQuick, int iReaction, int iScale)
     {
         super(iX, iY,
-                getIndDisC(R.drawable.pol_off_p,R.drawable.pol_off,R.drawable.id088,R.drawable.pol_off_c),
+                getIndDisC(R.drawable.pol_on_p,R.drawable.pol_on,R.drawable.id087,R.drawable.pol_on_c),
                 7, sName, bMetaInd, bProtected, bDoubleScale, bQuick, iReaction, iScale);
 
         m_iValue = 20;
@@ -57,7 +57,7 @@ public class WarmFloorDevi2 extends BaseRegulator
     {
         int iResId = -1;
 
-        iResId =  getIndDisC(R.drawable.pol_off_p,R.drawable.pol_off,R.drawable.id088,R.drawable.pol_off_c);
+        iResId =  getIndDisC(R.drawable.pol_on_p,R.drawable.pol_on,R.drawable.id087,R.drawable.pol_on_c);
 
 //        if(m_iValue > m_fValueMed)
 //            iResId = R.drawable.radiator_hot;

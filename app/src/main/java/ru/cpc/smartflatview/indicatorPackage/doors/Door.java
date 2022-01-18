@@ -19,11 +19,6 @@ import ru.cpc.smartflatview.ScrollingDialog;
 
 public class Door extends Indicator
 {
-	private static int id100 = getIndDisC(R.drawable.door_free_p,R.drawable.id102,R.drawable.id100,R.drawable.door_block_guard_c);
-	private static int id102 = getIndDisC(R.drawable.door_free_p,R.drawable.id102,R.drawable.id102,R.drawable.id102_c);
-	private static int id103 = getIndDisC(R.drawable.door_free_p,R.drawable.id102,R.drawable.id103,R.drawable.id103_c);
-	private static int id105 = getIndDisC(R.drawable.door_free_p,R.drawable.id102,R.drawable.id105,R.drawable.id105_c);
-	private static int id106 = getIndDisC(R.drawable.door_free_p,R.drawable.id102,R.drawable.id106,R.drawable.id106_c);
 
 	public boolean m_bOpened = false;
 	public boolean m_bGuard = false;	
@@ -141,36 +136,34 @@ public class Door extends Indicator
 			}
 		}
 	}
-	
+	private static final int id100 = getIndDisC(R.drawable.door_free_p,R.drawable.id102,R.drawable.id100,R.drawable.door_block_guard_c);
+	private static final int id102 = getIndDisC(R.drawable.door_free_p,R.drawable.id102,R.drawable.id102,R.drawable.id102_c);
+	private static final int id103 = getIndDisC(R.drawable.door_free_p,R.drawable.id102,R.drawable.id103,R.drawable.id103_c);
+	private static final int id105 = getIndDisC(R.drawable.door_free_p,R.drawable.id102,R.drawable.id105,R.drawable.id105_c);
+	private static final int id106 = getIndDisC(R.drawable.door_free_p,R.drawable.id102,R.drawable.id106,R.drawable.id106_c);
+
 	@Override
 	protected boolean Update() 
 	{
 		int iResId = -1;
 		
-		if(m_bAlarm && m_pUI != null)
-		{
+		if(m_bAlarm && m_pUI != null) {
 			m_pUI.StartAnimation(id100);
-			
 			if(m_bOpened)
 				iResId = id105;
 			else
 				iResId = id103;
-		}
-		else
-		{
+		} else {
 			if(m_bGuard)
 				iResId = id100;
-			else
-			{
+			else {
 				if(m_bOpened)
 					iResId = id106;
 				else
 					iResId = id102;
 			}
 		}
-
-		if(m_pUI == null)
-		{
+		if(m_pUI == null) {
 			m_iOldResID = iResId;
 			m_iNewResID = iResId;
 			return false;

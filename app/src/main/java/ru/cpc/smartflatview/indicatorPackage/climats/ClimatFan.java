@@ -9,15 +9,15 @@ import android.widget.SeekBar;
 import ru.cpc.smartflatview.indicatorPackage.base.BaseClimat;
 import ru.cpc.smartflatview.R;
 import ru.cpc.smartflatview.ScrollingDialog;
-import ru.cpc.smartflatview.indicatorPackage.base.VoiceDate;
+import ru.cpc.smartflatview.voice.VoiceDate;
 
 
 public class ClimatFan extends BaseClimat
 {
-    private static int cfan1 = getIndDisC(R.drawable.fan_off_p,R.drawable.fan_off,R.drawable.cfan1,R.drawable.fan_off_c);
-    private static int cfan2=  getIndDisC(R.drawable.fan_s_p,R.drawable.fan_s,R.drawable.cfan2,R.drawable.fan_s_c);
-    private static int cfan3= getIndDisC(R.drawable.fan_m_p,R.drawable.fan_m,R.drawable.cfan3,R.drawable.fan_m_c);
-    private static int cfan4= getIndDisC(R.drawable.fan_b_p,R.drawable.fan_b,R.drawable.cfan4,R.drawable.fan_b_c);
+    private static final int cfan1 = getIndDisC(R.drawable.fan_off_p,R.drawable.fan_off,R.drawable.cfan1,R.drawable.fan_off_c);
+    private static final int cfan2=  getIndDisC(R.drawable.fan_s_p,R.drawable.fan_s,R.drawable.cfan2,R.drawable.fan_s_c);
+    private static final int cfan3= getIndDisC(R.drawable.fan_m_p,R.drawable.fan_m,R.drawable.cfan3,R.drawable.fan_m_c);
+    private static final int cfan4= getIndDisC(R.drawable.fan_b_p,R.drawable.fan_b,R.drawable.cfan4,R.drawable.fan_b_c);
 
     public ClimatFan(int iX, int iY, String sName, boolean bMetaInd, boolean bProtected, boolean bDoubleScale, boolean bQuick, int iReaction, int iScale)
     {

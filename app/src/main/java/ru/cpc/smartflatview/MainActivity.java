@@ -436,7 +436,7 @@ public class MainActivity extends AppCompatActivity implements IVoiceResult {
         if(Config.Instance == null)
             return;
 
-        if(Config.Instance.m_cFavorites != null)
+        if(Config.Instance.m_cFavorites != null) // избранное
         {
             Log.d("SF", "prepareListData, favorites count = " + Config.Instance.m_cFavorites.size());
             for (Room pRoom : Config.Instance.m_cFavorites)
@@ -460,42 +460,46 @@ public class MainActivity extends AppCompatActivity implements IVoiceResult {
 
             for (String key : Config.Instance.m_cGroups.keySet())
             {
-                if (Objects.requireNonNull(Config.Instance.m_cGroups.get(key)).size() > 0)
+                List<Room> keyList = Config.Instance.m_cGroups.get(key);
+                if (Objects.requireNonNull(keyList).size() <= 0)
                 {
-                    if (Objects.requireNonNull(Config.Instance.m_cGroups.get(key)).size() > 1)
-                    {
-                        ExpandedMenuModel group = new ExpandedMenuModel(key, -1, -1);
-                        m_cListData.add(group);
-                        for (Room pRoom : Objects.requireNonNull(Config.Instance.m_cGroups.get(key))) {
-                            if(pRoom==null){
-                                Log.e("SF", "ВНИМАНИЕ! В группе "+key+" существует пустая подсистема!");
-                                continue;
-                            }
-                            Log.d("SF", "prepareListData, room[" + pRoom.m_iIndex + "] = '" + pRoom.m_sName + "'");
-                            ExpandedMenuModel subItem = new ExpandedMenuModel(pRoom.m_sName, R.drawable.ic_ok, pRoom.m_iIndex);
-                            group.m_cNestedMenu.add(subItem);
-                            List<ExpandedMenuModel> cList = m_cMenu.get(pRoom.m_iIndex);
-                            if (cList == null) {
-                                cList = new ArrayList<>();
-                                m_cMenu.put(pRoom.m_iIndex, cList);
-                            }
-                            cList.add(subItem);
+                    Log.e("SF", "ВНИМАНИЕ! Пустая группа "+key);
+                    continue;
+                }
+                if (Objects.requireNonNull(keyList).size() > 1)
+                {
+                    ExpandedMenuModel group = new ExpandedMenuModel(key, -1, -1);
+                    m_cListData.add(group);
+                    for (Room pRoom : Objects.requireNonNull(Config.Instance.m_cGroups.get(key))) {
+                        if(pRoom==null){
+                            Log.e("SF", "ВНИМАНИЕ! В группе "+key+" существует пустая подсистема!");
+                            continue;
                         }
-                    }
-                    else
-                    {
-                        Room pRoom = Objects.requireNonNull(Config.Instance.m_cGroups.get(key)).get(0);
                         Log.d("SF", "prepareListData, room[" + pRoom.m_iIndex + "] = '" + pRoom.m_sName + "'");
-                        ExpandedMenuModel item0 = new ExpandedMenuModel(pRoom.m_sName, R.drawable.ic_ok, pRoom.m_iIndex);
-                        m_cListData.add(item0);
+                        ExpandedMenuModel subItem = new ExpandedMenuModel(pRoom.m_sName, R.drawable.ic_ok, pRoom.m_iIndex);
+                        group.m_cNestedMenu.add(subItem);
                         List<ExpandedMenuModel> cList = m_cMenu.get(pRoom.m_iIndex);
                         if (cList == null) {
                             cList = new ArrayList<>();
                             m_cMenu.put(pRoom.m_iIndex, cList);
                         }
-                        cList.add(item0);
+                        cList.add(subItem);
                     }
                 }
+                else
+                {
+                    Room pRoom = Objects.requireNonNull(Config.Instance.m_cGroups.get(key)).get(0);
+                    Log.d("SF", "prepareListData, room[" + pRoom.m_iIndex + "] = '" + pRoom.m_sName + "'");
+                    ExpandedMenuModel item0 = new ExpandedMenuModel(pRoom.m_sName, R.drawable.ic_ok, pRoom.m_iIndex);
+                    m_cListData.add(item0);
+                    List<ExpandedMenuModel> cList = m_cMenu.get(pRoom.m_iIndex);
+                    if (cList == null) {
+                        cList = new ArrayList<>();
+                        m_cMenu.put(pRoom.m_iIndex, cList);
+                    }
+                    cList.add(item0);
+                }
+
             }
         }
 

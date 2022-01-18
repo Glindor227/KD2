@@ -34,8 +34,8 @@ import ru.cpc.smartflatview.indicatorPackage.alarmSensors.LeakageSensor;
 import ru.cpc.smartflatview.indicatorPackage.alarmSensors.MotionSensor;
 import ru.cpc.smartflatview.indicatorPackage.climats.ClimatConditioner;
 import ru.cpc.smartflatview.indicatorPackage.climats.ClimatFan;
-import ru.cpc.smartflatview.indicatorPackage.climats.ClimatRadiator;
-import ru.cpc.smartflatview.indicatorPackage.climats.ClimatWarmFloor;
+import ru.cpc.smartflatview.indicatorPackage.climats.ClimateRadiator;
+import ru.cpc.smartflatview.indicatorPackage.climats.ClimateWarmFloor;
 import ru.cpc.smartflatview.indicatorPackage.doors.Door;
 import ru.cpc.smartflatview.indicatorPackage.doors.Door2;
 import ru.cpc.smartflatview.indicatorPackage.doors.DoorLock;
@@ -106,7 +106,7 @@ public class Config
 		portOrientation = port;
 		Log.d("Glindor3!3","Портертная ориентация2 ? "+  (portOrientation? "да" : "НЕТ"));
 		Log.d("Glindor2222","Начало Конфига "+  Locale.getDefault().getLanguage());
-		DEMO = true;
+		DEMO = false;
 		
 		int subsystemIndex = 0;
 		int roomIndex = 0;
@@ -761,8 +761,8 @@ public class Config
 
 						if (pIndicator instanceof ClimatConditioner ||
 								pIndicator instanceof ClimatFan ||
-								pIndicator instanceof ClimatWarmFloor ||
-								pIndicator instanceof ClimatRadiator)
+								pIndicator instanceof ClimateWarmFloor ||
+								pIndicator instanceof ClimateRadiator)
 							climat++;
 
 						if (pIndicator instanceof Door ||
@@ -892,8 +892,8 @@ public class Config
 					for (Indicator pIndicator : pSubsystem.m_cIndicators) {
 					if (pIndicator instanceof ClimatConditioner ||
 							pIndicator instanceof ClimatFan ||
-							pIndicator instanceof ClimatWarmFloor ||
-							pIndicator instanceof ClimatRadiator)
+							pIndicator instanceof ClimateWarmFloor ||
+							pIndicator instanceof ClimateRadiator)
 						pIndicator.SaveXML(serializer);
 					}
 

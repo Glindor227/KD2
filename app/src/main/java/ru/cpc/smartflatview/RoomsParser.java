@@ -16,11 +16,12 @@ import ru.cpc.smartflatview.indicatorPackage.alarmSensors.LeakageSensor;
 import ru.cpc.smartflatview.indicatorPackage.alarmSensors.MotionSensor;
 import ru.cpc.smartflatview.indicatorPackage.climats.ClimatConditioner;
 import ru.cpc.smartflatview.indicatorPackage.climats.ClimatFan;
-import ru.cpc.smartflatview.indicatorPackage.climats.ClimatRadiator;
-import ru.cpc.smartflatview.indicatorPackage.climats.ClimatWarmFloor;
+import ru.cpc.smartflatview.indicatorPackage.climats.ClimateRadiator;
+import ru.cpc.smartflatview.indicatorPackage.climats.ClimateWarmFloor;
 import ru.cpc.smartflatview.indicatorPackage.doors.Door;
 import ru.cpc.smartflatview.indicatorPackage.doors.Door2;
 import ru.cpc.smartflatview.indicatorPackage.doors.DoorLock;
+import ru.cpc.smartflatview.indicatorPackage.links.Link;
 import ru.cpc.smartflatview.indicatorPackage.macros.Macro;
 import ru.cpc.smartflatview.indicatorPackage.macros.MacroAlarm;
 import ru.cpc.smartflatview.indicatorPackage.macros.MacroCamOnOff;
@@ -157,7 +158,7 @@ public class RoomsParser extends DefaultHandler
      * <tag attribute="attributeValue">*/
     @Override
     public void startElement(String namespaceURI, String localName, String qName, Attributes atts) {
-    	//Log.d("XML", "startElement " + localName);
+    	Log.d("XML", "startElement " + localName);
     	try
     	{
 			switch (localName) {
@@ -273,8 +274,17 @@ public class RoomsParser extends DefaultHandler
 				//            <link name="Тревога на ноде" subtype="1" alarmaddress="_AN_001" alarmvalue="1" subsystem="MobileRoom_8_subsystem" x="480" y="380" double="0" secure="0" quick="1" reaction="1" />
 				//          </links>
 				case "link":
+					Log.d("XML", "link");
+
 					if (m_pSubsystem != null) {
 						parseTagLink(atts);
+					}
+					break;
+				case "url":
+					Log.d("XML", "url");
+
+					if (m_pSubsystem != null) {
+						parseTagUrl(atts);
 					}
 					break;
 			}
@@ -284,6 +294,41 @@ public class RoomsParser extends DefaultHandler
     		Log.e("XML", "Parsing exception: ", ex);
     	}
     }
+
+	private void parseTagUrl(Attributes atts) {
+		String attrPosX = atts.getValue("x");
+		int iPosX = Integer.parseInt(attrPosX);
+
+		String attrPosY = atts.getValue("y");
+		int iPosY = Integer.parseInt(attrPosY);
+
+		String attrDoubleScale = atts.getValue("double");
+		boolean bDoubleScale = attrDoubleScale != null && Integer.parseInt(attrDoubleScale) != 0;
+
+		String attrQuick = atts.getValue("quick");
+		boolean bQuick = attrQuick != null && Integer.parseInt(attrQuick) != 0;
+
+		String attrReaction = atts.getValue("reaction");
+		int iReaction = attrReaction == null ? 0 : Integer.parseInt(attrReaction);
+
+		int iSubType = 1;
+		if (atts.getIndex("subtype") != -1) {
+			String attrSubType = atts.getValue("subtype");
+			iSubType = Integer.parseInt(attrSubType);
+		}
+
+		String attrAddress1 = atts.getValue("url");
+
+		String attrName = atts.getValue("name");
+		Log.d("XML", "url: " + attrName);
+
+		String attrProtected = atts.getValue("secure");
+		boolean bProtected = attrProtected != null && Integer.parseInt(attrProtected) != 0;
+
+		if (iSubType == 1) {
+			m_pSubsystem.AddIndicator(new Link(iPosX / 10f, iPosY / 10f, attrName, bProtected, bDoubleScale, bQuick, iReaction, m_pSubsystem.m_iGridWidth, iSubType).Bind(attrAddress1));
+		}
+	}
 
 	private void parseTagLink(Attributes atts) {
 		String attrPosX = atts.getValue("x");
@@ -532,16 +577,16 @@ public class RoomsParser extends DefaultHandler
 				m_pSubsystem.AddIndicator(new ClimatFan(iPosX / 10, iPosY / 10, attrName, true, bProtected, bDoubleScale, bQuick, iReaction, m_pSubsystem.m_iGridWidth).Bind(attrAddress1, attrAddress2, attrAddress3, attrAddress4, attrValue1, attrValue0, bNoPower, attrTMin, attrTMax, attrSMin, attrSMax, attrDefMode));
 				break;
 			case 3:
-				m_pSubsystem.AddIndicator(new ClimatWarmFloor(iPosX / 10, iPosY / 10, attrName, false, bProtected, bDoubleScale, bQuick, iReaction, m_pSubsystem.m_iGridWidth).Bind(attrAddress1, attrAddress2, attrAddress3, attrAddress4, attrValue1, attrValue0, bNoPower, attrTMin, attrTMax, attrSMin, attrSMax, attrDefMode));
+				m_pSubsystem.AddIndicator(new ClimateWarmFloor(iPosX / 10, iPosY / 10, attrName, false, bProtected, bDoubleScale, bQuick, iReaction, m_pSubsystem.m_iGridWidth).Bind(attrAddress1, attrAddress2, attrAddress3, attrAddress4, attrValue1, attrValue0, bNoPower, attrTMin, attrTMax, attrSMin, attrSMax, attrDefMode));
 				break;
 			case -3:
-				m_pSubsystem.AddIndicator(new ClimatWarmFloor(iPosX / 10, iPosY / 10, attrName, true, bProtected, bDoubleScale, bQuick, iReaction, m_pSubsystem.m_iGridWidth).Bind(attrAddress1, attrAddress2, attrAddress3, attrAddress4, attrValue1, attrValue0, bNoPower, attrTMin, attrTMax, attrSMin, attrSMax, attrDefMode));
+				m_pSubsystem.AddIndicator(new ClimateWarmFloor(iPosX / 10, iPosY / 10, attrName, true, bProtected, bDoubleScale, bQuick, iReaction, m_pSubsystem.m_iGridWidth).Bind(attrAddress1, attrAddress2, attrAddress3, attrAddress4, attrValue1, attrValue0, bNoPower, attrTMin, attrTMax, attrSMin, attrSMax, attrDefMode));
 				break;
 			case 4:
-				m_pSubsystem.AddIndicator(new ClimatRadiator(iPosX / 10, iPosY / 10, attrName, false, bProtected, bDoubleScale, bQuick, iReaction, m_pSubsystem.m_iGridWidth).Bind(attrAddress1, attrAddress2, attrAddress3, attrAddress4, attrValue1, attrValue0, bNoPower, attrTMin, attrTMax, attrSMin, attrSMax, attrDefMode));
+				m_pSubsystem.AddIndicator(new ClimateRadiator(iPosX / 10, iPosY / 10, attrName, false, bProtected, bDoubleScale, bQuick, iReaction, m_pSubsystem.m_iGridWidth).Bind(attrAddress1, attrAddress2, attrAddress3, attrAddress4, attrValue1, attrValue0, bNoPower, attrTMin, attrTMax, attrSMin, attrSMax, attrDefMode));
 				break;
 			case -4:
-				m_pSubsystem.AddIndicator(new ClimatRadiator(iPosX / 10, iPosY / 10, attrName, true, bProtected, bDoubleScale, bQuick, iReaction, m_pSubsystem.m_iGridWidth).Bind(attrAddress1, attrAddress2, attrAddress3, attrAddress4, attrValue1, attrValue0, bNoPower, attrTMin, attrTMax, attrSMin, attrSMax, attrDefMode));
+				m_pSubsystem.AddIndicator(new ClimateRadiator(iPosX / 10, iPosY / 10, attrName, true, bProtected, bDoubleScale, bQuick, iReaction, m_pSubsystem.m_iGridWidth).Bind(attrAddress1, attrAddress2, attrAddress3, attrAddress4, attrValue1, attrValue0, bNoPower, attrTMin, attrTMax, attrSMin, attrSMax, attrDefMode));
 				break;
 		}
 	}

@@ -10,8 +10,8 @@ import java.util.Random;
 
 public class NodeAlarm extends Indicator
 {
-    private int m_iResIDAlarmOff;
-    private int m_iResIDAlarmOn;
+    private final int m_iResIDAlarmOff;
+    private final int m_iResIDAlarmOn;
 
     NodeAlarm(float fX, float fY,
               String sName, boolean bProtected,

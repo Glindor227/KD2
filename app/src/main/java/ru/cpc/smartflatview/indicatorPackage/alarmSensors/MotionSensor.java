@@ -2,7 +2,7 @@ package ru.cpc.smartflatview.indicatorPackage.alarmSensors;
 
 import ru.cpc.smartflatview.indicatorPackage.base.BaseAlarmSensor;
 import ru.cpc.smartflatview.R;
-import ru.cpc.smartflatview.indicatorPackage.base.VoiceDate;
+import ru.cpc.smartflatview.voice.VoiceDate;
 
 public class MotionSensor extends BaseAlarmSensor
 {

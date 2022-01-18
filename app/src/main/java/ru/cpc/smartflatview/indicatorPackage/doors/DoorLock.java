@@ -25,9 +25,9 @@ public class DoorLock extends Indicator
     private boolean m_bAlarm = false;
     private boolean m_bLocked = false;
 
-    public DoorLock(int iX, int iY, String sName, boolean bMetaInd, boolean bProtected, boolean bDoubleScale, boolean bQuick, int iReaction, int iScale)
-    {
-        super(iX, iY, getIndDisC(R.drawable.door_block_p,R.drawable.door_block_2,R.drawable.door_block,R.drawable.door_block_c),
+    public DoorLock(int iX, int iY, String sName, boolean bMetaInd, boolean bProtected, boolean bDoubleScale, boolean bQuick, int iReaction, int iScale) {
+
+        super(iX, iY, getIndDisC(R.drawable.door_block_p, R.drawable.door_block_2, R.drawable.door_block, R.drawable.door_block_c),
                 2, sName, bMetaInd, bProtected, bDoubleScale, bQuick, iReaction, iScale);
     }
 

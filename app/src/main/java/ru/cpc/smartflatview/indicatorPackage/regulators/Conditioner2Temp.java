@@ -16,8 +16,8 @@ public class Conditioner2Temp extends BaseRegulator
 {
     private static int condCoolOn = getIndDisC(R.drawable.cond_cool_off_p,R.drawable.cond_cool_off,R.drawable.ccond2on,R.drawable.cond_cool_on_c);//9
     private static int condCoolOff =  getIndDisC(R.drawable.cond_cool_on_p,R.drawable.cond_cool_on,R.drawable.ccond2off,R.drawable.cond_cool_off_c);//9
-    private static int condHotOn = getIndDisC(R.drawable.cond_hot_off_p,R.drawable.cond_hot_off,R.drawable.ccond3on,R.drawable.cond_hot_on_c);//9
-    private static int condHotOff = getIndDisC(R.drawable.cond_hot_on_p,R.drawable.cond_hot_on,R.drawable.ccond3off,R.drawable.cond_hot_off_c);//9
+    private static int condHotOn = getIndDisC(R.drawable.cond_hot_off_p,R.drawable.cond_hot_on,R.drawable.ccond3on,R.drawable.cond_hot_on_c);//9
+    private static int condHotOff = getIndDisC(R.drawable.cond_hot_on_p,R.drawable.cond_hot_off,R.drawable.ccond3off,R.drawable.cond_hot_off_c);//9
     private static int radiatorCool = getIndDis(R.drawable.radiator_cool_p,R.drawable.radiator_cool_2,R.drawable.radiator_cold);//11
     private static int radiatorHot = getIndDis(R.drawable.radiator_hot_p,R.drawable.radiator_hot_2,R.drawable.radiator_hot);//11
     private static int floorOn = getIndDisC(R.drawable.pol_on_p,R.drawable.pol_on,R.drawable.id087,R.drawable.pol_on_c);//10

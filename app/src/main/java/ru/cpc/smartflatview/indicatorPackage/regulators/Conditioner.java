@@ -10,14 +10,14 @@ import android.widget.SeekBar;
 import ru.cpc.smartflatview.indicatorPackage.base.BaseRegulator;
 import ru.cpc.smartflatview.R;
 import ru.cpc.smartflatview.ScrollingDialog;
-import ru.cpc.smartflatview.indicatorPackage.base.VoiceDate;
+import ru.cpc.smartflatview.voice.VoiceDate;
 
 public class Conditioner extends BaseRegulator
 {
 	private static int imageCoolOn = getIndDisC(R.drawable.cond_cool_off_p,R.drawable.cond_cool_off,R.drawable.ccond2on,R.drawable.cond_cool_on_c);
 	private static int imageCoolOff=  getIndDisC(R.drawable.cond_cool_on_p,R.drawable.cond_cool_on,R.drawable.ccond2off,R.drawable.cond_cool_off_c);
-	private static int imageHotOn= getIndDisC(R.drawable.cond_hot_off_p,R.drawable.cond_hot_off,R.drawable.ccond3on,R.drawable.cond_hot_on_c);
-	private static int imageHotOff= getIndDisC(R.drawable.cond_hot_on_p,R.drawable.cond_hot_on,R.drawable.ccond3off,R.drawable.cond_hot_off_c);
+	private static int imageHotOn= getIndDisC(R.drawable.cond_hot_off_p,R.drawable.cond_hot_on,R.drawable.ccond3on,R.drawable.cond_hot_on_c);
+	private static int imageHotOff= getIndDisC(R.drawable.cond_hot_on_p,R.drawable.cond_hot_off,R.drawable.ccond3off,R.drawable.cond_hot_off_c);
 
 	public Conditioner(int iX, int iY, String sName, boolean bMetaInd, boolean bProtected, boolean bDoubleScale, boolean bQuick, int iReaction, int iScale)
 	{

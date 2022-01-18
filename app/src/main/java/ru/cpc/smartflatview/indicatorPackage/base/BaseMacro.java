@@ -8,6 +8,7 @@ import java.io.IOException;
 
 import ru.cpc.smartflatview.AddressString;
 import ru.cpc.smartflatview.Indicator;
+import ru.cpc.smartflatview.voice.VoiceDate;
 
 public abstract class BaseMacro extends Indicator
 {

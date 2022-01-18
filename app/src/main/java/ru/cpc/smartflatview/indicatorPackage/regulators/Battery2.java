@@ -42,7 +42,7 @@ public class Battery2 extends BaseRegulator
         }
         else
         {
-            iResId = getIndDis(R.drawable.radiator_hot_p,R.drawable.radiator_off_2,R.drawable.radiator_off);
+            iResId = getIndDis(R.drawable.radiator_off_p,R.drawable.radiator_off_2,R.drawable.radiator_off);
 
 //            if(m_iValue > m_fValueMed)
 //                iResId = R.drawable.id252;

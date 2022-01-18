@@ -111,53 +111,9 @@ public class DimmerFan extends BaseRegulator
         int iBright = (int)m_iValue * 100 / m_iMaxValue;
 
         if(m_bPower)
-        {
             iResId = R.drawable.id091;
-//			iResId = R.drawable.id055;
-//
-//			if(iBright < 10)
-//				iResId = R.drawable.id046;
-//			else if(iBright < 20)
-//				iResId = R.drawable.id047;
-//			else if(iBright < 30)
-//				iResId = R.drawable.id048;
-//			else if(iBright < 40)
-//				iResId = R.drawable.id049;
-//			else if(iBright < 50)
-//				iResId = R.drawable.id050;
-//			else if(iBright < 60)
-//				iResId = R.drawable.id051;
-//			else if(iBright < 70)
-//				iResId = R.drawable.id052;
-//			else if(iBright < 80)
-//				iResId = R.drawable.id053;
-//			else if(iBright < 90)
-//				iResId = R.drawable.id054;
-        }
         else
-        {
             iResId = R.drawable.id089;
-//			iResId = R.drawable.id045;
-//
-//			if(iBright < 10)
-//				iResId = R.drawable.id056;
-//			else if(iBright < 20)
-//				iResId = R.drawable.id057;
-//			else if(iBright < 30)
-//				iResId = R.drawable.id058;
-//			else if(iBright < 40)
-//				iResId = R.drawable.id059;
-//			else if(iBright < 50)
-//				iResId = R.drawable.id060;
-//			else if(iBright < 60)
-//				iResId = R.drawable.id061;
-//			else if(iBright < 70)
-//				iResId = R.drawable.id062;
-//			else if(iBright < 80)
-//				iResId = R.drawable.id063;
-//			else if(iBright < 90)
-//				iResId = R.drawable.id064;
-        }
 
         Log.d(TAG, "111 power = " + m_bPower + "bright = " + m_iValue );
 

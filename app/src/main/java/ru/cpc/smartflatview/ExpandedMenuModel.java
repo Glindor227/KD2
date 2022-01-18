@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public class ExpandedMenuModel {
 
-    String m_sName = "";
+    String m_sName;
     int m_iIcon = -1; // menu icon resource id
     int m_iRoomIndex = -1;
 
@@ -20,7 +20,7 @@ public class ExpandedMenuModel {
         m_iIcon = iIcon;
         if(m_pView != null)
         {
-            ImageView childIcon = (ImageView)m_pView.findViewById(R.id.iconimage);
+            ImageView childIcon = m_pView.findViewById(R.id.iconimage);
             if(childIcon != null && m_iIcon != -1)
                 childIcon.setImageResource(m_iIcon);
         }

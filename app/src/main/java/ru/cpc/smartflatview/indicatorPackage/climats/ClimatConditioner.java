@@ -47,7 +47,7 @@ public class ClimatConditioner extends BaseClimat
                     iResId = getIndDisC(R.drawable.cond_cool_off_p,R.drawable.cond_cool_off,R.drawable.ccond2on,R.drawable.cond_cool_on_c);
                     break;
                 case 2:
-                    iResId = getIndDisC(R.drawable.cond_hot_off_p,R.drawable.cond_hot_off,R.drawable.ccond3on,R.drawable.cond_hot_on_c);
+                    iResId = getIndDisC(R.drawable.cond_hot_off_p,R.drawable.cond_hot_on,R.drawable.ccond3on,R.drawable.cond_hot_on_c);
                     break;
                 case 3:
                     iResId = R.drawable.ccond4on;
@@ -65,7 +65,7 @@ public class ClimatConditioner extends BaseClimat
                     iResId = getIndDisC(R.drawable.cond_cool_on_p,R.drawable.cond_cool_on,R.drawable.ccond2off,R.drawable.cond_cool_off_c);
                     break;
                 case 2:
-                    iResId = getIndDisC(R.drawable.cond_hot_on_p,R.drawable.cond_hot_on,R.drawable.ccond3off,R.drawable.cond_hot_off_c);
+                    iResId = getIndDisC(R.drawable.cond_hot_on_p,R.drawable.cond_hot_off,R.drawable.ccond3off,R.drawable.cond_hot_off_c);
                     break;
                 case 3:
                     iResId = R.drawable.ccond4off;
