@@ -5,7 +5,7 @@ import android.content.res.Resources;
 import android.util.DisplayMetrics;
 import android.util.Log;
 
-import ru.cpc.smartflatview.MainActivity;
+import ru.cpc.smartflatview.ui.MainActivity;
 
 // refer to 
 // public static float applyDimension(int unit, float value, DisplayMetrics metrics)

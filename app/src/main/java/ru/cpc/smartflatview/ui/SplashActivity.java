@@ -1,4 +1,4 @@
-package ru.cpc.smartflatview;
+package ru.cpc.smartflatview.ui;
 
 import android.content.Context;
 import android.content.Intent;
@@ -17,6 +17,12 @@ import android.widget.TextView;
 import java.util.Locale;
 import java.util.Objects;
 
+import ru.cpc.smartflatview.Config;
+import ru.cpc.smartflatview.Indicator;
+import ru.cpc.smartflatview.LoginActivity;
+import ru.cpc.smartflatview.Prefs;
+import ru.cpc.smartflatview.R;
+
 public class SplashActivity extends AppCompatActivity
 {
     private static final int SPLASH_TIME = 500;
@@ -33,6 +39,7 @@ public class SplashActivity extends AppCompatActivity
             Log.d("Glindor3","BackgroundTask onPreExecute");
 
             intent = new Intent(SplashActivity.this, MainActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         }
         @Override
         protected Config doInBackground(Uri... params) {

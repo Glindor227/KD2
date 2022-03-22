@@ -29,7 +29,7 @@ import java.util.Objects;
 import moxy.MvpAppCompatActivity;
 import moxy.presenter.InjectPresenter;
 import ru.cpc.smartflatview.Config;
-import ru.cpc.smartflatview.MainActivity;
+import ru.cpc.smartflatview.ui.MainActivity;
 import ru.cpc.smartflatview.Prefs;
 import ru.cpc.smartflatview.R;
 import ru.cpc.smartflatview.app.App;

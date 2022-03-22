@@ -80,16 +80,19 @@ public class Config
 
 	public static boolean DEMO = false;
 
-	ArrayList<Subsystem> m_cSubsystems = new ArrayList<Subsystem>();
+	public ArrayList<Subsystem> m_cSubsystems = new ArrayList<Subsystem>();
 	public ArrayList<Room> m_cRooms = new ArrayList<Room>();
-	LinkedHashMap<String, List<Room>> m_cGroups = new LinkedHashMap<>();
-	ArrayList<Room> m_cFavorites = new ArrayList<Room>();
+	public LinkedHashMap<String, List<Room>> m_cGroups = new LinkedHashMap<>();
+	public ArrayList<Room> m_cFavorites = new ArrayList<Room>();
 
-	String m_sIP = "192.168.80.17";
-	String m_sSummaryName = "192.168.80.17";
-	String m_sSummaryText = "192.168.80.17";
-	
-	int m_iPort = 10000;
+	public String m_sIP = "192.168.80.17";
+	public String m_sSummaryName = "192.168.80.17";
+	public String m_sSummaryText = "192.168.80.17";
+
+	public String roomFilter = "";
+
+
+	public int m_iPort = 10000;
 	int m_iPortExt = 10277;
 	
 	public int m_iPollPeriod = 2000;
@@ -99,7 +102,6 @@ public class Config
 
 	public Config(Boolean port)
 	{
-
 		Boolean engl = ! Locale.getDefault().getLanguage().contains("ru");
 
 		Log.d("Glindor3!3","Портертная ориентация1 ? "+  (port? "да" : "НЕТ"));

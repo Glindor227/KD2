@@ -27,6 +27,7 @@ import ru.cpc.smartflatview.indicatorPackage.alarmSensors.FireSensor;
 import ru.cpc.smartflatview.indicatorPackage.alarmSensors.LeakageSensor;
 import ru.cpc.smartflatview.indicatorPackage.alarmSensors.MotionSensor;
 import ru.cpc.smartflatview.indicatorPackage.macros.Macro;
+import ru.cpc.smartflatview.ui.AuthorizationActivity;
 
 
 public class IndicatorUI extends ViewGroup 

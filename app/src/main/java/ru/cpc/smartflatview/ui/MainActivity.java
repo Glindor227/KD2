@@ -1,4 +1,4 @@
-package ru.cpc.smartflatview;
+package ru.cpc.smartflatview.ui;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -18,8 +18,10 @@ import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.StrictMode;
 import android.os.SystemClock;
+import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.ActivityCompat;
@@ -34,8 +36,10 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
 import android.text.Spannable;
 import android.text.SpannableString;
+import android.text.TextWatcher;
 import android.text.style.ImageSpan;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -45,8 +49,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.EditText;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -55,8 +62,21 @@ import java.util.List;
 import java.util.Objects;
 
 import io.reactivex.annotations.NonNull;
+import ru.cpc.smartflatview.AlarmReceiver;
+import ru.cpc.smartflatview.Config;
+import ru.cpc.smartflatview.Indicator;
+import ru.cpc.smartflatview.LogActivity;
+import ru.cpc.smartflatview.Prefs;
+import ru.cpc.smartflatview.R;
+import ru.cpc.smartflatview.RoboErrorReporter;
+import ru.cpc.smartflatview.Room;
+import ru.cpc.smartflatview.SFServer;
+import ru.cpc.smartflatview.Subsystem;
+import ru.cpc.smartflatview.SubsystemUI;
 import ru.cpc.smartflatview.app.App;
 import ru.cpc.smartflatview.importing.ui.ImportActivity;
+import ru.cpc.smartflatview.uiView.ExpandedMenuModel;
+import ru.cpc.smartflatview.uiView.HouseExpandableListAdapter;
 import ru.cpc.smartflatview.utils.LogUtils;
 import ru.cpc.smartflatview.voice.IVoiceResult;
 import ru.cpc.smartflatview.voice.VoiceToText;
@@ -100,7 +120,9 @@ public class MainActivity extends AppCompatActivity implements IVoiceResult {
     private ViewPager mViewPager;
     private TabLayout tabLayout;
 
+
     private HashMap<Integer, List<ExpandedMenuModel>> m_cMenu = new HashMap<>();
+    List<ExpandedMenuModel> m_cListData = new ArrayList<>();
 
     @Override
     public void onRequestPermissionsResult(int requestCode,
@@ -207,164 +229,24 @@ public class MainActivity extends AppCompatActivity implements IVoiceResult {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         App.addTime("5 onCreate", new Date());
-
-
-        Log.d("Glindor3!3", "setRequestedOrientation");
-        if(Config.portOrientation){
-            Log.d("Glindor3!3", "setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)");
-            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-        }
-        else{
-            Log.d("Glindor3!3", "setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE)");
-            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-        }
-
-        Log.d("Glindor3!3", "onCreate");
-        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            Log.d("Glindor3!3", "MainActivity onCreate ORIENTATION_LANDSCAPE");
-        }
-        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
-            Log.d("Glindor3!3", "MainActivity onCreate ORIENTATION_PORTRAIT");
-        }
-
-
-        RoboErrorReporter.bindReporter(this);
-        StrictMode.ThreadPolicy policy =
-                new StrictMode.ThreadPolicy.Builder().permitAll().build();
-        StrictMode.setThreadPolicy(policy);
+        initOrientation();
+        initPolice();
         Log.d("Glindor3","MainActivity onCreate 1");
         Log.d("Glindor3!3","MainActivity orientation = "+getResources().getConfiguration().orientation);
-
-        if (android.os.Build.VERSION.SDK_INT >= 23)
-        {
-            int permissionCheck1 = ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE);
-            int permissionCheck2 = ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
-            if (permissionCheck1 != PackageManager.PERMISSION_GRANTED || permissionCheck2 != PackageManager.PERMISSION_GRANTED) {
-                ActivityCompat.requestPermissions(this,
-                        new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                                Manifest.permission.READ_EXTERNAL_STORAGE},
-                        REQUEST_READWRITE_STORAGE);
-            }
-        }
+        initPermission();
 
         super.onCreate(savedInstanceState);
 //        RCore.getInstance().setResolution(new RSize());
         Log.d("Glindor3","MainActivity onCreate 2");
 
         mAppContext = getApplicationContext();
-
-        //StartCheckAlarmShedule();
-
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        Log.d("Glindor3","MainActivity onCreate 3");
-
-        MenuItem item = null;
-        if (toolbar != null)
-        {
-            item = toolbar.getMenu().findItem(R.id.action_alarm);
-        }
-        if(item != null)
-            item.setIcon(R.drawable.ic_ok);
-        Log.d("Glindor3","MainActivity onCreate 4");
-
-        Log.d("SF", "MainActivity.onCreate()");
-
-        // Create the adapter that will return a fragment for each of the three
-        // primary sections of the activity.
-        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
-
-        // Set up the ViewPager with the sections adapter.
-        mViewPager = findViewById(R.id.container);
-        if (mViewPager != null)
-        {
-            mViewPager.setAdapter(mSectionsPagerAdapter);
-        }
-        Log.d("Glindor3","MainActivity onCreate 5");
-
-        tabLayout = findViewById(R.id.tabs);
-        if (tabLayout != null)
-        {
-            tabLayout.setupWithViewPager(mViewPager);
-            tabLayout.setVisibility(View.GONE);
-        }
-
-
-        //Настраиваем боковое меню
-        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
-            DrawerLayout drawer = findViewById(R.id.drawer_layout);
-            ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                    this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-            if (drawer != null) {
-                drawer.addDrawerListener(toggle);
-            }
-            toggle.syncState();
-        }
-        Log.d("Glindor3","MainActivity onCreate 6");
-
-        NavigationView navigationView = findViewById(R.id.nav_view);
-
-        if (navigationView != null)
-        {
-            navigationView.setItemIconTintList(null);
-        }
-        Log.d("Glindor3","MainActivity onCreate 7");
-
+        initUserView();
 
         if(Config.Instance != null)
             prepareListData();
 
-        ExpandableListView expandableList= findViewById(R.id.navigationmenu);
-        if (expandableList != null)
-        {
-            expandableList.setOnChildClickListener((parent, v, groupPosition, childPosition, id) -> {
-
-                int iRoom = m_cListData.get(groupPosition).m_cNestedMenu.get(childPosition).getRoom();
-
-                Log.d("111111111111111", "Clicked " + groupPosition + ":" + childPosition);
-                Log.d("111111111111111", "Switching to room #" + iRoom);
-
-                if(iRoom == -1)
-                    return  true;
-
-                showRoom(iRoom);
-
-                DrawerLayout drawer = findViewById(R.id.drawer_layout);
-                if (drawer != null)
-                {
-                    drawer.closeDrawers();
-                }
-
-                return true;
-            });
-            expandableList.setOnGroupClickListener((parent, v, groupPosition, id) -> {
-                if(m_cListData.get(groupPosition).m_cNestedMenu.size() == 0)
-                {
-                    //Toast.makeText(MainActivity.this, "clicked " + m_cListData.get(groupPosition).toString(), Toast.LENGTH_SHORT).show();
-
-                    int iGroup = m_cListData.get(groupPosition).getRoom();
-
-                    if(iGroup == -1)
-                        return true;
-
-                    showRoom(iGroup);
-
-                    DrawerLayout drawer = findViewById(R.id.drawer_layout);
-                    if (drawer != null)
-                    {
-                        drawer.closeDrawers();
-                    }
-
-                    return true;
-                }
-
-                return false;
-            });
-
-            MyExpandableListAdapter mMenuAdapter = new MyExpandableListAdapter(this, m_cListData);
-            expandableList.setAdapter(mMenuAdapter);
-        }
+        initExpandableList();
 
         String indicators = "";
         try
@@ -398,6 +280,183 @@ public class MainActivity extends AppCompatActivity implements IVoiceResult {
     }
 
 
+    private void initExpandableList() {
+        ExpandableListView expandableList= findViewById(R.id.navigationmenu);
+        if (expandableList != null)
+        {
+            ExpandableListView.OnChildClickListener listenerChild = (parent, v, groupPosition, childPosition, id) -> {
+                Log.d("Menu", "MainActivity::OnChildClick("+groupPosition+","+childPosition+") ");
+                menuItemOperation(m_cListData.get(groupPosition).m_cNestedMenu.get(childPosition).getRoom());
+                return true;
+            };
+            ExpandableListView.OnGroupClickListener listenerGroup = (parent, v, groupPosition, id) -> {
+                Log.d("Menu", "MainActivity::OnGroupClick("+groupPosition+") ");
+                if(m_cListData.get(groupPosition).m_cNestedMenu.size() == 0) {// группа без помещений
+                    Log.d("Menu", "MainActivity::OnGroupClick(EMPTY GROUP) ");
+                    menuItemOperation(m_cListData.get(groupPosition).getRoom());
+                    return true;
+                }
+                return false;
+            };
+
+            HouseExpandableListAdapter mMenuAdapter = new HouseExpandableListAdapter(this,
+                    m_cListData,
+                    listenerGroup,
+                    listenerChild);
+            expandableList.setAdapter(mMenuAdapter);
+        }
+    }
+
+    private void menuItemOperation(int iMenuItem) {
+        if(iMenuItem != -1) {
+            showRoom(iMenuItem);
+            DrawerLayout drawer = findViewById(R.id.drawer_layout);
+            if (drawer != null) {
+                drawer.closeDrawers();
+            }
+        }
+    }
+
+    private void initUserView() {
+        Toolbar toolbar = initToolbar();
+        Log.d("Glindor3","MainActivity onCreate 4");
+
+        Log.d("SF", "MainActivity.onCreate()");
+
+        // Create the adapter that will return a fragment for each of the three
+        // primary sections of the activity.
+        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
+
+        // Set up the ViewPager with the sections adapter.
+        mViewPager = findViewById(R.id.container);
+        if (mViewPager != null)
+        {
+            mViewPager.setAdapter(mSectionsPagerAdapter);
+        }
+        Log.d("Glindor3","MainActivity onCreate 5");
+
+        tabLayout = findViewById(R.id.tabs);
+        if (tabLayout != null)
+        {
+            tabLayout.setupWithViewPager(mViewPager);
+            tabLayout.setVisibility(View.GONE);
+        }
+
+        //Настраиваем боковое меню
+        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+            DrawerLayout drawer = findViewById(R.id.drawer_layout);
+            ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                    this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+            if (drawer != null) {
+                drawer.addDrawerListener(toggle);
+            }
+            toggle.syncState();
+        }
+        Log.d("Glindor3","MainActivity onCreate 6");
+
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        initMenuFilter(navigationView.getHeaderView(0));
+
+
+        if (navigationView != null)
+        {
+            navigationView.setItemIconTintList(null);
+        }
+        Log.d("Glindor3","MainActivity onCreate 7");
+    }
+
+    private void initMenuFilter(View header) {
+        ImageView filterView = header.findViewById(R.id.filter_key);
+         filterView.setOnClickListener(view -> {
+            Log.d("GlindorFilter","Filter click");
+            LinearLayout textFilterLayout = header.findViewById(R.id.filter_layout);
+            if(textFilterLayout.getVisibility() == View.VISIBLE){
+                Log.d("GlindorFilter","View.VISIBLE -> View.GONE");
+                textFilterLayout.setVisibility(View.GONE);
+            }else{
+                Log.d("GlindorFilter","View.GONE -> View.VISIBLE");
+                textFilterLayout.setVisibility(View.VISIBLE);
+            }
+        });
+        EditText edit1 = header.findViewById(R.id.point_name);
+        edit1.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void afterTextChanged(Editable s) {}
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            @Override
+            public void onTextChanged(CharSequence s, int start,
+                                      int before, int count) {
+                if(s != Config.Instance.roomFilter) {
+                    Log.d("GlindorFilter","Обновляем фильтр " + s);
+                    Config.Instance.roomFilter = s.toString();
+                    m_cMenu.clear();
+                    m_cListData.clear();
+                    prepareListData();
+                    initExpandableList();
+                }
+            }
+        });
+    }
+
+    @Nullable
+    private Toolbar initToolbar() {
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        Log.d("Glindor3","MainActivity onCreate 3");
+
+        MenuItem item = null;
+        if (toolbar != null)
+        {
+            item = toolbar.getMenu().findItem(R.id.action_alarm);
+        }
+        if(item != null)
+            item.setIcon(R.drawable.ic_ok);
+        return toolbar;
+    }
+
+    private void initPermission() {
+        if (Build.VERSION.SDK_INT >= 23)
+        {
+            int permissionCheck1 = ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE);
+            int permissionCheck2 = ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+            if (permissionCheck1 != PackageManager.PERMISSION_GRANTED || permissionCheck2 != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                                Manifest.permission.READ_EXTERNAL_STORAGE},
+                        REQUEST_READWRITE_STORAGE);
+            }
+        }
+    }
+
+    private void initPolice() {
+        RoboErrorReporter.bindReporter(this);
+        StrictMode.ThreadPolicy policy =
+                new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+    }
+
+    private void initOrientation() {
+        Log.d("Glindor3!3", "setRequestedOrientation");
+        if(Config.portOrientation){
+            Log.d("Glindor3!3", "setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)");
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        }
+        else{
+            Log.d("Glindor3!3", "setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE)");
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+        }
+
+        Log.d("Glindor3!3", "onCreate");
+        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            Log.d("Glindor3!3", "MainActivity onCreate ORIENTATION_LANDSCAPE");
+        }
+        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+            Log.d("Glindor3!3", "MainActivity onCreate ORIENTATION_PORTRAIT");
+        }
+    }
+
+
     private void showRoom(int iRoom) {
         Objects.requireNonNull(getSupportActionBar()).setTitle(Config.Instance.m_cRooms.get(iRoom).m_sName);
 
@@ -426,11 +485,27 @@ public class MainActivity extends AppCompatActivity implements IVoiceResult {
         mViewPager.getAdapter().notifyDataSetChanged();
     }
 
-    List<ExpandedMenuModel> m_cListData;
 
+    private void prepareRoom(Room room, List<ExpandedMenuModel> list){
+        String filter = Config.Instance.roomFilter;
+        if((filter.length()!=0) && (!room.m_sName.contains(filter))) {
+            Log.d("GlindorFilter","-("+filter+") "+room.m_sName);
+            return;
+        }
+        Log.d("GlindorFilter","+("+filter+") "+room.m_sName);
+        ExpandedMenuModel item0 = new ExpandedMenuModel(room.m_sName, R.drawable.ic_ok, room.m_iIndex);
+        list.add(item0);
+        List<ExpandedMenuModel> cList = m_cMenu.get(room.m_iIndex);
+        if (cList == null) {
+            cList = new ArrayList<>();
+            m_cMenu.put(room.m_iIndex, cList);
+        }
+        cList.add(item0);
+    }
+
+    // формируем m_cMenu и m_cListData
     private void prepareListData()
     {
-        m_cListData = new ArrayList<>();
         m_cMenu.clear();
 
         if(Config.Instance == null)
@@ -439,34 +514,30 @@ public class MainActivity extends AppCompatActivity implements IVoiceResult {
         if(Config.Instance.m_cFavorites != null) // избранное
         {
             Log.d("SF", "prepareListData, favorites count = " + Config.Instance.m_cFavorites.size());
-            for (Room pRoom : Config.Instance.m_cFavorites)
-            {
+            for (Room pRoom : Config.Instance.m_cFavorites) {
                 Log.d("SF", "prepareListData, favorites room[" + pRoom.m_iIndex + "] = '" + pRoom.m_sName + "'");
-                ExpandedMenuModel item0 = new ExpandedMenuModel(pRoom.m_sName, R.drawable.ic_ok, pRoom.m_iIndex);
-                m_cListData.add(item0);
-                List<ExpandedMenuModel> cList = m_cMenu.get(pRoom.m_iIndex);
-                if (cList == null)
-                {
-                    cList = new ArrayList<>();
-                    m_cMenu.put(pRoom.m_iIndex, cList);
-                }
-                cList.add(item0);
+                prepareRoom(pRoom,m_cListData);
             }
         }
 
         if(Config.Instance.m_cGroups != null)
         {
             Log.d("SF", "prepareListData, groups count = " + Config.Instance.m_cGroups.size());
-
             for (String key : Config.Instance.m_cGroups.keySet())
             {
                 List<Room> keyList = Config.Instance.m_cGroups.get(key);
-                if (Objects.requireNonNull(keyList).size() <= 0)
+                if (Objects.requireNonNull(keyList).size() <= 0) // пустая группа - не отображаем
                 {
                     Log.e("SF", "ВНИМАНИЕ! Пустая группа "+key);
                     continue;
                 }
-                if (Objects.requireNonNull(keyList).size() > 1)
+                if (keyList.size() == 1 ) { // группа с одним помещением - отображаем как без группы
+                    Room pRoom = Objects.requireNonNull(Config.Instance.m_cGroups.get(key)).get(0);
+                    Log.d("SF", "prepareListData, room[" + pRoom.m_iIndex + "] = '" + pRoom.m_sName + "'");
+                    prepareRoom(pRoom,m_cListData);
+                }
+
+                if (Objects.requireNonNull(keyList).size() > 1) // группа с вложениями
                 {
                     ExpandedMenuModel group = new ExpandedMenuModel(key, -1, -1);
                     m_cListData.add(group);
@@ -476,30 +547,9 @@ public class MainActivity extends AppCompatActivity implements IVoiceResult {
                             continue;
                         }
                         Log.d("SF", "prepareListData, room[" + pRoom.m_iIndex + "] = '" + pRoom.m_sName + "'");
-                        ExpandedMenuModel subItem = new ExpandedMenuModel(pRoom.m_sName, R.drawable.ic_ok, pRoom.m_iIndex);
-                        group.m_cNestedMenu.add(subItem);
-                        List<ExpandedMenuModel> cList = m_cMenu.get(pRoom.m_iIndex);
-                        if (cList == null) {
-                            cList = new ArrayList<>();
-                            m_cMenu.put(pRoom.m_iIndex, cList);
-                        }
-                        cList.add(subItem);
+                        prepareRoom(pRoom,group.m_cNestedMenu);
                     }
                 }
-                else
-                {
-                    Room pRoom = Objects.requireNonNull(Config.Instance.m_cGroups.get(key)).get(0);
-                    Log.d("SF", "prepareListData, room[" + pRoom.m_iIndex + "] = '" + pRoom.m_sName + "'");
-                    ExpandedMenuModel item0 = new ExpandedMenuModel(pRoom.m_sName, R.drawable.ic_ok, pRoom.m_iIndex);
-                    m_cListData.add(item0);
-                    List<ExpandedMenuModel> cList = m_cMenu.get(pRoom.m_iIndex);
-                    if (cList == null) {
-                        cList = new ArrayList<>();
-                        m_cMenu.put(pRoom.m_iIndex, cList);
-                    }
-                    cList.add(item0);
-                }
-
             }
         }
 
@@ -508,51 +558,40 @@ public class MainActivity extends AppCompatActivity implements IVoiceResult {
             for (Room pRoom : Config.Instance.m_cRooms)
             {
                 Log.d("SF", "prepareListData, room[" + pRoom.m_iIndex + "] = '" + pRoom.m_sName + "'");
-                ExpandedMenuModel item0 = new ExpandedMenuModel(pRoom.m_sName, R.drawable.ic_ok, pRoom.m_iIndex);
-                m_cListData.add(item0);
-                List<ExpandedMenuModel> cList = m_cMenu.get(pRoom.m_iIndex);
-                if (cList == null) {
-                    cList = new ArrayList<>();
-                    m_cMenu.put(pRoom.m_iIndex, cList);
-                }
-                cList.add(item0);
+                prepareRoom(pRoom,m_cListData);
             }
         }
-        /*
-        ExpandedMenuModel item0 = new ExpandedMenuModel(Config.Instance.m_cRooms.get(0).m_sName, R.drawable.ic_ok, 0);
-        m_cListData.add(item0);
-        m_cMenu.add(item0);
-        ExpandedMenuModel item1 = new ExpandedMenuModel("Группа 1", -1, -1);
-        m_cListData.add(item1);
-        for (int i = 1; i < Config.Instance.m_cRooms.size()/2; i++)
-        {
-            Log.d("SF", "prepareListData, room '" + Config.Instance.m_cRooms.get(i).m_sName + "'");
-            ExpandedMenuModel subItem = new ExpandedMenuModel(Config.Instance.m_cRooms.get(i).m_sName, R.drawable.ic_ok, i);
-            item1.m_cNestedMenu.add(subItem);
-            m_cMenu.add(subItem);
-        }
-        ExpandedMenuModel item2 = new ExpandedMenuModel("Группа 2", -1, -1);
-        m_cListData.add(item2);
-        for (int i = Config.Instance.m_cRooms.size()/2; i < Config.Instance.m_cRooms.size(); i++)
-        {
-            Log.d("SF", "prepareListData, room '" + Config.Instance.m_cRooms.get(i).m_sName + "'");
-            ExpandedMenuModel subItem = new ExpandedMenuModel(Config.Instance.m_cRooms.get(i).m_sName, R.drawable.ic_ok, i);
-            item2.m_cNestedMenu.add(subItem);
-            m_cMenu.add(subItem);
-        }
-        */
+
     }
     //По кнопке "Назад" закрываем боковое меню
     @Override
     public void onBackPressed() {
+        Log.d("onBackPressed", "нажали +");
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         if (drawer != null)
         {
+            Log.d("onBackPressed", "drawer != null");
             if (drawer.isDrawerOpen(GravityCompat.START)) {
+                Log.d("onBackPressed", "Боковое меню открыто");
                 drawer.closeDrawer(GravityCompat.START);
             } else {
-                super.onBackPressed();
+                Log.d("onBackPressed", "Боковое меню закрыто");
+                if(doubleBackExit())
+                    super.onBackPressed();
             }
+        }
+        Log.d("onBackPressed", "нажали -");
+    }
+    Boolean backPressedOne = false;
+    private boolean doubleBackExit(){
+        if (this.backPressedOne) {
+            return true; }
+        else {
+            this.backPressedOne = true;
+            Toast.makeText(this, "Нажмите ещё раз, чтобы выйти", Toast.LENGTH_SHORT).show();
+            //Обнуление счётчика через 4 секунд
+            new Handler().postDelayed(() -> backPressedOne = false, 4000);
+            return false;
         }
     }
 

@@ -11,6 +11,8 @@ import android.widget.TextView;
 
 import java.util.Locale;
 
+import ru.cpc.smartflatview.ui.MediaLibraryDialog;
+
 
 public class PlaylistDialog extends DialogFragment{
 

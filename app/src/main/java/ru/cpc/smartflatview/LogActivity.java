@@ -13,7 +13,7 @@ import java.util.Objects;
 
 public class LogActivity extends DialogFragment// implements DialogInterface.OnClickListener
 {
-    static LogActivity newInstance(ArrayList<String> cLogLines, String title)
+    public static LogActivity newInstance(ArrayList<String> cLogLines, String title)
     {
         LogActivity f = new LogActivity();
 

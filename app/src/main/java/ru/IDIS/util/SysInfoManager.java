@@ -7,7 +7,7 @@ import android.util.Log;
 import java.io.IOException;
 import java.io.InputStream;
 
-import ru.cpc.smartflatview.MainActivity;
+import ru.cpc.smartflatview.ui.MainActivity;
 
 // This class provides informations of Android OS and Hardware features.
 public class SysInfoManager {

@@ -13,7 +13,7 @@ import java.io.IOException;
 import ru.cpc.smartflatview.AddressString;
 import ru.cpc.smartflatview.Indicator;
 import ru.cpc.smartflatview.R;
-import ru.cpc.smartflatview.ScrollingDialog;
+import ru.cpc.smartflatview.ui.ScrollingDialog;
 
 public class Door2 extends Indicator
 {

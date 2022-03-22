@@ -8,7 +8,7 @@ import android.widget.RelativeLayout;
 
 import java.nio.ByteBuffer;
 
-import ru.cpc.smartflatview.MainActivity;
+import ru.cpc.smartflatview.ui.MainActivity;
 
 public class ScreenView
 extends 

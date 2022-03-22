@@ -29,6 +29,7 @@ import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
 
 import io.reactivex.annotations.Nullable;
+import ru.cpc.smartflatview.ui.SplashActivity;
 
 
 public class CheckAlarmService extends IntentService

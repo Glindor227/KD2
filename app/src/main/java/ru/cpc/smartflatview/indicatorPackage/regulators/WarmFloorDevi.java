@@ -8,7 +8,7 @@ import android.widget.SeekBar;
 
 import ru.cpc.smartflatview.indicatorPackage.base.BaseRegulator;
 import ru.cpc.smartflatview.R;
-import ru.cpc.smartflatview.ScrollingDialog;
+import ru.cpc.smartflatview.ui.ScrollingDialog;
 
 public class WarmFloorDevi extends BaseRegulator
 {

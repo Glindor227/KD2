@@ -15,7 +15,7 @@ import ru.cpc.smartflatview.AddressString;
 import ru.cpc.smartflatview.Config;
 import ru.cpc.smartflatview.Indicator;
 import ru.cpc.smartflatview.R;
-import ru.cpc.smartflatview.ScrollingDialog;
+import ru.cpc.smartflatview.ui.ScrollingDialog;
 
 public abstract class BaseAlarmSensor extends Indicator
 {

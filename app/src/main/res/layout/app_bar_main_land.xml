@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     android:orientation="horizontal"
-    tools:context="ru.cpc.smartflatview.MainActivity">
+    tools:context="ru.cpc.smartflatview.ui.MainActivity">
 
     <ExpandableListView
         android:id="@+id/navigationmenu"

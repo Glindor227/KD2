@@ -8,6 +8,8 @@ import org.xmlpull.v1.XmlSerializer;
 import java.io.IOException;
 import java.util.Random;
 
+import ru.cpc.smartflatview.ui.MainActivity;
+
 public class NodeAlarm extends Indicator
 {
     private final int m_iResIDAlarmOff;

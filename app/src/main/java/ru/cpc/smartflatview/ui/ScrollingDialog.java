@@ -1,4 +1,4 @@
-package ru.cpc.smartflatview;
+package ru.cpc.smartflatview.ui;
 
 import android.app.Dialog;
 import android.app.DialogFragment;
@@ -26,6 +26,8 @@ import android.widget.TableRow;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+
+import ru.cpc.smartflatview.R;
 
 
 public class ScrollingDialog extends DialogFragment implements DialogInterface.OnClickListener
@@ -357,14 +359,11 @@ public class ScrollingDialog extends DialogFragment implements DialogInterface.O
 
         public void AddListener(final Button.OnClickListener listener)
         {
-            m_pButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if(m_dListener != null)
-                        m_dListener.onClick((v));
-                    if(listener != null)
-                        listener.onClick(v);
-                }
+            m_pButton.setOnClickListener(v -> {
+                if(m_dListener != null)
+                    m_dListener.onClick((v));
+                if(listener != null)
+                    listener.onClick(v);
             });
         }
 

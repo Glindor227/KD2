@@ -25,13 +25,14 @@ import java.util.concurrent.ExecutionException;
 
 import io.reactivex.annotations.Nullable;
 import ru.cpc.smartflatview.app.App;
+import ru.cpc.smartflatview.ui.MainActivity;
 
 
 public class SFServer
 {
-    static SFServer Instance = null;
+    public static SFServer Instance = null;
 
-    AddressString m_pRoomQuery = new AddressString();
+    public  AddressString m_pRoomQuery = new AddressString();
 
     private ArrayList<String> m_aSendQueue = new ArrayList<>();
     
@@ -95,7 +96,7 @@ public class SFServer
 
     private boolean attach = false;
 
-    static boolean IsConnected()
+    public static boolean IsConnected()
     {
         return Config.DEMO || (Instance != null && Instance.client != null && Instance.attach);
     }
@@ -249,7 +250,7 @@ public class SFServer
         UpdateConnectionStatus();
     }
 
-    void Poll(boolean bFast)
+    public void Poll(boolean bFast)
     {
         //if(client != null)
         {
@@ -641,7 +642,7 @@ public class SFServer
 
     private SFServerWorkThread m_pWorkThread;
 
-    void Resume()
+    public void Resume()
     {
         Log.d("SFServer", "C: Resume");
         try
@@ -682,7 +683,7 @@ public class SFServer
         }
     }
 
-    void Stop()
+    public void Stop()
     {
         Log.d("SFServer", "C: Stop");
         // simply copied from sample application LunarLander:
@@ -763,7 +764,7 @@ public class SFServer
         Log.d("SFServer", "Disconnect : attach := false");
     }
 
-    void Connect()
+    public void Connect()
     {
         App.addTime("C1", new Date());
 

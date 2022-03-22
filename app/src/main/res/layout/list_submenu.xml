@@ -5,18 +5,18 @@
     android:orientation="horizontal">
 
     <ImageView android:src="@drawable/group_indicator"
-        android:id="@+id/explist_indicator"
+        android:id="@+id/group_image"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:paddingBottom="10dp"
-        android:paddingLeft="10dp"
         android:paddingTop="10dp"
-        android:paddingStart="10dp" />
+        android:paddingEnd="10dp"
+        android:paddingStart="10dp"
+        android:layout_marginStart="20dp"/>
     <TextView
-        android:id="@+id/submenu"
+        android:id="@+id/group_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
         android:padding="10dp"
         android:textColor="#000000"
         android:textSize="18sp"

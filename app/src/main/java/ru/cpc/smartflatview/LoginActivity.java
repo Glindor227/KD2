@@ -8,6 +8,8 @@ import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 
+import ru.cpc.smartflatview.ui.SplashActivity;
+
 public class LoginActivity extends AppCompatActivity {
 
     public static final String TAG = "LoginActivityDebug";

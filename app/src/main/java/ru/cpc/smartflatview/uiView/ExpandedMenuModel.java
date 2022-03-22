@@ -1,16 +1,18 @@
-package ru.cpc.smartflatview;
+package ru.cpc.smartflatview.uiView;
 
 import android.view.View;
 import android.widget.ImageView;
 
 import java.util.ArrayList;
 
+import ru.cpc.smartflatview.R;
+
 
 public class ExpandedMenuModel {
 
     String m_sName;
-    int m_iIcon = -1; // menu icon resource id
-    int m_iRoomIndex = -1;
+    int m_iIcon; // menu icon resource id
+    int m_iRoomIndex;
 
     public String getName() {
         return m_sName;
@@ -34,7 +36,8 @@ public class ExpandedMenuModel {
         m_iRoomIndex = iRoom;
     }
 
-    public ArrayList<ExpandedMenuModel> m_cNestedMenu = new ArrayList<ExpandedMenuModel>();
+    public ArrayList<ExpandedMenuModel> m_cNestedMenu = new ArrayList<>();
+
 
     public View m_pView = null;
 

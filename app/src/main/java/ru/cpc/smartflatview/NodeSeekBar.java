@@ -6,6 +6,8 @@ import android.view.View;
 import android.widget.SeekBar;
 
 import ru.cpc.smartflatview.indicatorPackage.base.BaseRegulator;
+import ru.cpc.smartflatview.ui.Logger;
+import ru.cpc.smartflatview.ui.ScrollingDialog;
 
 public class NodeSeekBar extends BaseRegulator
 {

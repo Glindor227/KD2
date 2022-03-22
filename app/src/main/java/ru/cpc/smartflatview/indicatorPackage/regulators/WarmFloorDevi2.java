@@ -7,7 +7,7 @@ import android.widget.SeekBar;
 
 import ru.cpc.smartflatview.indicatorPackage.base.BaseRegulator;
 import ru.cpc.smartflatview.R;
-import ru.cpc.smartflatview.ScrollingDialog;
+import ru.cpc.smartflatview.ui.ScrollingDialog;
 
 // Это "без функции включения выключения" видимо
 public class WarmFloorDevi2 extends BaseRegulator

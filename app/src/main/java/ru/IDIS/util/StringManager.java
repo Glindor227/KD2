@@ -8,7 +8,7 @@ import com.idis.android.redx.CharacterSet;
 import java.io.UnsupportedEncodingException;
 import java.util.Arrays;
 
-import ru.cpc.smartflatview.MainActivity;
+import ru.cpc.smartflatview.ui.MainActivity;
 
 // 1. This class can provide resource string in a non-context based classes.
 // 2. This class can provide locale-specific string from byte[].

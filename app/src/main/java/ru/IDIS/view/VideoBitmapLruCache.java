@@ -14,7 +14,7 @@ import java.util.Iterator;
 import java.util.Set;
 
 import ru.IDIS.util.SysInfoManager;
-import ru.cpc.smartflatview.MainActivity;
+import ru.cpc.smartflatview.ui.MainActivity;
 
 @TargetApi(SysInfoManager.API.HONEYCOMB_MR1)
 public final class VideoBitmapLruCache {

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="ru.cpc.smartflatview.ScrollingDialog">
+    tools:context="ru.cpc.smartflatview.ui.ScrollingDialog">
 
     <TextView
         android:id="@+id/logHeader"

@@ -8,7 +8,7 @@ import android.widget.CompoundButton;
 
 import ru.cpc.smartflatview.indicatorPackage.base.BaseRelay;
 import ru.cpc.smartflatview.R;
-import ru.cpc.smartflatview.ScrollingDialog;
+import ru.cpc.smartflatview.ui.ScrollingDialog;
 import ru.cpc.smartflatview.voice.VoiceDate;
 
 public class Curtains extends BaseRelay

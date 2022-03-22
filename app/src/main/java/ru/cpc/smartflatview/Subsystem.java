@@ -6,8 +6,8 @@ import io.reactivex.annotations.NonNull;
 
 public class Subsystem
 {
-	int m_iIndex;
-	String m_sID;
+	public int m_iIndex;
+	public String m_sID;
 
 	public String m_sName;
 
@@ -15,11 +15,11 @@ public class Subsystem
 	int m_iGridWidth;
 	int m_iGridHeight;
 
-	Room m_pRoom = null;
+	public Room m_pRoom = null;
 
 	protected SubsystemUI m_pUI = null;
 
-	String m_sAlarm = "-1";
+	public String m_sAlarm = "-1";
 	
 	public Subsystem(String sID, int index, int iScaleX, int iScaleY, String sName)
 	{
@@ -58,9 +58,9 @@ public class Subsystem
 			m_bAlarmed = Float.parseFloat(sVal) == 1;
 
 		m_pUI.Update();
-	}	
-	
-	int getIndicatorsCount(){
+	}
+
+	public int getIndicatorsCount(){
 		return m_cIndicators.size();
 	}
 
@@ -105,7 +105,7 @@ public class Subsystem
 			m_pUI.Update();
 	}
 
-	int GetAlarmedCount()
+	public int GetAlarmedCount()
 	{
 		int count = 0;
 		for(Indicator pInd : m_cIndicators)

@@ -15,7 +15,7 @@ import ru.cpc.smartflatview.voice.VoiceDate;
 public abstract class Indicator
 {
 	protected static final String TAG = "SMARTFLAT" ;
-	protected static int typeDez;
+	public static int typeDez;
 	public static float delta;
 	protected final int m_iScale;
 	public VoiceDate voice = new VoiceDate("неизвестно");
